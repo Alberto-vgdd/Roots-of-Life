@@ -12,8 +12,8 @@ public class CameraEnemyTrackerScript : MonoBehaviour
     // This Camera, used to switch between targets.
     private Camera m_PlayerCamera;
 
-    [Header("Player Transform")]
-    public Transform m_PlayerTransform;
+    //[Header("Player Transform")]
+    private Transform m_PlayerTransform;
 
     [Header("Lock On Parameters")]
     public float m_MaximumLockDistance;
@@ -33,6 +33,7 @@ public class CameraEnemyTrackerScript : MonoBehaviour
     void Start()
     {
         m_PlayerCamera = GlobalData.PlayerCamera;
+        m_PlayerTransform = GlobalData.PlayerTargetTransform;
     }
 	void LateUpdate () 
     {
@@ -75,6 +76,10 @@ public class CameraEnemyTrackerScript : MonoBehaviour
             UnlockEnemy();
         }
         else if (GlobalData.IsEnemyLocked && !m_LockableEnemies.Contains(GlobalData.LockedEnemyTransform))
+        {
+            UnlockEnemy();
+        }
+        else if (GlobalData.PlayerDeath)
         {
             UnlockEnemy();
         }
@@ -129,11 +134,11 @@ public class CameraEnemyTrackerScript : MonoBehaviour
     void RefreshNearEnemies()
     {
         m_LockableEnemies = new List<Transform>();
-        m_NearbyEnemyColliders =  Physics.OverlapSphere(GlobalData.PlayerTransform.position,m_MaximumLockDistance,(1 << LayerMask.NameToLayer("Enemies")));
+        m_NearbyEnemyColliders =  Physics.OverlapSphere(GlobalData.PlayerTransform.position,m_MaximumLockDistance,GlobalData.EnemiesLayerMask.value);
        
         foreach(Collider enemyCollider in m_NearbyEnemyColliders)
         {
-             m_LockableEnemies.Add(enemyCollider.transform);
+            m_LockableEnemies.Add(enemyCollider.transform);
         }
     }
 

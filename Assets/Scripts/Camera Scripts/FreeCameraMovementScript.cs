@@ -105,9 +105,6 @@ public class FreeCameraMovementScript : MonoBehaviour
 	{
 		// Reference to GlobalData
 		GlobalData.FreeCameraMovementScript = this;
-
-		//TEST 
-		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	void Start()

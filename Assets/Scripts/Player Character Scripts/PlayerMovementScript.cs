@@ -81,9 +81,6 @@ public class PlayerMovementScript : MonoBehaviour
     {
         cameraTransform = GlobalData.PlayerCamera.transform;
         environmentLayerMask = GlobalData.EnvironmentLayerMask;
-
-        //Screen.SetResolution(853, 480, true, 0);
-        //Application.targetFrameRate = 30;
         
     }
 	

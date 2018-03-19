@@ -31,6 +31,9 @@ public class GameManagerScript : MonoBehaviour
 			GlobalData.PlayerCameraHorizontalPivotTransform = playerCameraTransform = GameObject.Find("Player Camera Horizontal Pivot").transform;
 			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
 
+			Screen.SetResolution(853, 480, true, 0);
+        	Application.targetFrameRate = 30;
+
 			DontDestroyOnLoad(this.gameObject);
 		}
 		else
@@ -44,6 +47,7 @@ public class GameManagerScript : MonoBehaviour
 		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
 		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
 		gameUIScript = GlobalData.GameUIScript;
+
 	}
 
 	public void UpdateCheckPoint(Transform newCheckPoint, bool freeCameraEnabled, bool fixedCameraEnabled)

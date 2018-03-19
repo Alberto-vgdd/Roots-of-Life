@@ -26,6 +26,9 @@ public class GlobalData
     public static Transform PlayerTransform;
     public static Transform PlayerTargetTransform;
 
+    // Player Scripts
+    public static PlayerMovementScript PlayerMovementScript;
+
     // Player Camera
     public static Camera PlayerCamera;
     public static Transform PlayerCameraHorizontalPivotTransform;

@@ -28,11 +28,15 @@ public class GameManagerScript : MonoBehaviour
 
 			GlobalData.PlayerTransform = playerTransform = GameObject.Find("Player Character").transform;
 			GlobalData.PlayerTargetTransform = playerTransform.Find("Target");
+			GlobalData.PlayerMovementScript = playerTransform.GetComponent<PlayerMovementScript>();
 			GlobalData.PlayerCameraHorizontalPivotTransform = playerCameraTransform = GameObject.Find("Player Camera Horizontal Pivot").transform;
 			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
 
+			// TEST
 			Screen.SetResolution(853, 480, true, 0);
         	Application.targetFrameRate = 30;
+			Cursor.lockState = CursorLockMode.Locked;
+
 
 			DontDestroyOnLoad(this.gameObject);
 		}

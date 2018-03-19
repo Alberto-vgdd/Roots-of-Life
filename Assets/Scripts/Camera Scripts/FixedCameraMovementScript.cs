@@ -49,8 +49,6 @@ public class FixedCameraMovementScript : MonoBehaviour
 		// Reference to GlobalData
 		GlobalData.FixedCameraMovementScript = this;
 
-		//TEST 
-		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	void Start()

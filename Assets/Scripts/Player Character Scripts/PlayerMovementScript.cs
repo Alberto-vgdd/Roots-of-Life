@@ -65,6 +65,11 @@ public class PlayerMovementScript : MonoBehaviour
     private ParticleSystem landingParticles;
 
 
+    // Variables to manage push
+    private bool playerPushed;
+    private float pushTime = 0.6f;
+    private float pushTimer;
+
 
     
     // Use this for initialization
@@ -81,16 +86,13 @@ public class PlayerMovementScript : MonoBehaviour
     {
         cameraTransform = GlobalData.PlayerCamera.transform;
         environmentLayerMask = GlobalData.EnvironmentLayerMask;
-
-        //Screen.SetResolution(853, 480, true, 0);
-        //Application.targetFrameRate = 30;
         
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (!GlobalData.PlayerDeath)
+        if (!GlobalData.PlayerDeath || playerPushed)
         {
             // Update movement input and normalize the vector to avoid diagonal acceleration.
             movementInput = new Vector2(GlobalData.GetHorizontalInput(),GlobalData.GetVerticalInput()) ;
@@ -114,7 +116,7 @@ public class PlayerMovementScript : MonoBehaviour
             jumpInput = false;
         }
 
-        
+               
         // Update movement directions 
         if (!GlobalData.IsEnemyLocked)
         {
@@ -129,6 +131,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
         movementDirection = horizontalDirection * movementInput.x + verticalDirection * movementInput.y;
+
         
 
         //Rotate the player (Why is this here? Because unity can't interpolate rotations in no-kinematic objects).
@@ -168,6 +171,17 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnimator.SetBool("Fall", !playerCloseToGround);
         playerAnimator.SetBool("Slide", playerSliding);
         playerAnimator.SetFloat("Walk Speed",movementInput.magnitude );  
+
+
+
+        if (playerPushed)
+        {
+            pushTimer += Time.deltaTime;
+            if (pushTimer >= pushTime)
+            {
+                playerPushed = false;
+            }
+        }
 
 
     }
@@ -420,7 +434,7 @@ public class PlayerMovementScript : MonoBehaviour
     void ProjectVelocityDirection()
     {
         // If the player is grounded in a slope and not jumping, adjust the movement direction. If it is on a steep, it should fall.
-        if ( playerGrounded && !playerJumping  )
+        if ( playerGrounded && !playerJumping)
         {
             playerRigidbody.velocity = Vector3.ProjectOnPlane(playerRigidbody.velocity, groundNormal);  
     
@@ -431,32 +445,53 @@ public class PlayerMovementScript : MonoBehaviour
             }
             else
             {
-                //If the user isn't giving any input, prevent the character from sliding.
-                if ( movementInput.magnitude < 0.1f )
+                if (!playerPushed )
                 {
-                    playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, Mathf.Max(playerRigidbody.velocity.y, Physics.gravity.magnitude*gravityScale*Time.fixedDeltaTime), playerRigidbody.velocity.z);
+                    //If the user isn't giving any input, prevent the character from sliding.
+                    if ( movementInput.magnitude < 0.1f )
+                    {
+                        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, Mathf.Max(playerRigidbody.velocity.y, Physics.gravity.magnitude*gravityScale*Time.fixedDeltaTime), playerRigidbody.velocity.z);
+                    }
+                    //Otherwiswe, clamp the velocity.
+                    else
+                    {
+                        playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity,maximumMovementSpeed);
+                    }
                 }
-                //Otherwiswe, clamp the velocity.
-                else
-                {
-                    playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity,maximumMovementSpeed);
-                }
+                
             }
         }
     }
 
     void SetVelocity()
     {
-        float velocityY = playerRigidbody.velocity.y;
-        playerRigidbody.velocity = movementDirection*maximumMovementSpeed + Vector3.up*velocityY;
-
-        if (!playerGrounded)
+        if (!playerPushed)
         {
-            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Min(velocityY,playerRigidbody.velocity.y),playerRigidbody.velocity.z);
+            float velocityY = playerRigidbody.velocity.y;
+            playerRigidbody.velocity = movementDirection*maximumMovementSpeed + Vector3.up*velocityY;
+
+            if (!playerGrounded)
+            {
+                playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Min(velocityY,playerRigidbody.velocity.y),playerRigidbody.velocity.z);
+            }
+
+
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Max(playerRigidbody.velocity.y,-maximumFallingSpeed),playerRigidbody.velocity.z);
         }
+        
+    }
 
-
-        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Max(playerRigidbody.velocity.y,-maximumFallingSpeed),playerRigidbody.velocity.z);
-
+    public void Push(Vector3 direction, float force)
+    {
+        if (playerGrounded && !Vector3Equal(groundNormal,Vector3.up))
+        {
+            playerRigidbody.velocity = Vector3.up*playerRigidbody.velocity.y + Vector3.ProjectOnPlane(direction,groundNormal)*force;
+        }
+        else
+        {
+            playerRigidbody.velocity = Vector3.up*playerRigidbody.velocity.y + direction*force;
+        }
+        playerPushed = true;
+        pushTimer = 0f;
     }
 }

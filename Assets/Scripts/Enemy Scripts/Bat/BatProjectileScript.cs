@@ -32,6 +32,12 @@ public class BatProjectileScript : MonoBehaviour
 	void FixedUpdate () 
 	{
 		projectileRigidbody.MovePosition(projectileRigidbody.position + transform.forward* Time.fixedDeltaTime*projectileSpeed);
+		
+		if (GlobalData.PlayerDeath && projectileEnabled)
+		{
+			DisableProjectile();
+			Disappear(0.25f);
+		}
 	}
 
 	void Disappear(float seconds)

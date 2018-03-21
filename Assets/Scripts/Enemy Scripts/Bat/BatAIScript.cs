@@ -7,6 +7,7 @@ public class BatAIScript : MonoBehaviour
 	public GameObject projectile;
 	private Transform playerTransform;
 
+	// Variables to "randomly shoot"
 	private float timeBetweenProjectiles = 2f;
 	private float projectileTimer;
 
@@ -16,7 +17,6 @@ public class BatAIScript : MonoBehaviour
 
 	// Variables to shoot at the character's predicted position.
 	private Rigidbody playerRigidbody;
-	private float projectileDirectionOffset = 4f;
 	private float targetDistance;
 	private Vector3 targetPosition;
 
@@ -26,31 +26,33 @@ public class BatAIScript : MonoBehaviour
 		playerTransform = GlobalData.PlayerTransform;
 		playerRigidbody = playerTransform.GetComponent<Rigidbody>();
 
-		projectileTimer = 0f;
+		projectileTimer = (Random.value*2f) - 1;
 	}
 	
 	void Update () 
 	{
 		LookAtTarget();
 		Blast();
-		Debug.DrawRay(transform.position,transform.forward,Color.blue);
 	}
 
 	void LookAtTarget()
 	{
 		targetDistance = (playerTransform.position - transform.position).magnitude/10;
-		targetPosition = playerTransform.position + playerTransform.forward*(playerRigidbody.velocity.magnitude*targetDistance); //Distance, speed
+		targetPosition = playerTransform.position + playerRigidbody.velocity.normalized*(playerRigidbody.velocity.magnitude*targetDistance); //Distance, speed
 		transform.forward = Vector3.SmoothDamp(transform.forward,Vector3.Scale(new Vector3(1f,0,1f),targetPosition- transform.position),ref currentVelocity, turnSpeed);
 	}
 
 	void Blast()
 	{
-		projectileTimer += Time.deltaTime;
-
-		if (projectileTimer >= timeBetweenProjectiles)
+		if (!GlobalData.PlayerDeath)
 		{
-			projectileTimer = 0f;
-			Instantiate(projectile,transform.position + transform.forward,Quaternion.LookRotation(targetPosition - transform.position));
+			projectileTimer += Time.deltaTime;
+
+			if (projectileTimer >= timeBetweenProjectiles)
+			{
+				projectileTimer = (Random.value*2f) - 1;
+				Instantiate(projectile,transform.position + transform.forward,Quaternion.LookRotation(targetPosition - transform.position));
+			}
 		}
 	}
 }

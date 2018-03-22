@@ -6,6 +6,8 @@ public class BatAIScript : MonoBehaviour
 {
 	public GameObject projectile;
 	private Transform playerTransform;
+	private string playerTag;
+	private bool playerInRange;
 
 	// Variables to "randomly shoot"
 	private float timeBetweenProjectiles = 2f;
@@ -24,6 +26,7 @@ public class BatAIScript : MonoBehaviour
 	void Start () 
 	{
 		playerTransform = GlobalData.PlayerTransform;
+		playerTag = GlobalData.PlayerTag;
 		playerRigidbody = playerTransform.GetComponent<Rigidbody>();
 
 		projectileTimer = (Random.value*2f) - 1;
@@ -44,7 +47,7 @@ public class BatAIScript : MonoBehaviour
 
 	void Blast()
 	{
-		if (!GlobalData.PlayerDeath)
+		if (!GlobalData.PlayerDeath && playerInRange)
 		{
 			projectileTimer += Time.deltaTime;
 
@@ -53,6 +56,23 @@ public class BatAIScript : MonoBehaviour
 				projectileTimer = (Random.value*2f) - 1;
 				Instantiate(projectile,transform.position + transform.forward,Quaternion.LookRotation(targetPosition - transform.position));
 			}
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag(playerTag))
+		{
+			playerInRange = true;
+		}
+		
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag(playerTag))
+		{
+			playerInRange = false;
 		}
 	}
 }

@@ -9,9 +9,8 @@ public class BatProjectileScript : MonoBehaviour
 	private string playerTag;
 	private int environmentLayerMask;
 	
-	private float projectileLifeTime = 5f;
-	private float projectileSpeed = 8f;
-	private float projectileStrengh = 10f;
+	private float projectileSpeed;
+	private float projectileStrengh;
 
 	void Awake()
 	{
@@ -22,13 +21,18 @@ public class BatProjectileScript : MonoBehaviour
 	{
 		playerTag = GlobalData.PlayerTag;
 		environmentLayerMask = (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
+	}
+	
+	public void Shoot(float projectileLifeTime, float projectileSpeed, float projectileStrengh)
+	{
 		projectileEnabled = true;
+
+		this.projectileSpeed = projectileSpeed;
+		this.projectileStrengh = projectileStrengh;
 
 		Invoke("DisableProjectile",projectileLifeTime*0.9f);
 		Disappear(projectileLifeTime);
-
 	}
-	
 	void FixedUpdate () 
 	{
 		projectileRigidbody.MovePosition(projectileRigidbody.position + transform.forward* Time.fixedDeltaTime*projectileSpeed);

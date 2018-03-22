@@ -9,8 +9,13 @@ public class BatAIScript : MonoBehaviour
 	private string playerTag;
 	private bool playerInRange;
 
+	[Header("Projectile Parameters")]
+	public float timeBetweenProjectiles = 5f;
+	public float projectileLifeTime = 5f;
+	public float projectileSpeed = 8f;
+	public float projectileStrength = 10f;
+
 	// Variables to "randomly shoot"
-	private float timeBetweenProjectiles = 2f;
 	private float projectileTimer;
 
 	// Variables to look at the character smoothly
@@ -54,7 +59,8 @@ public class BatAIScript : MonoBehaviour
 			if (projectileTimer >= timeBetweenProjectiles)
 			{
 				projectileTimer = (Random.value*2f) - 1;
-				Instantiate(projectile,transform.position + transform.forward,Quaternion.LookRotation(targetPosition - transform.position));
+				GameObject instantiatedProjectile = Instantiate(projectile,transform.position + transform.forward,Quaternion.LookRotation(targetPosition - transform.position));
+				instantiatedProjectile.GetComponent<BatProjectileScript>().Shoot(projectileLifeTime,projectileSpeed,projectileStrength);
 			}
 		}
 	}

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GlobalData
 {
+    // In-game variables, stats, etc.
+    public static int AcornCount = 0;
+
+
+
     //  GameManager variables
     public static GameManagerScript GameManager;
     public static bool PlayerDeath;

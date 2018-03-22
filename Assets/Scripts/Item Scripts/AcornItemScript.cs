@@ -19,7 +19,7 @@ public class AcornItemScript : MonoBehaviour
 
 	void OnEnable()
 	{
-		Invoke("EnableAcorn", 1f + Random.value);
+		Invoke("EnableAcorn", 1f + Random.value*2f);
 	}
 
 	void Start () 

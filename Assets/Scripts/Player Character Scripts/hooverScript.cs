@@ -30,7 +30,7 @@ public class hooverScript : MonoBehaviour
         targetDistance = Vector3.Distance(playerTarget.position, transform.position);
         if (targetDistance < suckingRadius && Input.GetKey(KeyCode.Tab))
         {
-            //rigidBody.isKinematic = false;
+            rigidBody.isKinematic = false;
             SuckItem();
             lookAt();
             Debug.Log("YE");

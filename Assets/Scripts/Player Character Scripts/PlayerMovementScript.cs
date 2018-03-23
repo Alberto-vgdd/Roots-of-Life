@@ -49,10 +49,10 @@ public class PlayerMovementScript : MonoBehaviour
     float radius;
     float radiusScale = 0.95f;
 
-    public bool playerCloseToGround;
-    public bool playerJumping;
-    public bool playerSliding;
-    public bool playerGrounded;
+    private bool playerCloseToGround;
+    private bool playerJumping;
+    private bool playerSliding;
+    private bool playerGrounded;
 
     Vector3 groundNormal;
     float groundAngle;

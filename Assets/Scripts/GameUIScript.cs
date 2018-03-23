@@ -7,6 +7,7 @@ public class GameUIScript : MonoBehaviour
 {
 	private Animator animator;
 	public Text acornCounter;
+	public Text infectionCounter;
 
 	private const string gameFadeOut = "GameFadeOut";
 	private const string gameFadeIn = "GameFadeIn";
@@ -33,5 +34,10 @@ public class GameUIScript : MonoBehaviour
 	public void UpdateAcornCounter()
 	{
 		acornCounter.text = "" + GlobalData.AcornCount;
+	}
+
+	public void UpdateInfectionCounter()
+	{
+		infectionCounter.text = "" + GlobalData.InfectionCount;
 	}
 }

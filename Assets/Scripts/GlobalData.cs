@@ -6,8 +6,7 @@ public class GlobalData
 {
     // In-game variables, stats, etc.
     public static int AcornCount = 0;
-
-
+    public static int InfectionCount = 0;
 
     //  GameManager variables
     public static GameManagerScript GameManager;

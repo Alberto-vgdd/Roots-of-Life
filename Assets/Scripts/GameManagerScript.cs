@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour 
 {
@@ -15,6 +16,11 @@ public class GameManagerScript : MonoBehaviour
 	private Transform checkPoint;
 	private bool checkPointFreeCameraEnabled;
 	private bool checkPointFixedCameraEnabled;
+
+    //Health bar variables
+    public static int health = 100;
+    public GameObject player;
+    public Slider healthBar;
 
 	// GameUI script
 	private GameUIScript gameUIScript;
@@ -100,4 +106,25 @@ public class GameManagerScript : MonoBehaviour
 		// "Revive" the character
 		GlobalData.PlayerDeath = false;
 	}
+     
+    //Function for damage from enemies
+    void TakeDamage()
+    {
+        health = health - 5;
+        healthBar.value = health;
+        if(health <= 0)
+        {
+            GlobalData.PlayerDeath = true;
+        }
+    }
+
+    //function to detect collision from the enemy 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            TakeDamage();
+            Debug.Log("Damaged");
+        }
+    }
 }

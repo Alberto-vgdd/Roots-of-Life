@@ -39,8 +39,8 @@ public class GameManagerScript : MonoBehaviour
 			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
 
 			// TEST
-			Screen.SetResolution(853, 480, true, 0);
-        	Application.targetFrameRate = 30;
+			// Screen.SetResolution(853, 480, true, 0);
+        	// Application.targetFrameRate = 30;
 			Cursor.lockState = CursorLockMode.Locked;
 
 
@@ -58,6 +58,14 @@ public class GameManagerScript : MonoBehaviour
 		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
 		gameUIScript = GlobalData.GameUIScript;
 
+	}
+
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
 	}
 
 	public void UpdateCheckPoint(Transform newCheckPoint, bool freeCameraEnabled, bool fixedCameraEnabled)

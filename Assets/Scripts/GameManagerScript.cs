@@ -39,8 +39,8 @@ public class GameManagerScript : MonoBehaviour
 			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
 
 			// TEST
-			// Screen.SetResolution(853, 480, true, 0);
-        	// Application.targetFrameRate = 30;
+			Screen.SetResolution(853, 480, true, 0);
+        	Application.targetFrameRate = 30;
 			Cursor.lockState = CursorLockMode.Locked;
 
 

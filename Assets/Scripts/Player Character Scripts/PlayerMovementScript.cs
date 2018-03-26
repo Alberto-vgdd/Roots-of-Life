@@ -51,6 +51,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private bool playerCloseToGround;
     private bool playerJumping;
+    private bool playerDoubleJumping;
     private bool playerSliding;
     private bool playerGrounded;
 

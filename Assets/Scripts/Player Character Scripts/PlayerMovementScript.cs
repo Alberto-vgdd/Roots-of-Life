@@ -116,7 +116,7 @@ public class PlayerMovementScript : MonoBehaviour
             }
 
             // Run Input 
-            runInput = GlobalData.GetRunButtonPressed();
+            runInput = (GlobalData.GetRunButton() > 0.1f) ? true : false;
             
         }
         else
@@ -180,7 +180,8 @@ public class PlayerMovementScript : MonoBehaviour
         // Animations
         playerAnimator.SetBool("Fall", !playerCloseToGround);
         playerAnimator.SetBool("Slide", playerSliding);
-        playerAnimator.SetFloat("Walk Speed",movementInput.magnitude );  
+        playerAnimator.SetFloat("Walk Speed",movementInput.magnitude ); 
+        playerAnimator.SetFloat("Run Multiplier", (runInput) ? runSpeedMultiplier : 1.0f);  
 
 
 

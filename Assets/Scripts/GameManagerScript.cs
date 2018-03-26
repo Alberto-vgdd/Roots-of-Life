@@ -17,13 +17,6 @@ public class GameManagerScript : MonoBehaviour
 	private bool checkPointFreeCameraEnabled;
 	private bool checkPointFixedCameraEnabled;
 
-    //Health bar variables
-    public int health = 3;
-    public GameObject player;
-    public Image image1, image2, image3;
-    public int damage = 1;
-    private bool IsCollided = false;
-
 	// GameUI script
 	private GameUIScript gameUIScript;
 
@@ -37,6 +30,7 @@ public class GameManagerScript : MonoBehaviour
 			GlobalData.PlayerTransform = playerTransform = GameObject.Find("Player Character").transform;
 			GlobalData.PlayerTargetTransform = playerTransform.Find("Target");
 			GlobalData.PlayerMovementScript = playerTransform.GetComponent<PlayerMovementScript>();
+			GlobalData.PlayerHealthScript = playerTransform.GetComponent<PlayerHealthScript>();
 			GlobalData.PlayerCameraHorizontalPivotTransform = playerCameraTransform = GameObject.Find("Player Camera Horizontal Pivot").transform;
 			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
 
@@ -59,7 +53,6 @@ public class GameManagerScript : MonoBehaviour
 		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
 		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
 		gameUIScript = GlobalData.GameUIScript;
-        health = 3;
 
 	}
 
@@ -88,6 +81,7 @@ public class GameManagerScript : MonoBehaviour
 	IEnumerator GameOver()
 	{
 		// "Kill" the character
+		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = true;
 
 		// Fade out the game.
@@ -110,70 +104,18 @@ public class GameManagerScript : MonoBehaviour
 		{
 			freeCameraMovementScript.CenterCamera();
 		}
-
+		
 		// Wait for the camera to move properly to the character position and then fade in.
 		yield return new WaitForSeconds(0.5f);
 		gameUIScript.StartGameFadeIn();
 
-		// "Revive" the character
+		// "Revive" the character and show the health in the UI again.
+		GlobalData.PlayerHealthScript.RestoreMaxHealth();
+		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = false;
+	
 	}
      
-    //Function for damage from enemies
-    public void TakeDamage()
-    {
-        health --;
-        Debug.Log("health" + health);
-        
-         if(health == 3)
-            {
-                image1.enabled = true;
-                image2.enabled = true;
-                image3.enabled = true;
-            }
-         if(health == 2)
-            {
-                image1.enabled = false;
-                image2.enabled = true;
-                image3.enabled = true;
-            }
-
-         if (health == 1)
-             {
-                image1.enabled = false;
-                image2.enabled = false;
-                image3.enabled = true;
-             }
-        
-         if(health <= 0)
-             {
-                image1.enabled = false;
-                image2.enabled = false;
-                image3.enabled = false;
-
-                 GlobalData.PlayerDeath = true;
-             }
-      
-        
-
-     }
-
-    //function to detect collision from the enemy 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-           
-            TakeDamage();
-            IsCollided = true;
-            Debug.Log("Damaged");
-            
-
-            
-        }
-        else
-        {
-            IsCollided = false;
-        }
-    }
+    
+    
 }

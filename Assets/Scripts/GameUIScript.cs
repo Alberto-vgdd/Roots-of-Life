@@ -8,6 +8,7 @@ public class GameUIScript : MonoBehaviour
 	private Animator animator;
 	public Text acornCounter;
 	public Text infectionCounter;
+	public GameObject[] healthIcons;
 
 	private const string gameFadeOut = "GameFadeOut";
 	private const string gameFadeIn = "GameFadeIn";
@@ -39,5 +40,13 @@ public class GameUIScript : MonoBehaviour
 	public void UpdateInfectionCounter()
 	{
 		infectionCounter.text = "" + GlobalData.InfectionCount;
+	}
+
+	public void UpdateHealthIcons()
+	{
+		for (int i = 0 ; i < healthIcons.Length; i++)
+		{
+			healthIcons[i].SetActive((i < GlobalData.playerHealth) ? true: false);
+		}
 	}
 }

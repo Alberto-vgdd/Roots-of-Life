@@ -22,6 +22,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject player;
     public Image image1, image2, image3;
     public int damage = 1;
+    private bool IsCollided = false;
 
 	// GameUI script
 	private GameUIScript gameUIScript;
@@ -121,7 +122,7 @@ public class GameManagerScript : MonoBehaviour
     //Function for damage from enemies
     public void TakeDamage()
     {
-        health= health - 1;
+        health --;
         Debug.Log("health" + health);
         
          if(health == 3)
@@ -162,12 +163,17 @@ public class GameManagerScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+           
             TakeDamage();
-            
+            IsCollided = true;
             Debug.Log("Damaged");
             
 
             
+        }
+        else
+        {
+            IsCollided = false;
         }
     }
 }

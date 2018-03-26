@@ -5,6 +5,10 @@ using UnityEngine;
 public class GlobalData
 {
     // In-game variables, stats, etc.
+    public static int playerHealth = 3;
+    public static int playerMaxHealth = 3;
+    public static float playerRecoveryTime = 2f;
+
     public static int AcornCount = 0;
     public static int InfectionCount = 0;
 
@@ -32,6 +36,7 @@ public class GlobalData
 
     // Player Scripts
     public static PlayerMovementScript PlayerMovementScript;
+    public static PlayerHealthScript PlayerHealthScript;
 
     // Player Camera
     public static Camera PlayerCamera;

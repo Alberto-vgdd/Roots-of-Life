@@ -78,6 +78,10 @@ public class BatAIScript : MonoBehaviour
 			}
 			
 		}
+		else if (playerInRange && GlobalData.PlayerDeath)
+		{
+			playerInRange = false;
+		}
 	}
 
 	void Shoot()

@@ -18,9 +18,10 @@ public class GameManagerScript : MonoBehaviour
 	private bool checkPointFixedCameraEnabled;
 
     //Health bar variables
-    public static int health = 100;
+    public int health = 3;
     public GameObject player;
-    public Slider healthBar;
+    public Image image1, image2, image3;
+    public int damage = 1;
 
 	// GameUI script
 	private GameUIScript gameUIScript;
@@ -57,6 +58,7 @@ public class GameManagerScript : MonoBehaviour
 		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
 		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
 		gameUIScript = GlobalData.GameUIScript;
+        health = 3;
 
 	}
 
@@ -66,6 +68,7 @@ public class GameManagerScript : MonoBehaviour
 		{
 			Application.Quit();
 		}
+
 	}
 
 	public void UpdateCheckPoint(Transform newCheckPoint, bool freeCameraEnabled, bool fixedCameraEnabled)
@@ -116,15 +119,43 @@ public class GameManagerScript : MonoBehaviour
 	}
      
     //Function for damage from enemies
-    void TakeDamage()
+    public void TakeDamage()
     {
-        health = health - 5;
-        healthBar.value = health;
-        if(health <= 0)
-        {
-            GlobalData.PlayerDeath = true;
-        }
-    }
+        health= health - 1;
+        Debug.Log("health" + health);
+        
+         if(health == 3)
+            {
+                image1.enabled = true;
+                image2.enabled = true;
+                image3.enabled = true;
+            }
+         if(health == 2)
+            {
+                image1.enabled = false;
+                image2.enabled = true;
+                image3.enabled = true;
+            }
+
+         if (health == 1)
+             {
+                image1.enabled = false;
+                image2.enabled = false;
+                image3.enabled = true;
+             }
+        
+         if(health <= 0)
+             {
+                image1.enabled = false;
+                image2.enabled = false;
+                image3.enabled = false;
+
+                 GlobalData.PlayerDeath = true;
+             }
+      
+        
+
+     }
 
     //function to detect collision from the enemy 
     public void OnCollisionEnter(Collision collision)
@@ -132,7 +163,11 @@ public class GameManagerScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             TakeDamage();
+            
             Debug.Log("Damaged");
+            
+
+            
         }
     }
 }

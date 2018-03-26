@@ -12,7 +12,7 @@ public class InputManagerScript : MonoBehaviour
 	public string m_LockOnKeyboard;
 	public string m_ChangeTargetKeyboard;
 	public string jumpKeyboard;
-
+	public string runKeyboard;
 
 
 	[Header("Joystick Axes")]
@@ -23,6 +23,7 @@ public class InputManagerScript : MonoBehaviour
 	public string m_LockOnJoystick;
 	public string m_ChangeTargetJoystick;
 	public string jumpJoystick;
+	public string runJoystick;
 
 
 	[Header("Movement Axes variables")]
@@ -40,6 +41,7 @@ public class InputManagerScript : MonoBehaviour
 	private float m_HorizontalCameraInput;
 	private float m_VerticalCameraInput;
 	private bool jumpButtonDown;
+	private float runButton;
 
 
 
@@ -61,6 +63,8 @@ public class InputManagerScript : MonoBehaviour
 			m_HorizontalCameraInput = Input.GetAxis(m_HorizontalCameraMovementJoystick);
 			m_VerticalCameraInput = Input.GetAxis(m_VerticalCameraMovementJoystick);
 			jumpButtonDown = Input.GetButtonDown(jumpJoystick);
+			runButton = Input.GetAxis(runJoystick);
+
 		}
 		else
 		{
@@ -71,6 +75,7 @@ public class InputManagerScript : MonoBehaviour
 			m_HorizontalCameraInput = Input.GetAxis(m_HorizontalCameraMovementKeyboard);
 			m_VerticalCameraInput = Input.GetAxis(m_VerticalCameraMovementKeyboard);
 			jumpButtonDown = Input.GetButtonDown(jumpKeyboard);
+			runButton = Input.GetAxis(runKeyboard);
 		}
 
 	}
@@ -85,7 +90,8 @@ public class InputManagerScript : MonoBehaviour
 			Input.GetAxis(m_VerticalCameraMovementKeyboard) != 0.0f ||
 			Input.GetAxis(m_HorizontalMovementKeyboard) != 0.0f ||
 			Input.GetAxis(m_VerticalMovementKeyboard) != 0.0f ||
-			Input.GetButton(jumpKeyboard))
+			Input.GetButton(jumpKeyboard) ||
+			Input.GetAxis(runKeyboard) != 0.0f)
 			{
 				return false;
 			}
@@ -132,7 +138,7 @@ public class InputManagerScript : MonoBehaviour
 	}
 
 	// Getters
-	public bool GetJoystickInUse(){	return m_JoystickInUse;}
+	public bool GetJoystickInUse(){		return m_JoystickInUse;}
 	public float GetHorizontalInput(){    return m_HorizontalInput;}
     public float GetVerticalInput(){    return m_VerticalInput;}
     public float GetHorizontalCameraInput(){    return m_HorizontalCameraInput;}
@@ -140,4 +146,5 @@ public class InputManagerScript : MonoBehaviour
     public bool GetLockOnButton(){    return m_LockOnButton;}
 	public float GetChangeTarget(){		return m_ChangeTarget;}
 	public bool GetJumpButtonDown(){	return jumpButtonDown;}
-}
+	public float GetRunButton(){	return runButton;}
+	}

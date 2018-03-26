@@ -6,8 +6,10 @@ public class PlayerMovementScript : MonoBehaviour
 {
   
     [Header("General Movement Parameters")]
-    [Tooltip("Maximum speed the character can achieve.")]
-    public float maximumMovementSpeed = 4f;
+    [Tooltip("Maximum speed the character can achieve walking.")]
+    public float baseMovementSpeed = 4f;
+    [Tooltip("The boost in movement speed the character will get while running.")]
+    public float runSpeedMultiplier = 1.5f;
     [Tooltip("The speed measured in Degrees/seconds.")]
     public float turnSpeed = 720f;
     [Tooltip("Multiplier value used to increase or decrease the gravity effect.")]
@@ -34,12 +36,15 @@ public class PlayerMovementScript : MonoBehaviour
     // Input variables.
     // Transform to calculate the direction of the movement.
     // Movement Axes for the player. M = V + H
+    // Maximum Movement Speed = base Movement Speed (* run Speed Multiplier while running)
     Transform cameraTransform;
     Vector2 movementInput;
     bool jumpInput;
+    bool runInput;
     Vector3 movementDirection;
     Vector3 horizontalDirection;
     Vector3 verticalDirection;
+    float maximumMovementSpeed;
 
     // Physics variables (Raycasts, Capsulecasts, etc.)
     LayerMask environmentLayerMask;  
@@ -110,11 +115,15 @@ public class PlayerMovementScript : MonoBehaviour
                 jumpInput = true;
             }
 
+            // Run Input 
+            runInput = GlobalData.GetRunButtonPressed();
+            
         }
         else
         {
             movementInput = Vector2.zero;
             jumpInput = false;
+            runInput = false;
         }
 
                
@@ -190,7 +199,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        // Modify parameters based on character's state ( run/walk -> maximumMovementSpeed)
+        UpdateParameters();
 
         // This is used to update variables for the capsule casts.
         UpdatePlayerCapsulePosition();
@@ -225,6 +235,10 @@ public class PlayerMovementScript : MonoBehaviour
         
     }
 
+    void UpdateParameters()
+    {
+        maximumMovementSpeed = (runInput) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
+    }
     void UpdatePlayerCapsulePosition()
     {
         point1 = playerRigidbody.position + playerCapsuleCollider.center + transform.up *( playerCapsuleCollider.height / 2 - radius );
@@ -332,20 +346,28 @@ public class PlayerMovementScript : MonoBehaviour
     void Jump()
     {
         
-        if (playerJumping)
+        if (playerJumping || playerDoubleJumping)
         {
             if (playerGrounded)
             {
                 playerJumping = false;
+                playerDoubleJumping = false;
                 landingParticles.Play();
                 return;
             }
         }
+
         // TEST JUMP
-        else if (jumpInput && playerGrounded && !playerSliding )
+        if (jumpInput && playerGrounded && !playerSliding && !playerJumping && !playerDoubleJumping )
         {
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
             playerJumping = true;
+        }
+        else if (jumpInput && !playerSliding && !playerDoubleJumping )
+        {
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
+            playerJumping = true;
+            playerDoubleJumping = true;
         }
 
         
@@ -469,7 +491,9 @@ public class PlayerMovementScript : MonoBehaviour
         if (!playerPushed)
         {
             float velocityY = playerRigidbody.velocity.y;
+            
             playerRigidbody.velocity = movementDirection*maximumMovementSpeed + Vector3.up*velocityY;
+          
 
             if (!playerGrounded)
             {

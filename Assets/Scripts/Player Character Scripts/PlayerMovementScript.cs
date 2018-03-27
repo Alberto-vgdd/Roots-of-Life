@@ -521,4 +521,13 @@ public class PlayerMovementScript : MonoBehaviour
         playerPushed = true;
         pushTimer = 0f;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("SpringJump"))
+        {
+            playerRigidbody.AddForce(0, 500, 0);
+            Debug.Log("jump");
+        }
+    }
 }

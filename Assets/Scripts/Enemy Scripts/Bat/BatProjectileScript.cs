@@ -33,6 +33,7 @@ public class BatProjectileScript : MonoBehaviour
 		Invoke("DisableProjectile",projectileLifeTime*0.9f);
 		Disappear(projectileLifeTime);
 	}
+
 	void FixedUpdate () 
 	{
 		projectileRigidbody.MovePosition(projectileRigidbody.position + transform.forward* Time.fixedDeltaTime*projectileSpeed);
@@ -42,6 +43,7 @@ public class BatProjectileScript : MonoBehaviour
 			DisableProjectile();
 			Disappear(0.25f);
 		}
+
 	}
 
 	void Disappear(float seconds)
@@ -69,7 +71,9 @@ public class BatProjectileScript : MonoBehaviour
 			{
 				DisableProjectile();
 				GlobalData.PlayerMovementScript.Push(transform.forward,projectileStrengh);
-				//GlobalData.GameManager.StartGameOver();
+
+				// This line is necessary because the player collider can't detect triggers as collisions.
+				GlobalData.PlayerHealthScript.TakeDamage(1);
 			}
 		}
 		

@@ -58,7 +58,7 @@ public class PlayerHealthScript : MonoBehaviour
 	}
 
 	//function to detect collision from the enemy 
-    public void OnCollisionStay(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (LayerMask.Equals(enemiesLayerMask,collision.gameObject.layer)&& recoveryTimer < 0)
         {

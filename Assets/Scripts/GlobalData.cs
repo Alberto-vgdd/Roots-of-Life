@@ -8,13 +8,13 @@ public class GlobalData
     public static int playerHealth = 3;
     public static int playerMaxHealth = 3;
     public static float playerRecoveryTime = 2f;
+    public static bool PlayerDeath;
 
     public static int AcornCount = 0;
     public static int InfectionCount = 0;
 
     //  GameManager variables
     public static GameManagerScript GameManager;
-    public static bool PlayerDeath;
 
     // Reference to the GameUJI
     public static GameUIScript GameUIScript;
@@ -47,9 +47,11 @@ public class GlobalData
     public static FixedCameraMovementScript FixedCameraMovementScript;
     public static CameraEnemyTrackerScript CameraEnemyTrackerScript;
 
-    // Input Manager script
+    // Input Manager Script
     public static InputManagerScript InputManagerScript;
 
+    // Sound Manager Script
+    public static SoundManagerScript SoundManagerScript;
 
     // Call the function in the CameraEnemyTrackerScript
     public static void ChangeLockOn(float input)  {    CameraEnemyTrackerScript.ChangeLockOn(input);  }

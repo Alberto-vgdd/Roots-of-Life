@@ -23,9 +23,9 @@ public class BatAIScript : MonoBehaviour
 	[Header("Projectile Parameters")]
 	public GameObject projectile;
 	public float timeBetweenProjectiles = 3f;
-	public float projectileLifeTime = 5f;
 	public float projectileSpeed = 8f;
 	public float projectileStrength = 10f;
+	private float projectileLifeTime = 10f;
 
 	[Header("Bat Animator Parameters")]
 	public Animator batAnimator;

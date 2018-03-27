@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour 
 {
-	public AudioSource acornAudioSource;
+	public AudioSource itemAudioSource;
+	public AudioClip acornAudioClip;
+
+	public AudioSource playerAudioSource;
 
 	void Start()
 	{
@@ -13,13 +16,21 @@ public class SoundManagerScript : MonoBehaviour
 
 	public void PlayAcornSound()
 	{
-		if (acornAudioSource.isPlaying)
+		if (!itemAudioSource.clip.Equals(acornAudioClip))
 		{
-			acornAudioSource.time = 0f;
+			itemAudioSource.clip = acornAudioClip;
+			itemAudioSource.Play();
 		}
 		else
 		{
-			acornAudioSource.Play();
+			if (itemAudioSource.isPlaying)
+			{
+				itemAudioSource.time = 0f;
+			}
+			else
+			{
+				itemAudioSource.Play();
+			}
 		}
 	}
 }

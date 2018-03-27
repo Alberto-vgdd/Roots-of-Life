@@ -45,6 +45,7 @@ public class AcornItemScript : MonoBehaviour
 	void CollectAcorn()
 	{
 		GlobalData.AcornCount++;
+		GlobalData.SoundManagerScript.PlayAcornSound();
 		GlobalData.GameUIScript.UpdateAcornCounter();
 		acornAnimator.SetTrigger(collect);
 		acornCollected = true;

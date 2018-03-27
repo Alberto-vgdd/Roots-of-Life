@@ -68,16 +68,9 @@ public class CaterpillerAI : MonoBehaviour
                 state = "moving";
             }
         }
-
-        if(Vector3.Distance(player.position, this.transform.position) < 1 || state == "hit")
-        {
-            this.transform.Translate(0, 0, 0);
-            //this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
-            Debug.Log("not moving");
-        }
-
-
+        //we need to access when the playerr dies so that the caterpillar knows when to stop attacking
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))

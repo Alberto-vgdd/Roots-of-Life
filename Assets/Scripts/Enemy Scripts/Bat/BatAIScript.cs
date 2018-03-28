@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BatAIScript : MonoBehaviour 
+public class BatAIScript : MonoBehaviour, IEnemy
 {
 	// Variables to aim and shoot to the player.
 	private Transform playerTransform;
@@ -25,6 +25,7 @@ public class BatAIScript : MonoBehaviour
 	public float timeBetweenProjectiles = 3f;
 	public float projectileSpeed = 8f;
 	public float projectileStrength = 10f;
+	public int projectileDamage = 1;
 	private float projectileLifeTime = 10f;
 
 	[Header("Bat Animator Parameters")]
@@ -33,8 +34,6 @@ public class BatAIScript : MonoBehaviour
 	private string shootTrigger = "Shoot";
 	private bool batShooting;
 	private float chargeTimer;
-
-
 
 
 	void Awake()
@@ -88,8 +87,13 @@ public class BatAIScript : MonoBehaviour
 	{
 		chargeTimer = timeBetweenProjectiles + (Random.value*2f) - 1;
 		GameObject instantiatedProjectile = Instantiate(projectile,batMesh.position + batMesh.forward,Quaternion.LookRotation(targetPosition - batMesh.position));
-		instantiatedProjectile.GetComponent<BatProjectileScript>().Shoot(projectileLifeTime,projectileSpeed,projectileStrength);
+		instantiatedProjectile.GetComponent<BatProjectileScript>().Shoot(projectileLifeTime,projectileSpeed,projectileStrength,projectileDamage);
 		batShooting = false;
+	}
+
+	public void TakeDamage(int damageAmount)
+	{
+		this.gameObject.SetActive(false);
 	}
 
 

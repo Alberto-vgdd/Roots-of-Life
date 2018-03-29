@@ -66,4 +66,13 @@ public class PlayerHealthScript : MonoBehaviour
         	TakeDamage(1);
         }
     }
+	
+	void OnCollisionEnter(Collision collision)
+    {
+        if (LayerMask.Equals(enemiesLayerMask,collision.gameObject.layer)&& recoveryTimer < 0)
+        {
+			recoveryTimer = 0f;
+        	TakeDamage(1);
+        }
+    }
 }

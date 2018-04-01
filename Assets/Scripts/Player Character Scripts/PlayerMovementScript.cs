@@ -6,8 +6,10 @@ public class PlayerMovementScript : MonoBehaviour
 {
   
     [Header("General Movement Parameters")]
-    [Tooltip("Maximum speed the character can achieve.")]
-    public float maximumMovementSpeed = 4f;
+    [Tooltip("Maximum speed the character can achieve walking.")]
+    public float baseMovementSpeed = 4f;
+    [Tooltip("The boost in movement speed the character will get while running.")]
+    public float runSpeedMultiplier = 1.5f;
     [Tooltip("The speed measured in Degrees/seconds.")]
     public float turnSpeed = 720f;
     [Tooltip("Multiplier value used to increase or decrease the gravity effect.")]
@@ -34,15 +36,19 @@ public class PlayerMovementScript : MonoBehaviour
     // Input variables.
     // Transform to calculate the direction of the movement.
     // Movement Axes for the player. M = V + H
+    // Maximum Movement Speed = base Movement Speed (* run Speed Multiplier while running)
     Transform cameraTransform;
     Vector2 movementInput;
     bool jumpInput;
+    bool runInput;
     Vector3 movementDirection;
     Vector3 horizontalDirection;
     Vector3 verticalDirection;
+    float maximumMovementSpeed;
 
     // Physics variables (Raycasts, Capsulecasts, etc.)
-    LayerMask environmentLayerMask;  
+    int environmentLayerMask;
+    int enemiesLayerMask;
     RaycastHit[] capsulecastHitArray;
     Vector3 point1;
     Vector3 point2;
@@ -66,10 +72,16 @@ public class PlayerMovementScript : MonoBehaviour
     private ParticleSystem landingParticles;
 
 
-    // Variables to manage push
+    // Variables to manage character being pushed
     private bool playerPushed;
     private float pushTime = 0.6f;
     private float pushTimer;
+
+
+    // Variables to handle push && pull mechanich
+    private bool pushInput;
+    private float pushRadius = 2f;
+
 
 
     
@@ -86,7 +98,8 @@ public class PlayerMovementScript : MonoBehaviour
     void Start()
     {
         cameraTransform = GlobalData.PlayerCamera.transform;
-        environmentLayerMask = GlobalData.EnvironmentLayerMask;
+        environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
+        enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
         
     }
 	
@@ -110,11 +123,15 @@ public class PlayerMovementScript : MonoBehaviour
                 jumpInput = true;
             }
 
+            // Run Input 
+            runInput = (GlobalData.GetRunButton() > 0.1f) ? true : false;
+            
         }
         else
         {
             movementInput = Vector2.zero;
             jumpInput = false;
+            runInput = false;
         }
 
                
@@ -171,7 +188,7 @@ public class PlayerMovementScript : MonoBehaviour
         // Animations
         playerAnimator.SetBool("Fall", !playerCloseToGround);
         playerAnimator.SetBool("Slide", playerSliding);
-        playerAnimator.SetFloat("Walk Speed",movementInput.magnitude );  
+        playerAnimator.SetFloat("Walk Speed",movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) ); 
 
 
 
@@ -185,12 +202,15 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
 
+        pushInput = Input.GetKey(KeyCode.E);
+
     }
 
 
     void FixedUpdate()
     {
-
+        // Modify parameters based on character's state ( run/walk -> maximumMovementSpeed)
+        UpdateParameters();
 
         // This is used to update variables for the capsule casts.
         UpdatePlayerCapsulePosition();
@@ -222,9 +242,28 @@ public class PlayerMovementScript : MonoBehaviour
         //Add gravity the player.
         playerRigidbody.AddForce(Physics.gravity*gravityScale,ForceMode.Acceleration);
 
+
+        if (pushInput)
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position,pushRadius,environmentLayerMask | enemiesLayerMask);
+
+            foreach (Collider collider in colliders)
+            {
+                IInteractable interactable = collider.gameObject.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.OnPush();
+                }
+            }
+        }
+
         
     }
 
+    void UpdateParameters()
+    {
+        maximumMovementSpeed = (runInput) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
+    }
     void UpdatePlayerCapsulePosition()
     {
         point1 = playerRigidbody.position + playerCapsuleCollider.center + transform.up *( playerCapsuleCollider.height / 2 - radius );
@@ -270,7 +309,7 @@ public class PlayerMovementScript : MonoBehaviour
         //  playerCloseToGround is true when the character is not grounded but between the distance (Used when climbing down steps, used by the animator.) 
 
 
-        capsulecastHitArray = OptimizedCapsuleCastFromPlayer(radiusScale,Vector3.down, Mathf.Abs(Mathf.Min(playerRigidbody.velocity.y*Time.fixedDeltaTime,-stepMaxHeight)),environmentLayerMask.value);
+        capsulecastHitArray = OptimizedCapsuleCastFromPlayer(radiusScale,Vector3.down, Mathf.Abs(Mathf.Min(playerRigidbody.velocity.y*Time.fixedDeltaTime,-stepMaxHeight)),environmentLayerMask| enemiesLayerMask);
 
         if (capsulecastHitArray.Length > 0 ) 
         {   
@@ -292,7 +331,7 @@ public class PlayerMovementScript : MonoBehaviour
                     //break;
 
                 }
-                else if (Physics.Raycast(capsulecastHitArray[i].point+capsulecastHitArray[i].normal*capsulecastHitArray[i].distance,-capsulecastHitArray[i].normal,out hitInfo,capsulecastHitArray[i].distance*1.1f,environmentLayerMask.value) )
+                else if (Physics.Raycast(capsulecastHitArray[i].point+capsulecastHitArray[i].normal*capsulecastHitArray[i].distance,-capsulecastHitArray[i].normal,out hitInfo,capsulecastHitArray[i].distance*1.1f,environmentLayerMask| enemiesLayerMask) )
                 {
                     if (  hitInfo.normal != groundNormal  )
                     {
@@ -332,20 +371,28 @@ public class PlayerMovementScript : MonoBehaviour
     void Jump()
     {
         
-        if (playerJumping)
+        if (playerJumping || playerDoubleJumping)
         {
             if (playerGrounded)
             {
                 playerJumping = false;
+                playerDoubleJumping = false;
                 landingParticles.Play();
                 return;
             }
         }
+
         // TEST JUMP
-        else if (jumpInput && playerGrounded && !playerSliding )
+        if (jumpInput && playerGrounded && !playerSliding && !playerJumping && !playerDoubleJumping )
         {
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
             playerJumping = true;
+        }
+        else if (jumpInput && !playerSliding && !playerDoubleJumping )
+        {
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
+            playerJumping = true;
+            playerDoubleJumping = true;
         }
 
         
@@ -358,7 +405,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (!Vector3Equal(movementDirection, Vector3.zero))
         {
            
-            capsulecastHitArray = OptimizedCapsuleCastFromPlayer(radiusScale,movementDirection.normalized,maximumMovementSpeed*Time.fixedDeltaTime,environmentLayerMask.value);
+            capsulecastHitArray = OptimizedCapsuleCastFromPlayer(radiusScale,movementDirection.normalized,maximumMovementSpeed*Time.fixedDeltaTime,environmentLayerMask | enemiesLayerMask);
         
             // This value is used to mantain the input value after constraining the movementDirection.
             float oldMovementMagnitude = movementDirection.magnitude;
@@ -382,7 +429,7 @@ public class PlayerMovementScript : MonoBehaviour
                 {
                     float distanceToGround = Mathf.Max(0f,Vector3.Project(capsulecastHitArray[i].point -(point2 -Vector3.up*radius),groundNormal).y); 
                     
-                    if ( playerJumping || distanceToGround > stepMaxHeight || capsulecastHitArray[i].normal.y < 0 ||Physics.CapsuleCast(point1+Vector3.up*stepMaxHeight,point2+Vector3.up*stepMaxHeight,radius,movementDirection.normalized,Mathf.Max(capsulecastHitArray[i].normal.y,stepMinDepth),environmentLayerMask.value) )
+                    if ( playerJumping || distanceToGround > stepMaxHeight || capsulecastHitArray[i].normal.y < 0 ||Physics.CapsuleCast(point1+Vector3.up*stepMaxHeight,point2+Vector3.up*stepMaxHeight,radius,movementDirection.normalized,Mathf.Max(capsulecastHitArray[i].normal.y,stepMinDepth),environmentLayerMask | enemiesLayerMask) )
                     {
                         movementDirection -= Vector3.Project(movementDirection, Vector3.Scale(capsulecastHitArray[i].normal,new Vector3(1,0,1)).normalized);
                         //break; 
@@ -469,7 +516,9 @@ public class PlayerMovementScript : MonoBehaviour
         if (!playerPushed)
         {
             float velocityY = playerRigidbody.velocity.y;
+            
             playerRigidbody.velocity = movementDirection*maximumMovementSpeed + Vector3.up*velocityY;
+          
 
             if (!playerGrounded)
             {

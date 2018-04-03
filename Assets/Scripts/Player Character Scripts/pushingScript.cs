@@ -9,23 +9,32 @@ public class pushingScript : MonoBehaviour {
     Rigidbody rb;
     public Transform player;
     public Transform direction;
+    public float timer;
+    public bool isPushing;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
+        float timer;
+        isPushing = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        //timer += Time.deltaTime;
+        //Debug.Log(timer);
         targetPush = Vector3.Distance(player.position, transform.position);
-        if (targetPush < pushRadius && Input.GetKey(KeyCode.F))
+        if (targetPush < pushRadius && Input.GetKey(KeyCode.F) )
         {
             Push();
+            isPushing = true;
         }
     }
     void Push()
     {
         rb.AddForce(direction.forward * pushSpeed);
+        timer += Time.deltaTime;
+        ;
     }
     void OnCollisionEnter(Collision c)
     {

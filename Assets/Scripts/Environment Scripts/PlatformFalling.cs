@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformFalling : MonoBehaviour {
 
     bool isFalling = false;
-    float fallSpeed = 0;
+    public float fallSpeed;
     //transform gameObject;
 
     void OnTriggerEnter(Collider collider)
@@ -18,7 +18,7 @@ public class PlatformFalling : MonoBehaviour {
     {
         if (isFalling)
         {
-            fallSpeed += Time.deltaTime /150;
+            fallSpeed += Time.deltaTime;
             transform.position = new Vector3(transform.position.x, transform.position.y - fallSpeed, transform.position.z);
         }
     }

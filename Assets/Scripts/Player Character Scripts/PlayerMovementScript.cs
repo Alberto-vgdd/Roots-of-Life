@@ -100,7 +100,7 @@ public class PlayerMovementScript : MonoBehaviour
         cameraTransform = GlobalData.PlayerCamera.transform;
         environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
-      //  playerAnimator.SetBool("Idle", true);
+        
     }
 	
 	// Update is called once per frame
@@ -110,17 +110,11 @@ public class PlayerMovementScript : MonoBehaviour
         {
             // Update movement input and normalize the vector to avoid diagonal acceleration.
             movementInput = new Vector2(GlobalData.GetHorizontalInput(),GlobalData.GetVerticalInput()) ;
-            playerAnimator.SetBool("Walking", true);
 
             // m_MovementInput.magnitude?
             if (Mathf.Abs(movementInput.x)+Mathf.Abs(movementInput.y) > 1 )
             {
                 movementInput.Normalize();
-                playerAnimator.SetBool("Walking", true);
-            }
-            else
-            {
-                playerAnimator.SetBool("Idle", true);
             }
 
             // Jump Input
@@ -194,7 +188,7 @@ public class PlayerMovementScript : MonoBehaviour
         // Animations
         playerAnimator.SetBool("Fall", !playerCloseToGround);
         playerAnimator.SetBool("Slide", playerSliding);
-        playerAnimator.SetBool("Walking",true ); 
+        playerAnimator.SetFloat("Walk Speed",movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) ); 
 
 
 

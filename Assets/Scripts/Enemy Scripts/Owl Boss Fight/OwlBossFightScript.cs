@@ -166,6 +166,6 @@ public class OwlBossFightScript : MonoBehaviour
 		owlBossDoor.SetActive(false);
 		this.gameObject.SetActive(false);
 
-		UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+		UnityEngine.SceneManagement.SceneManager.LoadScene(2);
 	}
 }

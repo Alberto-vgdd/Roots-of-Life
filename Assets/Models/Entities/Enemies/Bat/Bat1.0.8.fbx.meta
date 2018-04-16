@@ -1,19 +1,70 @@
 fileFormatVersion: 2
-guid: fc18f1bea38b90b40ba8c9a80a8dfa2a
-timeCreated: 1523532989
+guid: 7792170bce9a4534aa052f0b87de8121
+timeCreated: 1523869756
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
+    100000: Armature
+    100002: //RootNode
+    100004: Bone
+    100006: Bone.001
+    100008: Bone.001_L
+    100010: Bone.001_L.001
+    100012: Bone.001_L.002
+    100014: Bone.001_L.003
+    100016: Bone.001_L.003_end
+    100018: Bone.001_L.004
+    100020: Bone.001_L.004_end
+    100022: Bone.001_R
+    100024: Bone.001_R.001
+    100026: Bone.001_R.002
+    100028: Bone.001_R.003
+    100030: Bone.001_R.003_end
+    100032: Bone.001_R.004
+    100034: Bone.001_R.004_end
+    100036: Bone.002
+    100038: Bone.002_end
+    100040: Bone.003
+    100042: Bone.003_end
+    100044: Bone.004
+    100046: Bone.004_end
+    100048: Sphere
+    400000: Armature
+    400002: //RootNode
+    400004: Bone
+    400006: Bone.001
+    400008: Bone.001_L
+    400010: Bone.001_L.001
+    400012: Bone.001_L.002
+    400014: Bone.001_L.003
+    400016: Bone.001_L.003_end
+    400018: Bone.001_L.004
+    400020: Bone.001_L.004_end
+    400022: Bone.001_R
+    400024: Bone.001_R.001
+    400026: Bone.001_R.002
+    400028: Bone.001_R.003
+    400030: Bone.001_R.003_end
+    400032: Bone.001_R.004
+    400034: Bone.001_R.004_end
+    400036: Bone.002
+    400038: Bone.002_end
+    400040: Bone.003
+    400042: Bone.003_end
+    400044: Bone.004
+    400046: Bone.004_end
+    400048: Sphere
+    2100000: No Name
     4300000: Sphere
+    9500000: //RootNode
+    13700000: Sphere
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -26,6 +77,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -50,6 +102,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -79,7 +133,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

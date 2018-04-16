@@ -191,6 +191,22 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnimator.SetFloat("Walk Speed",movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) ); 
 
 
+        if (  (playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f )
+        {
+            GlobalData.SoundManagerScript.StopWalkRunSound();
+        }
+        else if (movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
+        {
+            GlobalData.SoundManagerScript.PlayWalkSound();
+        }
+        else 
+        {
+            GlobalData.SoundManagerScript.PlayRunSound();
+        } 
+        
+       
+
+
 
         if (playerPushed)
         {
@@ -387,12 +403,16 @@ public class PlayerMovementScript : MonoBehaviour
         {
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
             playerJumping = true;
+            GlobalData.SoundManagerScript.PlayJumpSound();
+            
         }
         else if (jumpInput && !playerSliding && !playerDoubleJumping )
         {
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
             playerJumping = true;
             playerDoubleJumping = true;
+            GlobalData.SoundManagerScript.PlayJumpSound();
+
         }
 
         

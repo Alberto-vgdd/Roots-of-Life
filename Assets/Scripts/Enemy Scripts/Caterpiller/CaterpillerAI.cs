@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Rendering;
 
-public class CaterpillerAI : MonoBehaviour
+public class CaterpillerAI : MonoBehaviour, IEnemy
 {
 
     //variables for enemy 
@@ -21,11 +21,15 @@ public class CaterpillerAI : MonoBehaviour
     Renderer render;
     Rigidbody rb;
 
+    private string playerTag;
+
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
+
+        playerTag = GlobalData.PlayerTag;
     }
 
     // Update is called once per frame
@@ -71,17 +75,25 @@ public class CaterpillerAI : MonoBehaviour
         //we need to access when the playerr dies so that the caterpillar knows when to stop attacking
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag(playerTag))
         {
             state = "moving";
             //rb.detectCollisions = false;
             rb.isKinematic = true;
             rb.WakeUp();
+
+            Physics.IgnoreCollision(gameObject.GetComponent<BoxCollider>(),other);
+            TakeDamage(0);
             
         }
         
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        Destroy(this.gameObject);
     }
 }
 

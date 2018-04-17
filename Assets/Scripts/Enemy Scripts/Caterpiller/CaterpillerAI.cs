@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEditor.Rendering;
+using UnityEditor.Rendering;
 
 public class CaterpillerAI : MonoBehaviour, IEnemy
 {
@@ -18,7 +18,7 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
     public float accuracy;
     public float damping;
 
-   // Renderer render;
+    Renderer render;
     Rigidbody rb;
 
     private string playerTag;

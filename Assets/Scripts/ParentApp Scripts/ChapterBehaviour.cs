@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ChapterBehaviour : MonoBehaviour {
 	public Image textMask;
 	public GameObject nextChapter;
-	public float moveSpeed = 25f;
+	public static float moveSpeed = 25f;
 	public float waitTime = 10.0f;
 	private int state = 0;
 
@@ -14,26 +14,18 @@ public class ChapterBehaviour : MonoBehaviour {
 	void Update () {
 		if (state == 1) {
 			textMask.fillAmount += 1.0f / waitTime * Time.deltaTime;
-			Vector2 position = nextChapter.GetComponent<RectTransform> ().anchoredPosition;
-			position.y -= moveSpeed;
-			nextChapter.GetComponent<RectTransform> ().anchoredPosition = position;
+			nextChapter.GetComponent<ChapterBehaviour> ().move (false);
 			if (textMask.fillAmount >= 1) {
 				state = 2;
-				position = nextChapter.GetComponent<RectTransform> ().anchoredPosition;
-				position.y = -440;
-				nextChapter.GetComponent<RectTransform> ().anchoredPosition = position;
+				nextChapter.GetComponent<ChapterBehaviour> ().fixposition (false);
 			}
 		}
 		if (state == 3) {
 			textMask.fillAmount -= 1.0f / waitTime * Time.deltaTime;
-			Vector2 position = nextChapter.GetComponent<RectTransform> ().anchoredPosition;
-			position.y += moveSpeed;
-			nextChapter.GetComponent<RectTransform> ().anchoredPosition = position;
+			nextChapter.GetComponent<ChapterBehaviour> ().move (true);
 			if (textMask.fillAmount <= 0) {
 				state = 0;
-				position = nextChapter.GetComponent<RectTransform> ().anchoredPosition;
-				position.y = -46;
-				nextChapter.GetComponent<RectTransform> ().anchoredPosition = position;
+				nextChapter.GetComponent<ChapterBehaviour> ().fixposition (true);
 			}
 		}
 	}
@@ -47,5 +39,32 @@ public class ChapterBehaviour : MonoBehaviour {
 			state = 1;
 		if (state == 2)
 			state = 3;
+	}
+
+	private void fixposition(bool up) {
+		if (up)
+			setY (-46);
+		else
+			setY (-440);
+	}
+
+	private void move(bool up) {
+		if (up)
+			setY (getY () + moveSpeed);
+		else
+			setY (getY () - moveSpeed);
+		
+		if (nextChapter != null)
+			nextChapter.GetComponent<ChapterBehaviour> ().move (up);
+	}
+
+	private void setY(float newY) {
+		Vector2 position = GetComponent<RectTransform> ().anchoredPosition;
+		position.y = newY;
+		GetComponent<RectTransform> ().anchoredPosition = position;
+	}
+
+	private float getY() {
+		return GetComponent<RectTransform> ().anchoredPosition.y;
 	}
 }

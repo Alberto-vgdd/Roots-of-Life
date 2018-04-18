@@ -22,7 +22,7 @@ public class AppBehaviour : MonoBehaviour {
 	void Update () {
 
 		// Calculate position of playername and status
-		float yValue = -435 - (140 * (scrollbar.value * -1 + 1));
+		float yValue = -435 - (70 * (scrollbar.value * -1 + 1));
 		Vector2 position = GetComponent<RectTransform> ().anchoredPosition;
 		position.y = yValue;
 		playerInfo.GetComponent<RectTransform> ().anchoredPosition = position;

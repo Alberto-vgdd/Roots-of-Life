@@ -4,67 +4,103 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChapterBehaviour : MonoBehaviour {
-	public Image textMask;
-	public GameObject nextChapter;
-	public static float moveSpeed = 25f;
-	public float waitTime = 10.0f;
-	private int state = 0;
+	public State state = State.closed;
+	public Image chapterMask;
+	public ChapterBehaviour nextChapter;
+	public static float openSpeed = 20f;
+	[Range(0.0f,1.0f)]
+	public float size = 0.0f;
+	private float opensize;
+	private float maskIncrement;
+	private static List<ChapterBehaviour> chapters = new List<ChapterBehaviour>();
 
+	public enum State {
+		opening,
+		open,
+		closing,
+		closed
+	}
+
+	// Use this for initialization
+	void Start () {
+		chapters.Add (this);
+		RectTransform rT = GetComponent<RectTransform> ();
+		opensize = rT.sizeDelta.y + chapterMask.GetComponent<RectTransform> ().sizeDelta.y - 200;
+
+		float r = opensize / openSpeed;
+		int n = (int) Mathf.Round (r);
+		if (r > 0.5)
+			n++;
+		maskIncrement = 1f / n;
+		Debug.Log (n);
+		Debug.Log (maskIncrement);
+	}
+	
 	// Update is called once per frame
 	void Update () {
-		if (state == 1) {
-			textMask.fillAmount += 1.0f / waitTime * Time.deltaTime;
-			nextChapter.GetComponent<ChapterBehaviour> ().move (false);
-			if (textMask.fillAmount >= 1) {
-				state = 2;
-				nextChapter.GetComponent<ChapterBehaviour> ().fixposition (false);
+		RectTransform rT = GetComponent<RectTransform> ();
+		if (state == State.opening) {
+			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y + openSpeed);
+
+			Vector2 position = rT.anchoredPosition;
+			position.y -= (openSpeed/2);
+			rT.anchoredPosition = position;
+
+			if (nextChapter != null)
+				nextChapter.move (false);
+
+			chapterMask.fillAmount += maskIncrement;
+
+			if (rT.sizeDelta.y >= opensize) {
+				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, opensize);
+				state = State.open;
 			}
+			Debug.Log (openSpeed);
 		}
-		if (state == 3) {
-			textMask.fillAmount -= 1.0f / waitTime * Time.deltaTime;
-			nextChapter.GetComponent<ChapterBehaviour> ().move (true);
-			if (textMask.fillAmount <= 0) {
-				state = 0;
-				nextChapter.GetComponent<ChapterBehaviour> ().fixposition (true);
+		if (state == State.closing) {
+			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y - openSpeed);
+
+			Vector2 position = rT.anchoredPosition;
+			position.y += (openSpeed/2);
+			rT.anchoredPosition = position;
+
+			if (nextChapter != null)
+				nextChapter.move (true);
+
+			chapterMask.fillAmount -= maskIncrement;
+			
+			if (rT.sizeDelta.y <= 200) {
+				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, 200);
+				state = State.closed;
 			}
+			Debug.Log (openSpeed);
 		}
-	}
-
-	public void press() {
-		//float width = 360;
-		//float height = textMask.GetComponentInChildren<Text> ().preferredHeight;
-		//textMask.rectTransform.sizeDelta = new Vector2 (width, height);
-
-		if (state == 0)
-			state = 1;
-		if (state == 2)
-			state = 3;
-	}
-
-	private void fixposition(bool up) {
-		if (up)
-			setY (-46);
-		else
-			setY (-440);
 	}
 
 	private void move(bool up) {
-		if (up)
-			setY (getY () + moveSpeed);
-		else
-			setY (getY () - moveSpeed);
-		
+		RectTransform rT = GetComponent<RectTransform> ();
+		Vector2 position = rT.anchoredPosition;
+		if (up) 
+			position.y += openSpeed;
+		else 
+			position.y -= openSpeed;
+		rT.anchoredPosition = position;
 		if (nextChapter != null)
-			nextChapter.GetComponent<ChapterBehaviour> ().move (up);
+			nextChapter.move (up);
 	}
 
-	private void setY(float newY) {
-		Vector2 position = GetComponent<RectTransform> ().anchoredPosition;
-		position.y = newY;
-		GetComponent<RectTransform> ().anchoredPosition = position;
+	public void onClick() {
+		if (state == State.closed || state == State.closing) {
+			foreach (var c in chapters) {
+				c.close ();
+			}
+			state = State.opening;
+		} else
+			close ();
 	}
 
-	private float getY() {
-		return GetComponent<RectTransform> ().anchoredPosition.y;
+	private void close() {
+		if (state == State.open || state == State.opening) 
+			state = State.closing;
 	}
 }

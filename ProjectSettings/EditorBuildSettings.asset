@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/End Scene.unity
     guid: 38396671d4ca049428dec2fa3c6d600c
-  - enabled: 1
-    path: Assets/Scenes/ParentApp.unity
+  - enabled: 0
+    path: Assets/Scenes/ParentApp/ParentApp.unity
     guid: bff429876b699c544bbefff65209ac63
+  - enabled: 1
+    path: Assets/Scenes/ParentApp/ParentApp 1.unity
+    guid: e5ff6b5f771b4ab4eaee03dba9e27858

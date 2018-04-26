@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ChapterBehaviour : MonoBehaviour {
+public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
 	public State state = State.closed;
 	public Image chapterMask;
 	public ChapterBehaviour nextChapter;
+	public ScrollRect parent;
 	public static float openSpeed = 20f;
 	[Range(0.0f,1.0f)]
 	public float size = 0.0f;
 	private float opensize;
 	private float maskIncrement;
 	private static List<ChapterBehaviour> chapters = new List<ChapterBehaviour>();
+	private bool drag;
 
 	public enum State {
 		opening,
@@ -32,8 +35,6 @@ public class ChapterBehaviour : MonoBehaviour {
 		if (r > 0.5)
 			n++;
 		maskIncrement = 1f / n;
-		Debug.Log (n);
-		Debug.Log (maskIncrement);
 	}
 	
 	// Update is called once per frame
@@ -55,7 +56,6 @@ public class ChapterBehaviour : MonoBehaviour {
 				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, opensize);
 				state = State.open;
 			}
-			Debug.Log (openSpeed);
 		}
 		if (state == State.closing) {
 			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y - openSpeed);
@@ -73,7 +73,6 @@ public class ChapterBehaviour : MonoBehaviour {
 				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, 200);
 				state = State.closed;
 			}
-			Debug.Log (openSpeed);
 		}
 	}
 
@@ -90,6 +89,10 @@ public class ChapterBehaviour : MonoBehaviour {
 	}
 
 	public void onClick() {
+		if (drag) {
+			drag = false;
+			return;
+		}
 		if (state == State.closed || state == State.closing) {
 			foreach (var c in chapters) {
 				c.close ();
@@ -102,5 +105,18 @@ public class ChapterBehaviour : MonoBehaviour {
 	private void close() {
 		if (state == State.open || state == State.opening) 
 			state = State.closing;
+	}
+
+	public void OnPointerDown(PointerEventData eventData) {
+		parent.OnBeginDrag (eventData);
+	}
+
+	public void OnPointerUp(PointerEventData eventData) {
+		parent.OnEndDrag(eventData);
+	}
+
+	public void OnDrag(PointerEventData eventData) {
+		parent.OnDrag (eventData);
+		drag = true;
 	}
 }

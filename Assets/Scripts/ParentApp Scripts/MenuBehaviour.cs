@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuBehaviour : ScrollRect {
+public class MenuBehaviour : ScrollRectEx {
 	public GameObject menuBar;
 	private Screen activeScreen;
 	private bool dragging = false;

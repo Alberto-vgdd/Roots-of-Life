@@ -343,7 +343,7 @@ ModelImporter:
       name: Jul Armatrue|Slide
       takeName: Jul Armatrue|Slide
       firstFrame: 0
-      lastFrame: 39
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -371,7 +371,7 @@ ModelImporter:
       name: Jul Armatrue|Walk
       takeName: Jul Armatrue|Walk
       firstFrame: 0
-      lastFrame: 32
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

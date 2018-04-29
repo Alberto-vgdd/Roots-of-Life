@@ -78,9 +78,7 @@ public class PlayerMovementScript : MonoBehaviour
     private float pushTimer;
 
 
-    // Variables to handle push && pull mechanich
-    private bool pushInput;
-    private float pushRadius = 2f;
+  
 
 
 
@@ -207,7 +205,7 @@ public class PlayerMovementScript : MonoBehaviour
        
 
 
-
+        // Timer to control the character being pushed in a certain direction.
         if (playerPushed)
         {
             pushTimer += Time.deltaTime;
@@ -216,9 +214,6 @@ public class PlayerMovementScript : MonoBehaviour
                 playerPushed = false;
             }
         }
-
-
-        pushInput = Input.GetKey(KeyCode.E);
 
     }
 
@@ -257,23 +252,6 @@ public class PlayerMovementScript : MonoBehaviour
 
         //Add gravity the player.
         playerRigidbody.AddForce(Physics.gravity*gravityScale,ForceMode.Acceleration);
-
-
-        if (pushInput)
-        {
-            Collider[] colliders = Physics.OverlapSphere(transform.position,pushRadius,environmentLayerMask | enemiesLayerMask);
-
-            foreach (Collider collider in colliders)
-            {
-                IInteractable interactable = collider.gameObject.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    interactable.OnPush();
-                }
-            }
-        }
-
-        
     }
 
     void UpdateParameters()

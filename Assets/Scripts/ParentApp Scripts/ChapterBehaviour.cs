@@ -9,11 +9,10 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	public Image chapterMask;
 	public ChapterBehaviour nextChapter;
 	public ScrollRect parent;
-	public static float openSpeed = 20f;
-	[Range(0.0f,1.0f)]
-	public float size = 0.0f;
+	public static float openSpeed = 50f;
 	private float opensize;
 	private float maskIncrement;
+	private float startY;
 	private static List<ChapterBehaviour> chapters = new List<ChapterBehaviour>();
 	private bool drag;
 
@@ -35,6 +34,7 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 		if (r > 0.5)
 			n++;
 		maskIncrement = 1f / n;
+		startY = rT.anchoredPosition.y;
 	}
 	
 	// Update is called once per frame
@@ -53,6 +53,11 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 			chapterMask.fillAmount += maskIncrement;
 
 			if (rT.sizeDelta.y >= opensize) {
+				float difference = rT.sizeDelta.y - opensize;
+				Debug.Log (difference);
+				position = rT.anchoredPosition;
+				position.y += (difference/2);
+				rT.anchoredPosition = position;
 				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, opensize);
 				state = State.open;
 			}
@@ -72,6 +77,9 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 			if (rT.sizeDelta.y <= 200) {
 				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, 200);
 				state = State.closed;
+				position = rT.anchoredPosition;
+				position.y = startY;
+				rT.anchoredPosition = position;
 			}
 		}
 	}

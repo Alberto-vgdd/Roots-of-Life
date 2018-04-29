@@ -30,15 +30,16 @@ public class GlobalData
     public static bool IsEnemyLocked;
     public static Transform LockedEnemyTransform;
 
-    // Player Transforms
+    // Player Transforms, Scripts, Animators
     public static Transform PlayerTransform;
     public static Transform PlayerTargetTransform;
 
-    // Player Scripts
     public static PlayerMovementScript PlayerMovementScript;
+    public static PlayerActionScript PlayerActionScript;
     public static PlayerHealthScript PlayerHealthScript;
 
-    // Player Camera
+    public static Animator PlayerAnimator;
+
     public static Camera PlayerCamera;
     public static Transform PlayerCameraHorizontalPivotTransform;
 

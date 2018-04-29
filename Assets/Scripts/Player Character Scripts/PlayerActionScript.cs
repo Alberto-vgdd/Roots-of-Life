@@ -6,6 +6,7 @@ public class PlayerActionScript : MonoBehaviour
 {
 	// Player variables
     private Animator playerAnimator;
+	private PlayerMovementScript playerMovementScript;
 
 	// Physics variables (Raycasts, Capsulecasts, etc.)
     int environmentLayerMask;
@@ -20,6 +21,12 @@ public class PlayerActionScript : MonoBehaviour
 	public bool isAttacking1;
 	private float attack1Timer = 0f;
 
+	// Variables to handle Attack2 mechanic
+	// The inpunt must be constant, and everything inside a cone casted from the forward vector will be sucked slowly.
+	// The momevemnt should be disable while this attack is enabled.
+	[Header("Attack 2 Parameters")]
+	public bool isAttacking2;
+
 	
 	
 
@@ -28,18 +35,20 @@ public class PlayerActionScript : MonoBehaviour
 
 	void Awake() 
 	{
-    	playerAnimator = transform.GetComponentInChildren<Animator>();
 	}
 
 	void Start() 
 	{
+		playerAnimator = GlobalData.PlayerAnimator;
+		playerMovementScript = GlobalData.PlayerMovementScript;
 		environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
 	}
 
 	void Update() 
 	{
-		if (Input.GetKeyDown(KeyCode.E))
+		// Attack 1
+		if (Input.GetKeyDown(KeyCode.E) && !isAttacking2)
 		{
 			isAttacking1 = true;
 			playerAnimator.SetTrigger("Attack 1");
@@ -53,6 +62,20 @@ public class PlayerActionScript : MonoBehaviour
 			{
 				isAttacking1 = false;
 			}
+		}
+
+		// Attack 2
+		if (Input.GetKeyDown(KeyCode.Q) && !isAttacking1)
+		{
+			playerMovementScript.DisableInput();
+			isAttacking2 = true;
+			playerAnimator.SetBool("Attack 2", true);
+		}
+		if (isAttacking2 && Input.GetKeyUp(KeyCode.Q))
+		{
+			playerMovementScript.EnableInput();
+			isAttacking2 = false;
+			playerAnimator.SetBool("Attack 2", false);
 		}
 	}
 

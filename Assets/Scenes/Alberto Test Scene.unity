@@ -824,6 +824,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4171423990187206, guid: 349f8eac3ffd53147a082e044032e3b0,
     type: 2}
   m_PrefabInternal: {fileID: 1541060680}
+--- !u!4 &232489161 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4386265602861592, guid: e2f121d46e689b7418d978112f7410e8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1216897644}
 --- !u!4 &267362983 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4171423990187206, guid: 349f8eac3ffd53147a082e044032e3b0,
@@ -2327,6 +2332,10 @@ Prefab:
       propertyPath: m_Name
       value: Player Character
       objectReference: {fileID: 0}
+    - target: {fileID: 1400267660171564, guid: e2f121d46e689b7418d978112f7410e8, type: 2}
+      propertyPath: m_Name
+      value: Jul Model
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2f121d46e689b7418d978112f7410e8, type: 2}
   m_IsPrefabParent: 0
@@ -2689,6 +2698,11 @@ Prefab:
       propertyPath: m_Name
       value: '[X] Game Manager'
       objectReference: {fileID: 0}
+    - target: {fileID: 114244020093330054, guid: aeaa104c2e985fa4193abd99509b0561,
+        type: 2}
+      propertyPath: playerTarget
+      value: 
+      objectReference: {fileID: 232489161}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aeaa104c2e985fa4193abd99509b0561, type: 2}
   m_IsPrefabParent: 0

@@ -8,7 +8,7 @@ public class SnapscrollBehaviour : Scrollbar {
 	private float oldValue = 1.0f;
 	private bool dragging = false;
 	private float scrollSpeed = 0.05f;
-	private bool state = true; // true = up, false = down
+	public bool state = true; // true = up, false = down
 
 	// Update is called once per frame
 	void Update () {

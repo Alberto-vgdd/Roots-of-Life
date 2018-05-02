@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuBehaviour : ScrollRectEx {
-	public GameObject menuBar;
-	private Screen activeScreen;
-	private bool dragging = false;
+    public GameObject menuBar;
+    public Screen activeScreen;
+    public float scrollSpeed = 0.005f;
+    private bool dragging = false;
 	private bool moving = false;
-	private float scrollSpeed = 0.05f;
 
 	void Start() {
 		setActiveScreen (1);
@@ -44,58 +44,68 @@ public class MenuBehaviour : ScrollRectEx {
 		return -1;
 	}
 
-	void Update() {
-		float v = horizontalScrollbar.value;
+    public void swipeRight()
+    {
+        setActiveScreen(prevScreen(activeScreen));
+    }
 
-		if (v < 0.25)
-			setActiveMenubutton (0);
-		else if (v > 0.25 && v < 0.75)
-			setActiveMenubutton (1);
-		else if (v > 0.75)
-			setActiveMenubutton (2);
+    public void swipeLeft()
+    {
+        setActiveScreen(nextScreen(activeScreen));
+    }
 
-		if (dragging)
-			return;
+    void Update() {
+        float v = horizontalScrollbar.value;
 
-		if (!moving) {
-			float scrollDelta = v - defaultPosition (activeScreen);
-			if (scrollDelta > 0.1) {
-				setActiveScreen (nextScreen (activeScreen));
-				if (scrollDelta > 0.75)
-					setActiveScreen (nextScreen (activeScreen));
-			} else if (scrollDelta < -0.1) {
-				setActiveScreen (prevScreen (activeScreen));
-				if (scrollDelta < -0.75)
-					setActiveScreen (prevScreen (activeScreen));
-			}
-		}
+        if (v < 0.25)
+            setActiveMenubutton(0);
+        else if (v > 0.25 && v < 0.75)
+            setActiveMenubutton(1);
+        else if (v > 0.75)
+            setActiveMenubutton(2);
 
-		/*if ((v - defaultPosition(activeScreen))
-		if (v > 0 && v < 0.25 && activeScreen != Screen.Story && !moving) 
-			setScreen (0);
-		else if (v > 0.25 && v < 0.75 && activeScreen != Screen.Statistics && !moving) 
-			setScreen (1);
-		else if (v > 0.75 && v < 1 && activeScreen != Screen.Objectives && !moving) 
-			setScreen (2);*/
-		
-		if (activeScreen == Screen.Story) {
-			if (v > 0)
+        if (dragging)
+            return;
+
+        if (v > 0 && v < 0.25 && activeScreen != Screen.Story && !moving)
+        {
+            setActiveScreen(0);
+        }
+        else if (v > 0.25 && v < 0.75 && activeScreen != Screen.Statistics && !moving)
+        {
+            setActiveScreen(1);
+        }
+        else if (v > 0.75 && v < 1 && activeScreen != Screen.Objectives && !moving)
+        {
+            setActiveScreen(2);
+        }
+        
+        if (activeScreen == Screen.Story)
+        {
+            if (v > 0)
 				v -= scrollSpeed;
 			else {
 				v = 0;
 				moving = false;
 			}
-		} else if (activeScreen == Screen.Statistics) {
-			if (v < 0.48)
-				v += 0.025f;
-			else if (v > 0.52)
-				v -= scrollSpeed;
-			else {
-				v = 0.5f;
-				moving = false;
-			}
-		} else if (activeScreen == Screen.Objectives) {
-			if (v < 1)
+		} else if (activeScreen == Screen.Statistics)
+        {
+            if (v < 0.48)
+            {
+                v += scrollSpeed;
+            }
+            else if (v > 0.52)
+            {
+                v -= scrollSpeed;
+            }
+            else
+            {
+                v = 0.5f;
+                moving = false;
+            }
+		} else if (activeScreen == Screen.Objectives)
+        {
+            if (v < 1)
 				v += scrollSpeed;
 			else {
 				v = 1;
@@ -103,10 +113,10 @@ public class MenuBehaviour : ScrollRectEx {
 			}
 		}
 		horizontalScrollbar.value = v;
-	}
+    }
 
 	public void setActiveScreen(int s) {
-		moving = true;
+	    moving = true;
 		if (s == 0) 
 			activeScreen = Screen.Story;
 		else if (s == 1) 

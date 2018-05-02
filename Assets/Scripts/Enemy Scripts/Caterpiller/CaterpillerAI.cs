@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 //using UnityEditor.Rendering;
 
 public class CaterpillerAI : MonoBehaviour, IEnemy
@@ -18,6 +19,8 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
     public float accuracy;
     public float damping;
 
+    public NavMeshAgent caterpillar;
+
    // Renderer render;
     Rigidbody rb;
 
@@ -30,11 +33,15 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
         rb.isKinematic = false;
 
         playerTag = GlobalData.PlayerTag;
+        caterpillar = GetComponent<NavMeshAgent>();
+        caterpillar.autoBraking = false;
+        //caterpillar.SetDestination(Dis.currentWP);
     }
 
     // Update is called once per frame
     void Update()
     {
+        caterpillar.SetDestination(this.transform.position);
 
         Vector3 direction = player.position - this.transform.position;
         direction.y = 0;

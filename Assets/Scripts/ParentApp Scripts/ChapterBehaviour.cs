@@ -9,8 +9,13 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	public Image chapterMask;
 	public ChapterBehaviour nextChapter;
 	public ScrollRect parent;
+
+    public static float t = 0.0f;
+    public static float openTime = 1.0f;
+    public static float basicSize;
+    public float addOpenSize;
+
 	public static float openSpeed = 100f;
-    private static float actualOpenSpeed = 100f;
 	private float opensize;
 	private float maskIncrement;
 	private float startY;
@@ -28,30 +33,45 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	void Start () {
 		chapters.Add (this);
 		RectTransform rT = GetComponent<RectTransform> ();
-		opensize = rT.sizeDelta.y + chapterMask.GetComponent<RectTransform> ().sizeDelta.y - 200;
+		opensize = chapterMask.GetComponent<RectTransform> ().sizeDelta.y;
 
-		
-		startY = rT.anchoredPosition.y;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        actualOpenSpeed = openSpeed * (0.005f / Time.deltaTime);
-
-        float r = opensize / actualOpenSpeed;
+        float r = opensize / openSpeed;
         int n = (int)Mathf.Round(r);
         if (r > 0.5)
             n++;
         maskIncrement = 1f / n;
 
+        startY = rT.anchoredPosition.y;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        
         RectTransform rT = GetComponent<RectTransform> ();
 		if (state == State.opening) {
-			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y + actualOpenSpeed);
+            t += Time.deltaTime;
 
-			Vector2 position = rT.anchoredPosition;
-			position.y -= (actualOpenSpeed / 2);
-			rT.anchoredPosition = position;
+            float p = t / openTime;
+            float newSize = opensize * p; // differentiate between 200 and opensize, now it is between 0 and opensize, use mathf.lerp
+            float newY = opensize * p * 0.5f;
+
+            if (t >= openTime)
+            {
+                t = 0.0f;
+                newSize = opensize;
+                state = State.open;
+            }
+
+            rT.sizeDelta = new Vector2(rT.sizeDelta.x,newSize);
+            Vector2 position = rT.anchoredPosition;
+            position.y -= (openSpeed / 2);
+            rT.anchoredPosition = position;
+
+            //rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y + openSpeed);
+
+            //Vector2 position = rT.anchoredPosition;
+			//position.y -= (openSpeed / 2);
+			//rT.anchoredPosition = position;
 
 			if (nextChapter != null)
 				nextChapter.move (false);
@@ -69,10 +89,10 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 			}
 		}
 		if (state == State.closing) {
-			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y - actualOpenSpeed);
+			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y - openSpeed);
 
 			Vector2 position = rT.anchoredPosition;
-			position.y += (actualOpenSpeed / 2);
+			position.y += (openSpeed / 2);
 			rT.anchoredPosition = position;
 
 			if (nextChapter != null)
@@ -93,10 +113,10 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	private void move(bool up) {
 		RectTransform rT = GetComponent<RectTransform> ();
 		Vector2 position = rT.anchoredPosition;
-		if (up) 
-			position.y += actualOpenSpeed;
-		else 
-			position.y -= actualOpenSpeed;
+        if (up)
+            position.y += openSpeed;
+        else
+            position.y -= openSpeed;
 		rT.anchoredPosition = position;
 		if (nextChapter != null)
 			nextChapter.move (up);

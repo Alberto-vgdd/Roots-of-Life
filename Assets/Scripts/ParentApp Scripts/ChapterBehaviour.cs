@@ -10,15 +10,10 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	public ChapterBehaviour nextChapter;
 	public ScrollRect parent;
 
-    public static float t = 0.0f;
-    public static float openTime = 1.0f;
-    public static float basicSize;
-    public float addOpenSize;
-
-	public static float openSpeed = 100f;
+	public static float openTime = 0.3f;
+	public float t = 0.0f;
 	private float opensize;
-	private float maskIncrement;
-	private float startY;
+
 	private static List<ChapterBehaviour> chapters = new List<ChapterBehaviour>();
 	private bool drag;
 
@@ -33,93 +28,69 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	void Start () {
 		chapters.Add (this);
 		RectTransform rT = GetComponent<RectTransform> ();
-		opensize = chapterMask.GetComponent<RectTransform> ().sizeDelta.y;
-
-        float r = opensize / openSpeed;
-        int n = (int)Mathf.Round(r);
-        if (r > 0.5)
-            n++;
-        maskIncrement = 1f / n;
-
-        startY = rT.anchoredPosition.y;
+		opensize = chapterMask.GetComponent<RectTransform> ().sizeDelta.y + 100;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
-        RectTransform rT = GetComponent<RectTransform> ();
-		if (state == State.opening) {
-            t += Time.deltaTime;
-
-            float p = t / openTime;
-            float newSize = opensize * p; // differentiate between 200 and opensize, now it is between 0 and opensize, use mathf.lerp
-            float newY = opensize * p * 0.5f;
-
-            if (t >= openTime)
-            {
-                t = 0.0f;
-                newSize = opensize;
-                state = State.open;
-            }
-
-            rT.sizeDelta = new Vector2(rT.sizeDelta.x,newSize);
-            Vector2 position = rT.anchoredPosition;
-            position.y -= (openSpeed / 2);
-            rT.anchoredPosition = position;
-
-            //rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y + openSpeed);
-
-            //Vector2 position = rT.anchoredPosition;
-			//position.y -= (openSpeed / 2);
-			//rT.anchoredPosition = position;
-
-			if (nextChapter != null)
-				nextChapter.move (false);
-
-			chapterMask.fillAmount += maskIncrement;
-
-			if (rT.sizeDelta.y >= opensize) {
-				float difference = rT.sizeDelta.y - opensize;
-				Debug.Log (difference);
-				position = rT.anchoredPosition;
-				position.y += (difference/2);
-				rT.anchoredPosition = position;
-				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, opensize);
-				state = State.open;
-			}
-		}
-		if (state == State.closing) {
-			rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y - openSpeed);
-
-			Vector2 position = rT.anchoredPosition;
-			position.y += (openSpeed / 2);
-			rT.anchoredPosition = position;
-
-			if (nextChapter != null)
-				nextChapter.move (true);
-
-			chapterMask.fillAmount -= maskIncrement;
-			
-			if (rT.sizeDelta.y <= 200) {
-				rT.sizeDelta = new Vector2 (rT.sizeDelta.x, 200);
-				state = State.closed;
-				position = rT.anchoredPosition;
-				position.y = startY;
-				rT.anchoredPosition = position;
-			}
-		}
+		if (state == State.opening || state == State.closing)
+			animate ();
 	}
 
-	private void move(bool up) {
+	private void animate() {
+		t += Time.deltaTime;
+
+		// Calculate p for t as percentage of openTime, if t exceeds opentime then p will be 1.0 and the state will be switched
+		float p = getPercentage();
+		RectTransform rT = GetComponent<RectTransform> ();
+
+		// Adjust size of textfield according to p
+		float d = Mathf.Lerp(200, opensize, p) - rT.sizeDelta.y;
+		rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y + d);
+
+		// Adjust y of textfield according to p
+		Vector2 position = rT.anchoredPosition;
+		position.y -= d * 0.5f;
+		rT.anchoredPosition = position;
+
+		// Adjust mask of textfield according to p
+		chapterMask.fillAmount = p;
+		Debug.Log (p);
+
+		// Move lower chapters based on size increment
+		if (nextChapter != null)
+			nextChapter.move (d);
+	}
+
+	private float getPercentage() {
+		if (t >= openTime) {
+			t = 0.0f;
+			switchState ();
+			if (state == State.open)
+				return 1.0f;
+			else
+				return 0.0f;
+		}
+		if (state == State.opening)
+			return t / openTime;
+		else
+			return (t / openTime - 1) * -1;
+	}
+
+	private void move (float difference) {
 		RectTransform rT = GetComponent<RectTransform> ();
 		Vector2 position = rT.anchoredPosition;
-        if (up)
-            position.y += openSpeed;
-        else
-            position.y -= openSpeed;
+        position.y -= difference;
 		rT.anchoredPosition = position;
 		if (nextChapter != null)
-			nextChapter.move (up);
+			nextChapter.move (difference);
+	}
+
+	private void switchState() {
+		if (state == State.opening)
+			state = State.open;
+		else if (state == State.closing)
+			state = State.closed;
 	}
 
 	public void onClick() {

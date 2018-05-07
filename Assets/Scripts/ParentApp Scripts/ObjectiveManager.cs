@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,9 @@ public class ObjectiveManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        RectTransform rT = GetComponent<RectTransform>();
+        rT.sizeDelta = new Vector2(rT.sizeDelta.x, 250 + (150 * objectives.Count));
+        rT.anchoredPosition = new Vector2(rT.anchoredPosition.x, -800 - (75 * objectives.Count));
 	}
 
     void create(int reward)

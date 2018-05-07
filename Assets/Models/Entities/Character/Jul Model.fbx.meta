@@ -1,0 +1,508 @@
+fileFormatVersion: 2
+guid: 29e3131a7f7eba044ad583756ce4b556
+timeCreated: 1523799697
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: foot.L
+    100002: foot.L_end
+    100004: foot.L_end_end
+    100006: foot.R
+    100008: foot.R_end
+    100010: foot.R_end_end
+    100012: //RootNode
+    100014: Jul Rig
+    100016: shin.L
+    100018: shin.R
+    100020: shoulder.L
+    100022: shoulder.L.001
+    100024: shoulder.L.002
+    100026: shoulder.L.002_end
+    100028: shoulder.L.002_end_end
+    100030: shoulder.L.003
+    100032: shoulder.R
+    100034: shoulder.R.001
+    100036: shoulder.R.002
+    100038: shoulder.R.002_end
+    100040: shoulder.R.002_end_end
+    100042: shoulder.R.003
+    100044: Sphere
+    100046: spine.001
+    100048: spine.002
+    100050: spine.003
+    100052: spine.004
+    100054: spine.005
+    100056: spine.005_end
+    100058: spine.005_end_end
+    100060: spine.006
+    100062: spine.007
+    100064: spine.007_end
+    100066: spine.007_end_end
+    100068: thigh.L
+    100070: thigh.R
+    100072: Chest
+    100074: Control
+    100076: Control Model
+    100078: Ear_L
+    100080: Ear_L_end
+    100082: Ear_R
+    100084: Ear_R_end
+    100086: Elbow_L
+    100088: Elbow_L_end
+    100090: Elbow_R
+    100092: Elbow_R_end
+    100094: Foot_L
+    100096: Foot_R
+    100098: FootIK_L
+    100100: FootIK_L_end
+    100102: FootIK_R
+    100104: FootIK_R_end
+    100106: Hand_L
+    100108: Hand_R
+    100110: HandIK_L
+    100112: HandIK_L_end
+    100114: HandIK_R
+    100116: HandIK_R_end
+    100118: Head
+    100120: Hips
+    100122: Jul
+    100124: Jul_LOD0
+    100126: Knee_L
+    100128: Knee_L_end
+    100130: Knee_R
+    100132: Knee_R_end
+    100134: LowerArm_L
+    100136: LowerArm_R
+    100138: LowerLeg_L
+    100140: LowerLeg_R
+    100142: Neck
+    100144: Pivot Model
+    100146: Spine
+    100148: Tail_0
+    100150: Tail_1
+    100152: Tail_2
+    100154: Tail_3
+    100156: Tail_4
+    100158: Tail_4_end
+    100160: TailIK
+    100162: TailIK_end
+    100164: Thumb_L
+    100166: Thumb_L_end
+    100168: Thumb_R
+    100170: Thumb_R_end
+    100172: Toes_L
+    100174: Toes_L_end
+    100176: Toes_R
+    100178: Toes_R_end
+    100180: UpperArm_L
+    100182: UpperArm_R
+    100184: UpperLeg_L
+    100186: UpperLeg_R
+    100188: Jul Armatrue
+    100190: Jul Geometry
+    400000: foot.L
+    400002: foot.L_end
+    400004: foot.L_end_end
+    400006: foot.R
+    400008: foot.R_end
+    400010: foot.R_end_end
+    400012: //RootNode
+    400014: Jul Rig
+    400016: shin.L
+    400018: shin.R
+    400020: shoulder.L
+    400022: shoulder.L.001
+    400024: shoulder.L.002
+    400026: shoulder.L.002_end
+    400028: shoulder.L.002_end_end
+    400030: shoulder.L.003
+    400032: shoulder.R
+    400034: shoulder.R.001
+    400036: shoulder.R.002
+    400038: shoulder.R.002_end
+    400040: shoulder.R.002_end_end
+    400042: shoulder.R.003
+    400044: Sphere
+    400046: spine.001
+    400048: spine.002
+    400050: spine.003
+    400052: spine.004
+    400054: spine.005
+    400056: spine.005_end
+    400058: spine.005_end_end
+    400060: spine.006
+    400062: spine.007
+    400064: spine.007_end
+    400066: spine.007_end_end
+    400068: thigh.L
+    400070: thigh.R
+    400072: Chest
+    400074: Control
+    400076: Control Model
+    400078: Ear_L
+    400080: Ear_L_end
+    400082: Ear_R
+    400084: Ear_R_end
+    400086: Elbow_L
+    400088: Elbow_L_end
+    400090: Elbow_R
+    400092: Elbow_R_end
+    400094: Foot_L
+    400096: Foot_R
+    400098: FootIK_L
+    400100: FootIK_L_end
+    400102: FootIK_R
+    400104: FootIK_R_end
+    400106: Hand_L
+    400108: Hand_R
+    400110: HandIK_L
+    400112: HandIK_L_end
+    400114: HandIK_R
+    400116: HandIK_R_end
+    400118: Head
+    400120: Hips
+    400122: Jul
+    400124: Jul_LOD0
+    400126: Knee_L
+    400128: Knee_L_end
+    400130: Knee_R
+    400132: Knee_R_end
+    400134: LowerArm_L
+    400136: LowerArm_R
+    400138: LowerLeg_L
+    400140: LowerLeg_R
+    400142: Neck
+    400144: Pivot Model
+    400146: Spine
+    400148: Tail_0
+    400150: Tail_1
+    400152: Tail_2
+    400154: Tail_3
+    400156: Tail_4
+    400158: Tail_4_end
+    400160: TailIK
+    400162: TailIK_end
+    400164: Thumb_L
+    400166: Thumb_L_end
+    400168: Thumb_R
+    400170: Thumb_R_end
+    400172: Toes_L
+    400174: Toes_L_end
+    400176: Toes_R
+    400178: Toes_R_end
+    400180: UpperArm_L
+    400182: UpperArm_R
+    400184: UpperLeg_L
+    400186: UpperLeg_R
+    400188: Jul Armatrue
+    400190: Jul Geometry
+    2100000: No Name
+    2300000: Control Model
+    2300002: Pivot Model
+    2300004: Jul_LOD0
+    3300000: Control Model
+    3300002: Pivot Model
+    3300004: Jul_LOD0
+    4300000: Sphere
+    4300002: Control Model
+    4300004: Pivot Model
+    4300006: Jul_LOD0
+    4300008: Jul Geometry
+    7400000: Jul Rig|Fall
+    7400002: Jul Rig|Idle
+    7400004: Jul Rig|Slide
+    7400006: Jul Rig|walk
+    7400008: Jul Rig|Run
+    7400010: Fall
+    7400012: Idle
+    7400014: Run
+    7400016: Slide
+    7400018: Walk
+    7400020: Jul Armatrue|Fall
+    7400022: Jul Armatrue|Idle
+    7400024: Jul Armatrue|Run
+    7400026: Jul Armatrue|Slide
+    7400028: Jul Armatrue|Walk
+    7400030: Jul Armatrue|Attack 1
+    7400032: Jul Armatrue|Attack 2
+    9500000: //RootNode
+    13700000: Sphere
+    13700002: Jul_LOD0
+    13700004: Jul Geometry
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Jul Armatrue|Fall
+      takeName: Jul Armatrue|Fall
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jul Armatrue|Idle
+      takeName: Jul Armatrue|Idle
+      firstFrame: 0
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jul Armatrue|Run
+      takeName: Jul Armatrue|Run
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jul Armatrue|Slide
+      takeName: Jul Armatrue|Slide
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jul Armatrue|Walk
+      takeName: Jul Armatrue|Walk
+      firstFrame: 0
+      lastFrame: 26
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jul Armatrue|Attack 1
+      takeName: Jul Armatrue|Attack 1
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jul Armatrue|Attack 2
+      takeName: Jul Armatrue|Attack 2
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Control
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

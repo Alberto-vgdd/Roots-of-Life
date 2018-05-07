@@ -11,7 +11,6 @@ public class GameManagerScript : MonoBehaviour
 	private FreeCameraMovementScript freeCameraMovementScript;
 	private FixedCameraMovementScript fixedCameraMovementScript;
 
-
 	// Checkpoint stuff, used to restore the state after a death
 	private Transform checkPoint;
 	private bool checkPointFreeCameraEnabled;
@@ -30,7 +29,9 @@ public class GameManagerScript : MonoBehaviour
 			GlobalData.PlayerTransform = playerTransform = GameObject.Find("Player Character").transform;
 			GlobalData.PlayerTargetTransform = playerTransform.Find("Target");
 			GlobalData.PlayerMovementScript = playerTransform.GetComponent<PlayerMovementScript>();
+			GlobalData.PlayerActionScript = playerTransform.GetComponent<PlayerActionScript>();
 			GlobalData.PlayerHealthScript = playerTransform.GetComponent<PlayerHealthScript>();
+			GlobalData.PlayerAnimator = playerTransform.GetComponentInChildren<Animator>();
 			GlobalData.PlayerCameraHorizontalPivotTransform = playerCameraTransform = GameObject.Find("Player Camera Horizontal Pivot").transform;
 			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
 
@@ -81,6 +82,7 @@ public class GameManagerScript : MonoBehaviour
 	IEnumerator GameOver()
 	{
 		// "Kill" the character
+		GlobalData.PlayerMovementScript.EnableInput();
 		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = true;
 
@@ -110,6 +112,7 @@ public class GameManagerScript : MonoBehaviour
 		gameUIScript.StartGameFadeIn();
 
 		// "Revive" the character and show the health in the UI again.
+		GlobalData.PlayerMovementScript.EnableInput();
 		GlobalData.PlayerHealthScript.RestoreMaxHealth();
 		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = false;

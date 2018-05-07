@@ -194,7 +194,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (  (playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f )
         {
-            GlobalData.SoundManagerScript.StopWalkRunSound();
+           // GlobalData.SoundManagerScript.StopWalkRunSound();
         }
         else if (movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
         {

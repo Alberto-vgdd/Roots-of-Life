@@ -28,8 +28,7 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	void Start () {
 		chapters.Add (this);
 		RectTransform rT = GetComponent<RectTransform> ();
-        float y = chapterMask.GetComponent<RectTransform>().sizeDelta.y;
-		opensize = y + 200;
+		opensize = chapterMask.GetComponent<RectTransform> ().sizeDelta.y + 100;
 	}
 	
 	// Update is called once per frame
@@ -39,6 +38,7 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	}
 
 	private void animate() {
+		t += Time.deltaTime;
 
 		// Calculate p for t as percentage of openTime, if t exceeds opentime then p will be 1.0 and the state will be switched
 		float p = getPercentage();
@@ -46,7 +46,7 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
 		// Adjust size of textfield according to p
 		float d = Mathf.Lerp(200, opensize, p) - rT.sizeDelta.y;
-		rT.sizeDelta = new Vector2(rT.sizeDelta.x, Mathf.Lerp(200, opensize, p));
+		rT.sizeDelta = new Vector2(rT.sizeDelta.x,rT.sizeDelta.y + d);
 
 		// Adjust y of textfield according to p
 		Vector2 position = rT.anchoredPosition;
@@ -62,24 +62,19 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 			nextChapter.move (d);
 	}
 
-	private float getPercentage()
-    {
-        if (state == State.opening)
-            t += Time.deltaTime;
-        else if (state == State.closing)
-            t -= Time.deltaTime;
-
-        if (t >= openTime)
-        {
-            t = openTime;
-            state = State.open;
-        }
-        else if (t <= 0.0f)
-        {
-            t = 0.0f;
-            state = State.closed;
-        }
-        return t / openTime;
+	private float getPercentage() {
+		if (t >= openTime) {
+			t = 0.0f;
+			switchState ();
+			if (state == State.open)
+				return 1.0f;
+			else
+				return 0.0f;
+		}
+		if (state == State.opening)
+			return t / openTime;
+		else
+			return (t / openTime - 1) * -1;
 	}
 
 	private void move (float difference) {
@@ -89,6 +84,13 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 		rT.anchoredPosition = position;
 		if (nextChapter != null)
 			nextChapter.move (difference);
+	}
+
+	private void switchState() {
+		if (state == State.opening)
+			state = State.open;
+		else if (state == State.closing)
+			state = State.closed;
 	}
 
 	public void onClick() {

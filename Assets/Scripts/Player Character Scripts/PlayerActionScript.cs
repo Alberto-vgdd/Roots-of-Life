@@ -9,7 +9,7 @@ public class PlayerActionScript : MonoBehaviour
 	private PlayerMovementScript playerMovementScript;
 
 	// Physics variables (Raycasts, Capsulecasts, etc.)
-    int environmentLayerMask;
+    int interactableLayerMask;
     int enemiesLayerMask;
 
  	// Variables to handle Attack1 mechanic
@@ -27,6 +27,7 @@ public class PlayerActionScript : MonoBehaviour
 	[Header("Attack 2 Parameters")]
 	public bool isAttacking2;
 
+
 	
 	
 
@@ -35,13 +36,14 @@ public class PlayerActionScript : MonoBehaviour
 
 	void Awake() 
 	{
+
 	}
 
 	void Start() 
 	{
 		playerAnimator = GlobalData.PlayerAnimator;
 		playerMovementScript = GlobalData.PlayerMovementScript;
-		environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
+		interactableLayerMask = 1 << (int) Mathf.Log(GlobalData.InteractableLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
 	}
 
@@ -70,12 +72,14 @@ public class PlayerActionScript : MonoBehaviour
 			playerMovementScript.DisableInput();
 			isAttacking2 = true;
 			playerAnimator.SetBool("Attack 2", true);
+
 		}
 		if (isAttacking2 && Input.GetKeyUp(KeyCode.Q))
 		{
 			playerMovementScript.EnableInput();
 			isAttacking2 = false;
 			playerAnimator.SetBool("Attack 2", false);
+
 		}
 	}
 
@@ -84,7 +88,7 @@ public class PlayerActionScript : MonoBehaviour
 		if (isAttacking1)
         {
 
-            Collider[] colliders = Physics.OverlapSphere(transform.position,attack1Radius,environmentLayerMask | enemiesLayerMask);
+            Collider[] colliders = Physics.OverlapSphere(transform.position,attack1Radius,interactableLayerMask | enemiesLayerMask);
 
             foreach (Collider collider in colliders)
             {
@@ -95,5 +99,19 @@ public class PlayerActionScript : MonoBehaviour
                 }
             }
         }
+
+		if (isAttacking2)
+		{
+			Collider[] colliders = Physics.OverlapBox(transform.position+transform.forward*1.5f+transform.up*0.5f,Vector3.one*2f,Quaternion.LookRotation(transform.forward,transform.up),interactableLayerMask | enemiesLayerMask);
+			
+			foreach (Collider collider in colliders)
+            {
+                IInteractable interactable = collider.gameObject.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.OnPull();
+                }
+            }
+		}
 	}
 }

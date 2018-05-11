@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AcornItemScript : MonoBehaviour
+public class AcornItemScript : MonoBehaviour, IInteractable
 {
 	private string playerTag;
 	private string collect = "collect";
 
 	public GameObject acornMesh;
 	public Animator acornAnimator;
+	private Vector3 acornOriginalPosition;
 
+	private Coroutine collectCoroutine;
+	private float collectTime = 1f;
 	private bool acornCollected;
 
 	void Awake()
 	{
 		acornMesh.SetActive(false);
+		acornOriginalPosition = transform.position;
 	}
 
 	void OnEnable()
@@ -29,6 +33,7 @@ public class AcornItemScript : MonoBehaviour
 	
 	void EnableAcorn()
 	{
+		transform.position = acornOriginalPosition;
 		acornCollected = false;
 		acornMesh.SetActive(true);
 		acornAnimator.enabled = true;
@@ -58,6 +63,35 @@ public class AcornItemScript : MonoBehaviour
 		acornAnimator.enabled = false;
 		acornMesh.SetActive(false);
 		gameObject.SetActive(false);
+	}
+
+	public void OnPull()
+	{
+		if (collectCoroutine == null)
+		{
+			StartCoroutine(MoveToPlayer());
+		}
+	}
+
+	IEnumerator MoveToPlayer()
+	{
+		Transform player = GlobalData.PlayerTransform;
+		float timer = 0;
+
+		while ( timer <= collectTime )
+		{
+			timer += Time.deltaTime;
+			transform.position = Vector3.Lerp(transform.position,player.position,timer);
+			yield return new WaitForEndOfFrame();
+		}
+
+		yield return null;
+	}
+
+
+	public void OnPush()
+	{
+
 	}
 
 

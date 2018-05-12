@@ -22,6 +22,7 @@ public class GlobalData
     // Layer Masks
     public static LayerMask EnvironmentLayerMask = LayerMask.GetMask("Environment");
     public static LayerMask EnemiesLayerMask = LayerMask.GetMask("Enemies");
+    public static LayerMask InteractableLayerMask = LayerMask.GetMask("Interactables");
 
     // Tags
     public const string PlayerTag = "Player";

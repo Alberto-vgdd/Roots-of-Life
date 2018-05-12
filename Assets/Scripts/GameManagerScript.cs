@@ -82,8 +82,7 @@ public class GameManagerScript : MonoBehaviour
 	IEnumerator GameOver()
 	{
 		// "Kill" the character
-		GlobalData.PlayerMovementScript.EnableInput();
-		GlobalData.GameUIScript.UpdateHealthIcons();
+		GlobalData.PlayerMovementScript.DisableInput();
 		GlobalData.PlayerDeath = true;
 
 		// Fade out the game.
@@ -111,10 +110,15 @@ public class GameManagerScript : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		gameUIScript.StartGameFadeIn();
 
+		// If the character loses all the acorns, recharge them.
+		if (GlobalData.AcornCount == 0)
+		{
+			GlobalData.AcornCount = GlobalData.MinimumAcornCount;
+			gameUIScript.UpdateAcornCounter();
+		}
+
 		// "Revive" the character and show the health in the UI again.
 		GlobalData.PlayerMovementScript.EnableInput();
-		GlobalData.PlayerHealthScript.RestoreMaxHealth();
-		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = false;
 	
 	}

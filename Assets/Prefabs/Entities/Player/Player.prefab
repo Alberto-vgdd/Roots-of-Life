@@ -1926,7 +1926,6 @@ MonoBehaviour:
   attack1Duration: 0.5
   isAttacking1: 0
   isAttacking2: 0
-  animation1: {fileID: 0}
 --- !u!114 &114489891668303148
 MonoBehaviour:
   m_ObjectHideFlags: 1

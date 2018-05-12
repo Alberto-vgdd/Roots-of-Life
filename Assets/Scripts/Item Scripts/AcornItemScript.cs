@@ -11,9 +11,13 @@ public class AcornItemScript : MonoBehaviour, IInteractable
 	public Animator acornAnimator;
 	private Vector3 acornOriginalPosition;
 
-	private Coroutine collectCoroutine;
-	private float collectTime = 1f;
+	private IEnumerator movingCoroutine;
+	private float collectTime = 0.5f;
 	private bool acornCollected;
+
+	private float pushTime = 0.5f;
+	private float pushSpeed = 10f;
+
 
 	void Awake()
 	{
@@ -67,34 +71,58 @@ public class AcornItemScript : MonoBehaviour, IInteractable
 
 	public void OnPull()
 	{
-		if (collectCoroutine == null)
+		if (movingCoroutine == null)
 		{
-			StartCoroutine(MoveToPlayer());
+			movingCoroutine = MoveToPlayer();
+			StartCoroutine(movingCoroutine);
 		}
 	}
 
 	IEnumerator MoveToPlayer()
 	{
-		Transform player = GlobalData.PlayerTransform;
+		Vector3 originalPosition = transform.position;
+		Vector3 playerOriginalPosition =  GlobalData.PlayerTransform.position;
+
 		float timer = 0;
 
 		while ( timer <= collectTime )
 		{
 			timer += Time.deltaTime;
-			transform.position = Vector3.Lerp(transform.position,player.position,timer);
+			transform.position = Vector3.Lerp(originalPosition,playerOriginalPosition,timer/collectTime);
 			yield return new WaitForEndOfFrame();
 		}
 
-		yield return null;
+		StopCoroutine(movingCoroutine);
+		movingCoroutine = null;
 	}
 
 
 	public void OnPush()
 	{
-
+		if (movingCoroutine == null)
+		{
+			movingCoroutine = MoveAway();
+			StartCoroutine(movingCoroutine);
+		}
 	}
 
+	IEnumerator MoveAway()
+	{
+		Vector3 direction =  (transform.position - GlobalData.PlayerTransform.position).normalized;
 
+		float timer = 0;
+
+		while ( timer <= pushTime )
+		{
+			timer += Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position,transform.position+direction,pushSpeed*Time.deltaTime);
+			yield return new WaitForEndOfFrame();
+		}
+
+		StopCoroutine(movingCoroutine);
+		movingCoroutine = null;
+
+	}
 
 
 }

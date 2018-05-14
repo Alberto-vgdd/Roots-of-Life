@@ -95,7 +95,7 @@ public class SoundManagerScript : MonoBehaviour
 
 	public void PlayAttack2Sound()
 	{
-		if (!playerAudioSource.clip.Equals(playerAttack2AudioClip) || !playerAudioSource.isPlaying)
+		if ( !playerAudioSource.clip.Equals(playerAttack2AudioClip) || !playerAudioSource.isPlaying)
 		{
 			playerAudioSource.loop = true;
 			playerAudioSource.clip = playerAttack2AudioClip;

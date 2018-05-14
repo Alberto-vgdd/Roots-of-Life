@@ -55,7 +55,7 @@ public class PlayerActionScript : MonoBehaviour
 	void Update() 
 	{
 		// Attack 1
-		if (Input.GetKeyDown(KeyCode.E) && !isAttacking2)
+		if (GlobalData.GetAttack1ButtonDown() && !isAttacking2)
 		{
 			isAttacking1 = true;
 			playerAnimator.SetTrigger("Attack 1");
@@ -73,18 +73,18 @@ public class PlayerActionScript : MonoBehaviour
 		}
 
 		// Attack 2
-		if (Input.GetKeyDown(KeyCode.Q) && !isAttacking1)
+		if (GlobalData.GetAttack2Button() && !isAttacking1)
 		{
-			playerMovementScript.DisableInput();
 			isAttacking2 = true;
+			playerMovementScript.DisableInput();
 			playerAnimator.SetBool("Attack 2", true);
 			soundManagerScript.PlayAttack2Sound();
 
 		}
-		if (isAttacking2 && Input.GetKeyUp(KeyCode.Q))
+		if (isAttacking2 && !GlobalData.GetAttack2Button() )
 		{
-			playerMovementScript.EnableInput();
 			isAttacking2 = false;
+			playerMovementScript.EnableInput();
 			playerAnimator.SetBool("Attack 2", false);
 			soundManagerScript.StopAttack2Sound();
 

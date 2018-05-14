@@ -8,6 +8,9 @@ public class PlayerActionScript : MonoBehaviour
     private Animator playerAnimator;
 	private PlayerMovementScript playerMovementScript;
 
+	// Sound Manager 
+	private SoundManagerScript soundManagerScript;
+
 	// Physics variables (Raycasts, Capsulecasts, etc.)
     int interactableLayerMask;
     int enemiesLayerMask;
@@ -45,6 +48,8 @@ public class PlayerActionScript : MonoBehaviour
 		playerMovementScript = GlobalData.PlayerMovementScript;
 		interactableLayerMask = 1 << (int) Mathf.Log(GlobalData.InteractableLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
+
+		soundManagerScript = GlobalData.SoundManagerScript;
 	}
 
 	void Update() 
@@ -54,6 +59,7 @@ public class PlayerActionScript : MonoBehaviour
 		{
 			isAttacking1 = true;
 			playerAnimator.SetTrigger("Attack 1");
+			soundManagerScript.PlayAttack1Sound();
 			attack1Timer = 0f;
 		}
 
@@ -72,6 +78,7 @@ public class PlayerActionScript : MonoBehaviour
 			playerMovementScript.DisableInput();
 			isAttacking2 = true;
 			playerAnimator.SetBool("Attack 2", true);
+			soundManagerScript.PlayAttack2Sound();
 
 		}
 		if (isAttacking2 && Input.GetKeyUp(KeyCode.Q))
@@ -79,6 +86,7 @@ public class PlayerActionScript : MonoBehaviour
 			playerMovementScript.EnableInput();
 			isAttacking2 = false;
 			playerAnimator.SetBool("Attack 2", false);
+			soundManagerScript.StopAttack2Sound();
 
 		}
 	}

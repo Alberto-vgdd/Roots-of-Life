@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TouchInput : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler {
 
     public MenuBehaviour menuBehaviour;
+    public SnapscrollBehaviour snapscrollBehaviour;
 
     public enum Touch {
         none,
@@ -79,7 +80,7 @@ public class TouchInput : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-        if (touchTime < 0.5) {
+        if (touchTime < 0.25) {
             switch (touch) {
                 case Touch.up:
                     swipeUp();
@@ -105,23 +106,29 @@ public class TouchInput : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
 
     public void swipeUp()
     {
+        if (snapscrollBehaviour != null)
+            snapscrollBehaviour.down();
         Debug.Log("Swipe Up");
     }
 
     public void swipeDown()
     {
+        if (snapscrollBehaviour != null)
+            snapscrollBehaviour.up();
         Debug.Log("Swipe Down");
     }
 
     public void swipeLeft()
     {
-        menuBehaviour.swipeLeft();
+        if (menuBehaviour != null)
+            menuBehaviour.swipeLeft();
         Debug.Log("Swipe Left");
     }
 
     public void swipeRight()
     {
-        menuBehaviour.swipeRight();
+        if (menuBehaviour != null)
+            menuBehaviour.swipeRight();
         Debug.Log("Swipe Right");
     }
 

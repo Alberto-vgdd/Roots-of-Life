@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class MenuBehaviour : ScrollRectEx {
     public GameObject menuBar;
     public Screen activeScreen;
-    public float scrollSpeed = 0.005f;
+    public float scrollSpeed = 4f;
     private bool dragging = false;
 	private bool moving = false;
+    private int swipeCooldown = 0;
 
 	void Start() {
 		setActiveScreen (1);
@@ -46,15 +47,22 @@ public class MenuBehaviour : ScrollRectEx {
 
     public void swipeRight()
     {
+        if (swipeCooldown > 0)
+            return;
         setActiveScreen(prevScreen(activeScreen));
     }
 
     public void swipeLeft()
     {
+        if (swipeCooldown > 0)
+            return;
         setActiveScreen(nextScreen(activeScreen));
     }
 
-    void Update() {
+    void Update()
+    {
+        if (swipeCooldown > 0)
+            swipeCooldown--;
         float v = horizontalScrollbar.value;
 
         if (v < 0.25)
@@ -67,7 +75,7 @@ public class MenuBehaviour : ScrollRectEx {
         if (dragging)
             return;
 
-        if (v > 0 && v < 0.25 && activeScreen != Screen.Story && !moving)
+        if (v < 0.25 && activeScreen != Screen.Story && !moving)
         {
             setActiveScreen(0);
         }
@@ -75,44 +83,41 @@ public class MenuBehaviour : ScrollRectEx {
         {
             setActiveScreen(1);
         }
-        else if (v > 0.75 && v < 1 && activeScreen != Screen.Objectives && !moving)
+        else if (v > 0.75 && activeScreen != Screen.Objectives && !moving)
         {
             setActiveScreen(2);
         }
-        
-        if (activeScreen == Screen.Story)
+
+        if (v != defaultPosition(activeScreen))
+            moving = true;
+
+        if (moving)
+            animate();
+    }
+
+    private void animate()
+    {
+        float v = horizontalScrollbar.value;
+
+        float d = defaultPosition(activeScreen);
+        if (v > d)
         {
-            if (v > 0)
-				v -= scrollSpeed;
-			else {
-				v = 0;
-				moving = false;
-			}
-		} else if (activeScreen == Screen.Statistics)
+            float next = v - (Time.deltaTime * scrollSpeed);
+            if (next < d)
+                v = d;
+            else v = next;
+        }
+        else if (v < d)
         {
-            if (v < 0.48)
-            {
-                v += scrollSpeed;
-            }
-            else if (v > 0.52)
-            {
-                v -= scrollSpeed;
-            }
+            float next = v + (Time.deltaTime * scrollSpeed);
+            if (next > d)
+                v = d;
             else
-            {
-                v = 0.5f;
-                moving = false;
-            }
-		} else if (activeScreen == Screen.Objectives)
-        {
-            if (v < 1)
-				v += scrollSpeed;
-			else {
-				v = 1;
-				moving = false;
-			}
-		}
-		horizontalScrollbar.value = v;
+                v = next;
+        }
+        if (v == d)
+            moving = false;
+        horizontalScrollbar.value = v;
     }
 
 	public void setActiveScreen(int s) {
@@ -124,6 +129,7 @@ public class MenuBehaviour : ScrollRectEx {
 		else if (s == 2) 
 			activeScreen = Screen.Objectives;
 		setActiveMenubutton (s);
+        swipeCooldown = 30;
 	}
 
 	public void setActiveMenubutton(int s) {

@@ -7,32 +7,41 @@ using UnityEngine.EventSystems;
 public class SnapscrollBehaviour : Scrollbar {
 	private float oldValue = 1.0f;
 	private bool dragging = false;
-	private float scrollSpeed = 0.05f;
+	private float scrollSpeed = 1.65f;
 	public bool state = true; // true = up, false = down
 
 	// Update is called once per frame
 	void Update () {
-		if (dragging) 
-			return;
+		if (dragging)
+        { if (state && value < 0.6)
+                state = false;
+            else if (!state && value > 0.6)
+                state = true;
+            return;
+        }
 		
-		if (state) {
-			if (value > 0.8f)
-				value += scrollSpeed;
-			else
-				value -= scrollSpeed;
-			if (value <= 0)
-				state = false;
-		} else {
-			if (value > 0.2f) 
-				value += scrollSpeed;
-			else
-				value -= scrollSpeed;
-			if (value >= 1)
-				state = true;
-		}
+		if (state)
+        {
+            value += Time.deltaTime * scrollSpeed;
+		} else
+        {
+            value -= Time.deltaTime * scrollSpeed;
+        }
 	}
 
-	public void startDrag() {
+    public void up()
+    {
+        Debug.Log("go up");
+        state = true;
+    }
+
+    public void down()
+    {
+        Debug.Log("go down");
+        state = false;
+    }
+
+    public void startDrag() {
 		dragging = true;
 	}
 

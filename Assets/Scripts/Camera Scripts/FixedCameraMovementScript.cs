@@ -57,7 +57,7 @@ public class FixedCameraMovementScript : MonoBehaviour
 		playerTarget = GlobalData.PlayerTargetTransform;
 
 		// Set the camera's transforms. 
-		cameraTransform = GlobalData.PlayerCamera.transform;
+		cameraTransform = GlobalData.PlayerCamera.transform.parent;
 		cameraVerticalPivot = cameraTransform.parent;
 		cameraHorizontalPivot = cameraVerticalPivot.parent;
 

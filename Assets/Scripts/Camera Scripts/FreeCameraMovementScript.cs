@@ -5,9 +5,6 @@ using UnityEngine;
 public class FreeCameraMovementScript : MonoBehaviour 
 {
 
-	//[Header("Player and Camera Transforms")]
-	private Transform playerTarget;
-	private Transform cameraTransform;
 
 	[Header("Camera Parameters")]
 	public float targetDistance = 4f;
@@ -50,9 +47,12 @@ public class FreeCameraMovementScript : MonoBehaviour
 	public float cameraClippingOffset = 0.05f;
 
 
-	// Transforms to manage the camera rotations.
+	// Transforms to manage the camera movement.
 	private Transform cameraHorizontalPivot;
 	private Transform cameraVerticalPivot;
+	private Transform cameraTransform;
+	private Transform playerTarget;
+
 
 	// Camera Inputs.
 	private float changeTargetInput;
@@ -114,7 +114,7 @@ public class FreeCameraMovementScript : MonoBehaviour
 		m_Camera = GlobalData.PlayerCamera;
 
 		// Set camera's transfoms
-		cameraTransform = m_Camera.transform;		
+		cameraTransform = m_Camera.transform.parent;		
 		cameraVerticalPivot = cameraTransform.parent;	
 		cameraHorizontalPivot = cameraVerticalPivot.parent;	
 
@@ -350,5 +350,8 @@ public class FreeCameraMovementScript : MonoBehaviour
 		}
 
 	}
+
+
+	
 
 }

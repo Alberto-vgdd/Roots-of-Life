@@ -57,6 +57,8 @@ public class GameManagerScript : MonoBehaviour
 		cameraShakeScript = GlobalData.CameraShakeScript;
 		gameUIScript = GlobalData.GameUIScript;
 
+		gameUIScript.UpdateAcornCounter();
+
 	}
 
 	void Update()

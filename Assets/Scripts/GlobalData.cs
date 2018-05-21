@@ -46,6 +46,7 @@ public class GlobalData
     // Camera Scripts
     public static FreeCameraMovementScript FreeCameraMovementScript;
     public static FixedCameraMovementScript FixedCameraMovementScript;
+    public static CameraShakeScript CameraShakeScript;
     public static CameraEnemyTrackerScript CameraEnemyTrackerScript;
 
     // Input Manager Script

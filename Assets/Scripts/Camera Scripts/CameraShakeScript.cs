@@ -9,21 +9,17 @@ public class CameraShakeScript : MonoBehaviour
 	private IEnumerator shakeCoroutine;
 	
 
+	void Awake()
+	{
+		GlobalData.CameraShakeScript = this;
+	}
+
 	void Start () 
 	{
 		cameraShakePivot = GlobalData.PlayerCamera.transform;
 		shakeCoroutine = null;
 	}
 	
-	// Update is called once per frame
-	void Update () 
-	{
-		if (Input.GetKeyDown("p"))
-		{
-			ShakeCamera (0.1f,0.25f);
-		}
-
-	}
 
 
 	// Remove number of bounces. Each bounce should last the same ~0.1f

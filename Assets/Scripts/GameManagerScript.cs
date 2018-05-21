@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour
 	private Transform playerCameraTransform;
 	private FreeCameraMovementScript freeCameraMovementScript;
 	private FixedCameraMovementScript fixedCameraMovementScript;
+	private CameraShakeScript cameraShakeScript;
 
 	// Checkpoint stuff, used to restore the state after a death
 	private Transform checkPoint;
@@ -53,6 +54,7 @@ public class GameManagerScript : MonoBehaviour
 	{
 		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
 		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
+		cameraShakeScript = GlobalData.CameraShakeScript;
 		gameUIScript = GlobalData.GameUIScript;
 
 	}
@@ -123,6 +125,9 @@ public class GameManagerScript : MonoBehaviour
 	
 	}
      
-    
+    public void ShakeCamera(float shakeDistance, float shakeDuration)
+	{
+		cameraShakeScript.ShakeCamera(shakeDistance,shakeDuration);
+	}
     
 }

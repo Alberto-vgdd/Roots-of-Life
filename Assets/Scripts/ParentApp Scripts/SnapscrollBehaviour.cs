@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SnapscrollBehaviour : Scrollbar {
-	private float oldValue = 1.0f;
 	private bool dragging = false;
 	private float scrollSpeed = 1.65f;
 	public bool state = true; // true = up, false = down

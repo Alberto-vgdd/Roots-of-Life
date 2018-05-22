@@ -55,7 +55,6 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
 		// Adjust mask of textfield according to p
 		chapterMask.fillAmount = p;
-		Debug.Log (p);
 
 		// Move lower chapters based on size increment
 		if (nextChapter != null)

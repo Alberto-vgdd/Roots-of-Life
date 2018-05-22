@@ -25,4 +25,5 @@ public class ProfileImage : MonoBehaviour {
             f = f * -1;
         rT.sizeDelta = new Vector2(s - (150 * f), s - (150 * f));
 	}
+
 }

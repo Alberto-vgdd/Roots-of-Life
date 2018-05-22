@@ -5,18 +5,45 @@ using UnityEngine.UI;
 
 public class ProfileSelector : MonoBehaviour {
     public Image background;
+	public GameObject playerinfo;
+	public GameObject content;
+	public GameObject profileTemplate;
+	public static GameObject staticContent;
+	public static GameObject staticProfileTemplate;
     private float bY;
     private float bX;
-    private int accounts = 3;
     private int s;
     private bool dragging;
     private bool moving;
+	private List<Profile> profiles;
+	private Profile selected;
+
+	public class Profile : MonoBehaviour {
+		public string name;
+		public bool active;
+		public Image image;
+		public Profile(string name) {
+			this.name = name;
+			image = Instantiate(staticProfileTemplate).GetComponent<Image>();
+			image.transform.SetParent(staticContent.transform);
+			image.name = name;
+			image.rectTransform.anchoredPosition = new Vector2(0, 0);
+			image.rectTransform.sizeDelta = new Vector2(256, 256);
+		}
+	}
 
     // Use this for initialization
     void Start()
     {
+		staticContent = content;
+		staticProfileTemplate = profileTemplate;
         bY = background.rectTransform.anchoredPosition.y;
         bX = background.rectTransform.anchoredPosition.x;
+
+		profiles = new List<Profile> ();
+		profiles.Add (new Profile ("Player 1"));
+		profiles.Add (new Profile ("Player 2"));
+		profiles.Add (new Profile ("Player 3"));
     }
 
     // Update is called once per frame
@@ -30,7 +57,7 @@ public class ProfileSelector : MonoBehaviour {
             return;
         }
 
-        float profileWidth = (float)1 / accounts;
+		float profileWidth = (float)1 / profiles.Count;
         float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
         float n = 0;
         int selection = 0;
@@ -48,13 +75,15 @@ public class ProfileSelector : MonoBehaviour {
     public void setProfile(int profile)
     {
         s = profile;
+		selected = profiles [profile];
+		playerinfo.transform.GetChild (0).GetComponent<Text> ().text = selected.name;
     }
 
     private float getTarget(int account)
     {
-        if (account > accounts)
+		if (account > profiles.Count)
             return -1;
-        return account * (1f / (accounts - 1));
+		return account * (1f / (profiles.Count - 1));
     }
 
     private void animate()

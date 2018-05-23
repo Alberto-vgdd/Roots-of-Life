@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ProfileSelector : MonoBehaviour {
+    static ProfileSelector main;
     public Image background;
 	public GameObject playerinfo;
 	public GameObject content;
@@ -18,32 +19,46 @@ public class ProfileSelector : MonoBehaviour {
 	private List<Profile> profiles;
 	private Profile selected;
 
-	public class Profile : MonoBehaviour {
+	public class Profile : Object {
 		public string name;
 		public bool active;
 		public Image image;
 		public Profile(string name) {
 			this.name = name;
-			image = Instantiate(staticProfileTemplate).GetComponent<Image>();
-			image.transform.SetParent(staticContent.transform);
+            image = Instantiate(staticProfileTemplate).GetComponent<Image>();
+			image.transform.SetParent(staticContent.transform, false);
 			image.name = name;
 			image.rectTransform.anchoredPosition = new Vector2(0, 0);
-			image.rectTransform.sizeDelta = new Vector2(256, 256);
+            ProfileImage pI = image.gameObject.AddComponent<ProfileImage>() as ProfileImage;
+            pI.content = staticContent;
+            pI.scrollbar = main.GetComponentInChildren<Scrollbar>();
 		}
 	}
 
     // Use this for initialization
     void Start()
     {
-		staticContent = content;
-		staticProfileTemplate = profileTemplate;
+        main = this;
         bY = background.rectTransform.anchoredPosition.y;
         bX = background.rectTransform.anchoredPosition.x;
 
+        staticContent = content;
+		staticProfileTemplate = profileTemplate;
+
 		profiles = new List<Profile> ();
 		profiles.Add (new Profile ("Player 1"));
-		profiles.Add (new Profile ("Player 2"));
-		profiles.Add (new Profile ("Player 3"));
+        profiles.Add (new Profile ("Player 2"));
+        profiles.Add(new Profile("Player 3"));
+        profiles.Add(new Profile("Player 4"));
+        profiles.Add(new Profile("Player 5"));
+        float contentwidth = 1080 + (660 * (profiles.Count - 1));
+        content.GetComponent<RectTransform>().sizeDelta = new Vector2(contentwidth, 660);
+        for (int i = 0; i < profiles.Count; i++)
+        {
+            Profile p = profiles[i];
+            p.image.rectTransform.anchoredPosition = new Vector2(660 * i - ((contentwidth - 1080) * 0.5f), 0);
+            p.image.GetComponent<ProfileImage>().initialise();
+        }
     }
 
     // Update is called once per frame
@@ -57,7 +72,7 @@ public class ProfileSelector : MonoBehaviour {
             return;
         }
 
-		float profileWidth = (float)1 / profiles.Count;
+		float profileWidth = (float) 1 / profiles.Count;
         float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
         float n = 0;
         int selection = 0;
@@ -115,7 +130,7 @@ public class ProfileSelector : MonoBehaviour {
     {
         float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
         float w = GetComponent<ScrollRectEx>().content.sizeDelta.x;
-        background.rectTransform.anchoredPosition = new Vector2(bX + (w * (v - 0.5f)), bY);
+        background.rectTransform.anchoredPosition = new Vector2(bX + ((-330 + (330 * profiles.Count)) * ((v - 0.5f) * 2)), bY);
     }
 
     public void startDrag()

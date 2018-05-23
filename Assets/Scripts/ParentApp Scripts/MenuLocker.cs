@@ -15,7 +15,6 @@ public class MenuLocker : MonoBehaviour {
 	{
 		dX = GetComponent<RectTransform> ().anchoredPosition.x;
 		dY = GetComponent<RectTransform> ().anchoredPosition.y;
-		Debug.Log (content.GetComponent<RectTransform> ().sizeDelta.y);
 		contentsize = (content.GetComponent<RectTransform> ().sizeDelta.y) * -0.5f;
 	}
 	
@@ -29,7 +28,6 @@ public class MenuLocker : MonoBehaviour {
 	{
 		float v = scrollbar.value;
 		float y = contentsize * (v - 1);
-		Debug.Log (y + ", " + v);
 		GetComponent<RectTransform> ().anchoredPosition = new Vector2 (dX, dY - y);
 	}
 }

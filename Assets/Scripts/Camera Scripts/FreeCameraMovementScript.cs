@@ -162,6 +162,8 @@ public class FreeCameraMovementScript : MonoBehaviour
 		RotateAroundPlayer();
 		FollowPlayer();
 		AvoidClipping();
+	
+		
 	}
 
 

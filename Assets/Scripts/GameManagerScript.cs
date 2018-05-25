@@ -63,9 +63,10 @@ public class GameManagerScript : MonoBehaviour
 
 	void Update()
 	{
+		// Pause
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			Application.Quit();
+			Time.timeScale = 1 - Time.timeScale;
 		}
 
 	}

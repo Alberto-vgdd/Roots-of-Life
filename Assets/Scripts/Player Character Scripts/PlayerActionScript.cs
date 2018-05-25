@@ -30,6 +30,8 @@ public class PlayerActionScript : MonoBehaviour
 	[Header("Attack 2 Parameters")]
 	public bool isAttacking2;
 
+	private bool inputEnabled;
+
 
 	
 	
@@ -54,6 +56,11 @@ public class PlayerActionScript : MonoBehaviour
 
 	void Update() 
 	{
+		if (!inputEnabled)
+		{
+			return;
+		}
+		
 		// Attack 1
 		if (GlobalData.GetAttack1ButtonDown() && !isAttacking2)
 		{
@@ -122,4 +129,14 @@ public class PlayerActionScript : MonoBehaviour
             }
 		}
 	}
+
+	public void DisableInput()
+    {
+        inputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        inputEnabled = true;
+    }
 }

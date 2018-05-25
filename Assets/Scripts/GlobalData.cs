@@ -12,6 +12,7 @@ public class GlobalData
     public static int AcornCount = 10;
     public static int InfectionCount = 0;
 
+
     //  GameManager variables
     public static GameManagerScript GameManager;
 

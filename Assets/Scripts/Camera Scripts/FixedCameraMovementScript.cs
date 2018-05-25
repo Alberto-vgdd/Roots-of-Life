@@ -41,6 +41,8 @@ public class FixedCameraMovementScript : MonoBehaviour
 	private Ray targetToCameraRay;
 	private RaycastHit avoidClippingRaycastHit;
 
+	private bool inputEnabled;
+
 
 
 
@@ -89,6 +91,10 @@ public class FixedCameraMovementScript : MonoBehaviour
 	
 	void LateUpdate () 
 	{
+		if (!inputEnabled)
+		{
+			return;
+		}
 		CenterCamera();
 		FollowPlayer();
 		AvoidClipping();
@@ -157,4 +163,14 @@ public class FixedCameraMovementScript : MonoBehaviour
 		}
 
 	}
+
+	public void DisableInput()
+    {
+        inputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        inputEnabled = true;
+    }
 }

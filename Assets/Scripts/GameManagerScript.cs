@@ -58,6 +58,7 @@ public class GameManagerScript : MonoBehaviour
 		gameUIScript = GlobalData.GameUIScript;
 
 		gameUIScript.UpdateAcornCounter();
+		EnableInput();
 
 	}
 
@@ -67,6 +68,17 @@ public class GameManagerScript : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			Time.timeScale = 1 - Time.timeScale;
+
+			if (Time.timeScale == 0)
+			{
+				DisableInput();
+			}
+			else
+			{
+				EnableInput();
+			}
+
+			
 		}
 
 	}
@@ -131,6 +143,22 @@ public class GameManagerScript : MonoBehaviour
     public void ShakeCamera(float shakeDistance, float shakeDuration)
 	{
 		cameraShakeScript.ShakeCamera(shakeDistance,shakeDuration);
+	}
+
+	public void EnableInput()
+	{
+		GlobalData.PlayerMovementScript.EnableInput();
+		GlobalData.PlayerActionScript.EnableInput();
+		GlobalData.FreeCameraMovementScript.EnableInput();
+		GlobalData.FixedCameraMovementScript.EnableInput();
+	}
+
+	public void DisableInput()
+	{
+		GlobalData.PlayerMovementScript.DisableInput();
+		GlobalData.PlayerActionScript.DisableInput();
+		GlobalData.FreeCameraMovementScript.DisableInput();
+		GlobalData.FixedCameraMovementScript.DisableInput();
 	}
     
 }

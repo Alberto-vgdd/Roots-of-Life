@@ -100,6 +100,8 @@ public class FreeCameraMovementScript : MonoBehaviour
 	private Vector3 previousVerticalPosition;
 	private Vector3 previousCameraPosition;
 
+	private bool inputEnabled;
+
 
 	void Awake () 
 	{
@@ -158,6 +160,10 @@ public class FreeCameraMovementScript : MonoBehaviour
 
 	void LateUpdate () 
 	{
+		if (!inputEnabled)
+		{
+			return;
+		}
 		UpdateInputs();
 		RotateAroundPlayer();
 		FollowPlayer();
@@ -352,6 +358,17 @@ public class FreeCameraMovementScript : MonoBehaviour
 		}
 
 	}
+
+
+	public void DisableInput()
+    {
+        inputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        inputEnabled = true;
+    }
 
 
 	

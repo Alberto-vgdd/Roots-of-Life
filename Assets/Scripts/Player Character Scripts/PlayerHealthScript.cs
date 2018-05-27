@@ -35,7 +35,6 @@ public class PlayerHealthScript : MonoBehaviour
     {
         GlobalData.AcornCount -= damageAmount;
 		GlobalData.AcornCount = Mathf.Max(0,GlobalData.AcornCount);
-
 		GlobalData.GameUIScript.UpdateAcornCounter();
         
 		if(GlobalData.AcornCount <= 0)
@@ -51,6 +50,9 @@ public class PlayerHealthScript : MonoBehaviour
         {
 			recoveryTimer = 0f;
         	TakeDamage(3);
+
+			// Test camera shake 
+			GlobalData.CameraShakeScript.ShakeCamera(0.2f,0.25f);
         }
     }
 	
@@ -60,6 +62,9 @@ public class PlayerHealthScript : MonoBehaviour
         {
 			recoveryTimer = 0f;
         	TakeDamage(3);
+
+			// Test camera shake 
+			GlobalData.CameraShakeScript.ShakeCamera(0.2f,0.25f);
         }
     }
 }

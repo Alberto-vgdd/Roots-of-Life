@@ -12,6 +12,7 @@ public class GlobalData
     public static int AcornCount = 10;
     public static int InfectionCount = 0;
 
+
     //  GameManager variables
     public static GameManagerScript GameManager;
 
@@ -46,6 +47,7 @@ public class GlobalData
     // Camera Scripts
     public static FreeCameraMovementScript FreeCameraMovementScript;
     public static FixedCameraMovementScript FixedCameraMovementScript;
+    public static CameraShakeScript CameraShakeScript;
     public static CameraEnemyTrackerScript CameraEnemyTrackerScript;
 
     // Input Manager Script

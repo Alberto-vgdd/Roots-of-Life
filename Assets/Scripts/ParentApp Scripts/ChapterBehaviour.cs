@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
+    public GameObject content;
 	public State state = State.closed;
 	public Image chapterMask;
 	public ChapterBehaviour nextChapter;
@@ -86,11 +87,12 @@ public class ChapterBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	}
 
 	private void switchState() {
-		if (state == State.opening)
-			state = State.open;
-		else if (state == State.closing)
-			state = State.closed;
-	}
+        if (state == State.opening)
+            state = State.open;
+        else if (state == State.closing)
+            state = State.closed;
+        content.GetComponent<ContentExpander>().updateSize();
+    }
 
 	public void onClick() {
 		if (drag) {

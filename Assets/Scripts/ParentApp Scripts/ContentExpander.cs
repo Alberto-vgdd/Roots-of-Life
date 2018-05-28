@@ -31,12 +31,9 @@ public class ContentExpander : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        updateSize();
 	}
-
-    // OPTIMIZATION TIP:
-    // Add functions to the respective classes when it is certain the content will be expanded, and then ONLY calculate the difference between lowest and highest after those moments
-    private void updateSize()
+    
+    public void updateSize()
     {
         float highest = -10000.0f;
         float lowest = 10000.0f;

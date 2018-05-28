@@ -5,60 +5,66 @@ using UnityEngine.UI;
 
 public class ProfileSelector : MonoBehaviour {
     static ProfileSelector main;
-    public Image background;
+    
 	public GameObject playerinfo;
 	public GameObject content;
 	public GameObject profileTemplate;
-	public static GameObject staticContent;
-	public static GameObject staticProfileTemplate;
-    private float bY;
-    private float bX;
-    private int s;
+
+	public List<Profile> profiles;
+    public float profileWidth;
+    public int selected;
     private bool dragging;
     private bool moving;
-	private List<Profile> profiles;
-	private Profile selected;
+    private bool update;
 
-	public class Profile : Object {
-		public string name;
-		public bool active;
-		public Image image;
-		public Profile(string name) {
-			this.name = name;
-            image = Instantiate(staticProfileTemplate).GetComponent<Image>();
-			image.transform.SetParent(staticContent.transform, false);
-			image.name = name;
-			image.rectTransform.anchoredPosition = new Vector2(0, 0);
-            ProfileImage pI = image.gameObject.AddComponent<ProfileImage>() as ProfileImage;
-            pI.content = staticContent;
-            pI.scrollbar = main.GetComponentInChildren<Scrollbar>();
-		}
-	}
+    string URL = "http://143.176.117.92/roots-of-life/userSelect.php";
+    public string[] usersData;
 
     // Use this for initialization
     void Start()
     {
         main = this;
-        bY = background.rectTransform.anchoredPosition.y;
-        bX = background.rectTransform.anchoredPosition.x;
+        StartCoroutine(loadUsers());
+    }
 
-        staticContent = content;
-		staticProfileTemplate = profileTemplate;
+    IEnumerator loadUsers()
+    {
+        Debug.Log("Loading users...");
+        WWW users = new WWW(URL);
+        yield return users;
+        string usersDataString = users.text.TrimEnd(';');
+        usersData = usersDataString.Split(';');
+        
+        profiles = new List<Profile>();
+        foreach (string data in usersData)
+        {
+            string name = data.Split(',')[0];
+            Image image = Instantiate(profileTemplate).GetComponent<Image>();
+            image.transform.SetParent(content.transform, false);
+            Profile p = new Profile(name, image);
+            if (data.Split(',')[1] == "1")
+                p.active = true;
+            profiles.Add(p);
+        }
+        profileWidth = 1f / profiles.Count;
+        selected = 0;
+        Debug.Log("Loaded users");
+        displayUsers();
+    }
 
-		profiles = new List<Profile> ();
-		profiles.Add (new Profile ("Player 1"));
-        profiles.Add (new Profile ("Player 2"));
-        profiles.Add(new Profile("Player 3"));
-        profiles.Add(new Profile("Player 4"));
-        profiles.Add(new Profile("Player 5"));
+    void displayUsers()
+    {
+        Debug.Log("Displaying users...");
         float contentwidth = 1080 + (660 * (profiles.Count - 1));
         content.GetComponent<RectTransform>().sizeDelta = new Vector2(contentwidth, 660);
         for (int i = 0; i < profiles.Count; i++)
         {
             Profile p = profiles[i];
             p.image.rectTransform.anchoredPosition = new Vector2(660 * i - ((contentwidth - 1080) * 0.5f), 0);
-            p.image.GetComponent<ProfileImage>().initialise();
         }
+        Debug.Log("Displayed users");
+
+        setProfile(profiles.Count / 2);
     }
 
     // Update is called once per frame
@@ -66,45 +72,22 @@ public class ProfileSelector : MonoBehaviour {
         if (dragging)
             return;
 
+        // Check if adjusting of view is necessary and animate the proper action
         if (moving)
         {
             animate();
             return;
         }
 
-		float profileWidth = (float) 1 / profiles.Count;
-        float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
-        float n = 0;
-        int selection = 0;
-        while (!(v >= n && v <= (n + profileWidth)))
-        {
-            n += profileWidth;
-            selection++;
-        }
-        if (selection != s)
-            setProfile(selection);
-        if (v != getTarget(s))
-            moving = true;
-	}
-
-    public void setProfile(int profile)
-    {
-        s = profile;
-		selected = profiles [profile];
-		//playerinfo.transform.GetChild (0).GetComponent<Text> ().text = selected.name;
-    }
-
-    private float getTarget(int account)
-    {
-		if (account > profiles.Count)
-            return -1;
-		return account * (1f / (profiles.Count - 1));
+        if (update)
+            updateAfterDrag();
+        update = false;
     }
 
     private void animate()
     {
         float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
-        float t = getTarget(s);
+        float t = getTarget(selected);
         if (v > t)
         {
             float next = v - (Time.deltaTime * 5);
@@ -126,11 +109,49 @@ public class ProfileSelector : MonoBehaviour {
         GetComponent<ScrollRectEx>().horizontalScrollbar.value = v;
     }
 
-    public void adjustBackground()
+    void updateAfterDrag()
     {
         float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
-        float w = GetComponent<ScrollRectEx>().content.sizeDelta.x;
-        background.rectTransform.anchoredPosition = new Vector2(bX + ((-330 + (330 * profiles.Count)) * ((v - 0.5f) * 2)), bY);
+        float w = 0;
+        int selection = 0;
+
+        // find what profile the scrollbar value has in view
+        while (!(v >= w && v <= (w + profileWidth)))
+        {
+            w += profileWidth;
+            selection++;
+        }
+
+        // update selected profile if view was open on a different profile than the currently selected profile
+        if (selection != selected)
+            setProfile(selection);
+
+        // move view to make sure current profile is shown in the exact center
+        if (v != getTarget(selected))
+            moving = true;
+    }
+
+    public void setProfile(int profile)
+    {
+        selected = profile;
+        updatePlayerInfo();
+    }
+
+    public void updatePlayerInfo()
+    {
+        Profile sel = profiles[selected];
+        playerinfo.transform.GetChild(0).GetComponent<Text>().text = sel.name;
+        if (sel.active)
+            playerinfo.transform.GetChild(1).GetComponent<Text>().text = "Status: Playing";
+        else
+            playerinfo.transform.GetChild(1).GetComponent<Text>().text = "Status: Inactive";
+    }
+
+    private float getTarget(int account)
+    {
+		if (account > profiles.Count)
+            return -1;
+		return account * (1f / (profiles.Count - 1));
     }
 
     public void startDrag()
@@ -141,5 +162,6 @@ public class ProfileSelector : MonoBehaviour {
     public void endDrag()
     {
         dragging = false;
+        update = true;
     }
 }

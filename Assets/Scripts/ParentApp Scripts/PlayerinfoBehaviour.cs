@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Data.SQL
 
 public class PlayerinfoBehaviour : MonoBehaviour {
 	public Scrollbar scrollbar;
@@ -9,6 +10,7 @@ public class PlayerinfoBehaviour : MonoBehaviour {
 
 	void Start() {
 		defaulty = gameObject.GetComponent<RectTransform> ().anchoredPosition.y;
+		gameObject.transform.GetChild (0).GetComponent<Text> ().text = "test";
 	}
 	
 	// Update is called once per frame

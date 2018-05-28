@@ -91,7 +91,7 @@ public class ProfileSelector : MonoBehaviour {
     {
         s = profile;
 		selected = profiles [profile];
-		playerinfo.transform.GetChild (0).GetComponent<Text> ().text = selected.name;
+		//playerinfo.transform.GetChild (0).GetComponent<Text> ().text = selected.name;
     }
 
     private float getTarget(int account)

@@ -9,10 +9,14 @@ public class MenuBehaviour : ScrollRectEx {
     public float scrollSpeed = 4f;
     private bool dragging = false;
 	private bool moving = false;
-    private int swipeCooldown = 0;
+	private int swipeCooldown = 0;
+	private float dX;
+	private float dY;
 
 	void Start() {
 		setActiveScreen (1);
+		dX = GetComponent<RectTransform> ().anchoredPosition.x;
+		dY = GetComponent<RectTransform> ().anchoredPosition.y;
 	}
 
 	float defaultPosition(Screen screen) {
@@ -59,40 +63,36 @@ public class MenuBehaviour : ScrollRectEx {
         setActiveScreen(nextScreen(activeScreen));
     }
 
-    void Update() {
-        if (swipeCooldown > 0)
-            swipeCooldown--;
-        float v = horizontalScrollbar.value;
+    void Update()
+	{
+		if (swipeCooldown > 0)
+			swipeCooldown--;
+		float v = horizontalScrollbar.value;
 
-        if (v < 0.25)
-            setActiveMenubutton(0);
-        else if (v > 0.25 && v < 0.75)
-            setActiveMenubutton(1);
-        else if (v > 0.75)
-            setActiveMenubutton(2);
+		if (v < 0.25)
+			setActiveMenubutton (0);
+		else if (v > 0.25 && v < 0.75)
+			setActiveMenubutton (1);
+		else if (v > 0.75)
+			setActiveMenubutton (2);
 
-        if (dragging)
-            return;
+		if (dragging)
+			return;
 
-        if (v < 0.25 && activeScreen != Screen.Story && !moving)
-        {
-            setActiveScreen(0);
-        }
-        else if (v > 0.25 && v < 0.75 && activeScreen != Screen.Statistics && !moving)
-        {
-            setActiveScreen(1);
-        }
-        else if (v > 0.75 && activeScreen != Screen.Objectives && !moving)
-        {
-            setActiveScreen(2);
-        }
+		if (v < 0.25 && activeScreen != Screen.Story && !moving) {
+			setActiveScreen (0);
+		} else if (v > 0.25 && v < 0.75 && activeScreen != Screen.Statistics && !moving) {
+			setActiveScreen (1);
+		} else if (v > 0.75 && activeScreen != Screen.Objectives && !moving) {
+			setActiveScreen (2);
+		}
 
-        if (v != defaultPosition(activeScreen))
-            moving = true;
+		if (v != defaultPosition (activeScreen))
+			moving = true;
 
-        if (moving)
-            animate();
-    }
+		if (moving)
+			animate ();
+	}
 
     private void animate()
     {
@@ -104,8 +104,7 @@ public class MenuBehaviour : ScrollRectEx {
             float next = v - (Time.deltaTime * scrollSpeed);
             if (next < d)
                 v = d;
-            else
-                v = next;
+            else v = next;
         }
         else if (v < d)
         {
@@ -120,7 +119,7 @@ public class MenuBehaviour : ScrollRectEx {
         horizontalScrollbar.value = v;
     }
 
-    public void setActiveScreen(int s) {
+	public void setActiveScreen(int s) {
 	    moving = true;
 		if (s == 0) 
 			activeScreen = Screen.Story;

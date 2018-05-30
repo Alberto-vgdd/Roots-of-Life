@@ -10,7 +10,6 @@ public class GameManagerScript : MonoBehaviour
 	private Transform playerCameraTransform;
 	private FreeCameraMovementScript freeCameraMovementScript;
 	private FixedCameraMovementScript fixedCameraMovementScript;
-	private CameraShakeScript cameraShakeScript;
 
 	// Checkpoint stuff, used to restore the state after a death
 	private Transform checkPoint;
@@ -54,31 +53,15 @@ public class GameManagerScript : MonoBehaviour
 	{
 		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
 		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
-		cameraShakeScript = GlobalData.CameraShakeScript;
 		gameUIScript = GlobalData.GameUIScript;
-
-		gameUIScript.UpdateAcornCounter();
-		EnableInput();
 
 	}
 
 	void Update()
 	{
-		// Pause
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			Time.timeScale = 1 - Time.timeScale;
-
-			if (Time.timeScale == 0)
-			{
-				DisableInput();
-			}
-			else
-			{
-				EnableInput();
-			}
-
-			
+			Application.Quit();
 		}
 
 	}
@@ -99,7 +82,8 @@ public class GameManagerScript : MonoBehaviour
 	IEnumerator GameOver()
 	{
 		// "Kill" the character
-		GlobalData.PlayerMovementScript.DisableInput();
+		GlobalData.PlayerMovementScript.EnableInput();
+		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = true;
 
 		// Fade out the game.
@@ -127,38 +111,14 @@ public class GameManagerScript : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		gameUIScript.StartGameFadeIn();
 
-		// If the character loses all the acorns, recharge them.
-		if (GlobalData.AcornCount == 0)
-		{
-			GlobalData.AcornCount = GlobalData.MinimumAcornCount;
-			gameUIScript.UpdateAcornCounter();
-		}
-
 		// "Revive" the character and show the health in the UI again.
 		GlobalData.PlayerMovementScript.EnableInput();
+		GlobalData.PlayerHealthScript.RestoreMaxHealth();
+		GlobalData.GameUIScript.UpdateHealthIcons();
 		GlobalData.PlayerDeath = false;
 	
 	}
      
-    public void ShakeCamera(float shakeDistance, float shakeDuration)
-	{
-		cameraShakeScript.ShakeCamera(shakeDistance,shakeDuration);
-	}
-
-	public void EnableInput()
-	{
-		GlobalData.PlayerMovementScript.EnableInput();
-		GlobalData.PlayerActionScript.EnableInput();
-		GlobalData.FreeCameraMovementScript.EnableInput();
-		GlobalData.FixedCameraMovementScript.EnableInput();
-	}
-
-	public void DisableInput()
-	{
-		GlobalData.PlayerMovementScript.DisableInput();
-		GlobalData.PlayerActionScript.DisableInput();
-		GlobalData.FreeCameraMovementScript.DisableInput();
-		GlobalData.FixedCameraMovementScript.DisableInput();
-	}
+    
     
 }

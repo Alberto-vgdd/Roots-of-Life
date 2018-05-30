@@ -13,8 +13,6 @@ public class InputManagerScript : MonoBehaviour
 	public string m_ChangeTargetKeyboard;
 	public string jumpKeyboard;
 	public string runKeyboard;
-	public string attack1Keyboard;
-	public string attack2Keyboard;
 
 
 	[Header("Joystick Axes")]
@@ -26,8 +24,6 @@ public class InputManagerScript : MonoBehaviour
 	public string m_ChangeTargetJoystick;
 	public string jumpJoystick;
 	public string runJoystick;
-	public string attack1Joystick;
-	public string attack2Joystick;
 
 
 	[Header("Movement Axes variables")]
@@ -46,9 +42,6 @@ public class InputManagerScript : MonoBehaviour
 	private float m_VerticalCameraInput;
 	private bool jumpButtonDown;
 	private float runButton;
-	private bool attack1ButtonDown;
-	private bool attack2Button;
-
 
 
 
@@ -71,9 +64,6 @@ public class InputManagerScript : MonoBehaviour
 			m_VerticalCameraInput = Input.GetAxis(m_VerticalCameraMovementJoystick);
 			jumpButtonDown = Input.GetButtonDown(jumpJoystick);
 			runButton = Input.GetAxis(runJoystick);
-			attack1ButtonDown = Input.GetButtonDown(attack1Joystick);
-			attack2Button = Input.GetButton(attack2Joystick);
-
 
 		}
 		else
@@ -86,8 +76,6 @@ public class InputManagerScript : MonoBehaviour
 			m_VerticalCameraInput = Input.GetAxis(m_VerticalCameraMovementKeyboard);
 			jumpButtonDown = Input.GetButtonDown(jumpKeyboard);
 			runButton = Input.GetAxis(runKeyboard);
-			attack1ButtonDown = Input.GetButtonDown(attack1Keyboard);
-			attack2Button = Input.GetButton(attack2Keyboard);
 		}
 
 	}
@@ -103,8 +91,6 @@ public class InputManagerScript : MonoBehaviour
 			Input.GetAxis(m_HorizontalMovementKeyboard) != 0.0f ||
 			Input.GetAxis(m_VerticalMovementKeyboard) != 0.0f ||
 			Input.GetButton(jumpKeyboard) ||
-			Input.GetButton(attack1Keyboard) ||
-			Input.GetButton(attack2Keyboard) ||
 			Input.GetAxis(runKeyboard) != 0.0f)
 			{
 				return false;
@@ -160,7 +146,5 @@ public class InputManagerScript : MonoBehaviour
     public bool GetLockOnButton(){    return m_LockOnButton;}
 	public float GetChangeTarget(){		return m_ChangeTarget;}
 	public bool GetJumpButtonDown(){	return jumpButtonDown;}
-	public bool GetAttack1ButtonDown(){	return attack1ButtonDown;}
-	public bool GetAttack2Button(){		return attack2Button;}
 	public float GetRunButton(){	return runButton;}
 	}

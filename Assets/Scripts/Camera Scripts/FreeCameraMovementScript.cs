@@ -5,6 +5,9 @@ using UnityEngine;
 public class FreeCameraMovementScript : MonoBehaviour 
 {
 
+	//[Header("Player and Camera Transforms")]
+	private Transform playerTarget;
+	private Transform cameraTransform;
 
 	[Header("Camera Parameters")]
 	public float targetDistance = 4f;
@@ -47,12 +50,9 @@ public class FreeCameraMovementScript : MonoBehaviour
 	public float cameraClippingOffset = 0.05f;
 
 
-	// Transforms to manage the camera movement.
+	// Transforms to manage the camera rotations.
 	private Transform cameraHorizontalPivot;
 	private Transform cameraVerticalPivot;
-	private Transform cameraTransform;
-	private Transform playerTarget;
-
 
 	// Camera Inputs.
 	private float changeTargetInput;
@@ -100,8 +100,6 @@ public class FreeCameraMovementScript : MonoBehaviour
 	private Vector3 previousVerticalPosition;
 	private Vector3 previousCameraPosition;
 
-	private bool inputEnabled;
-
 
 	void Awake () 
 	{
@@ -116,7 +114,7 @@ public class FreeCameraMovementScript : MonoBehaviour
 		m_Camera = GlobalData.PlayerCamera;
 
 		// Set camera's transfoms
-		cameraTransform = m_Camera.transform.parent;		
+		cameraTransform = m_Camera.transform;		
 		cameraVerticalPivot = cameraTransform.parent;	
 		cameraHorizontalPivot = cameraVerticalPivot.parent;	
 
@@ -160,16 +158,10 @@ public class FreeCameraMovementScript : MonoBehaviour
 
 	void LateUpdate () 
 	{
-		if (!inputEnabled)
-		{
-			return;
-		}
 		UpdateInputs();
 		RotateAroundPlayer();
 		FollowPlayer();
 		AvoidClipping();
-	
-		
 	}
 
 
@@ -358,19 +350,5 @@ public class FreeCameraMovementScript : MonoBehaviour
 		}
 
 	}
-
-
-	public void DisableInput()
-    {
-        inputEnabled = false;
-    }
-
-    public void EnableInput()
-    {
-        inputEnabled = true;
-    }
-
-
-	
 
 }

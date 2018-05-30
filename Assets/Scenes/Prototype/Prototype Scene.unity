@@ -39,6 +39,10 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+<<<<<<< HEAD
+=======
+  m_UseRadianceAmbientProbe: 0
+>>>>>>> parent of 58d7809... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -20169,7 +20173,11 @@ Prefab:
     - target: {fileID: 224607329989157280, guid: 55685367941f8db4991f415f5ccd0490,
         type: 2}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 2
+=======
+      value: 4
+>>>>>>> parent of 58d7809... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
       objectReference: {fileID: 0}
     - target: {fileID: 224444431408487300, guid: 55685367941f8db4991f415f5ccd0490,
         type: 2}

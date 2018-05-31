@@ -65,12 +65,12 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
            // this.transform.Translate(0, 0, Time.deltaTime * speed);
         }
 
-        if (Vector3.Distance(player.position, this.transform.position) < 10 || state == "attacking")
+        if (Vector3.Distance(player.position, this.transform.position) < 4 || state == "attacking")
         {
             state = "attacking";
             //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
             caterpillar.SetDestination(player.position);
-            if (direction.magnitude < 10)
+            if (direction.magnitude < 5)
             {
                // this.transform.Translate(0, 0, Time.deltaTime * speed);
             }

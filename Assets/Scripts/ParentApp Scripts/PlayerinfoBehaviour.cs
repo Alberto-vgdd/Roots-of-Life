@@ -13,9 +13,6 @@ public class PlayerinfoBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	}
-
-	public void move() {
 		Vector2 position = gameObject.GetComponent<RectTransform> ().anchoredPosition;
 		position.y = defaulty + -820 * (scrollbar.value * -1 + 1);
 		gameObject.GetComponent<RectTransform> ().anchoredPosition = position;

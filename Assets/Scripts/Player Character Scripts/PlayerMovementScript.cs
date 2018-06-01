@@ -191,22 +191,19 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnimator.SetBool("Slide", playerSliding);
         playerAnimator.SetFloat("Walk Speed",movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) ); 
 
-        
-       
-        if ((playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f ) 
+
+        if (  (playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f )
         {
-            GlobalData.SoundManagerScript.StopWalkRunSound();
+           // GlobalData.SoundManagerScript.StopWalkRunSound();
         }
-        else if ( movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
+        else if (movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
         {
             GlobalData.SoundManagerScript.PlayWalkSound();
         }
-        else
+        else 
         {
             GlobalData.SoundManagerScript.PlayRunSound();
         } 
-        
-        
         
        
 

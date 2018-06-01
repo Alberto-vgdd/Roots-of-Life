@@ -16,8 +16,7 @@ public class GameOverTriggerScript : MonoBehaviour
 	{
 		if (other.CompareTag(playerTag) && !GlobalData.PlayerDeath)
 		{
-			GlobalData.PlayerHealthScript.TakeDamage(5);
-			GlobalData.GameManager.StartGameOver();
+			GlobalData.PlayerHealthScript.TakeDamage(GlobalData.playerMaxHealth);
 		}
 	}
 
@@ -25,8 +24,7 @@ public class GameOverTriggerScript : MonoBehaviour
 	{
 		if (collision.collider.CompareTag(playerTag) && !GlobalData.PlayerDeath)
 		{
-			GlobalData.PlayerHealthScript.TakeDamage(5);
-			GlobalData.GameManager.StartGameOver();
+			GlobalData.PlayerHealthScript.TakeDamage(GlobalData.playerMaxHealth);
 		}
 	}
 }

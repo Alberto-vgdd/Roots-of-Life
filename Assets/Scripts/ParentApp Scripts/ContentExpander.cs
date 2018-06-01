@@ -9,7 +9,7 @@ public class ContentExpander : MonoBehaviour {
     public GameObject objectFour;
     public GameObject objectFive;
     public GameObject objectSix;
-    public List<GameObject> objects;
+    private List<GameObject> objects;
 
     // Use this for initialization
     void Start () {
@@ -31,9 +31,10 @@ public class ContentExpander : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        updateSize();
 	}
-    
-    public void updateSize()
+
+    private void updateSize()
     {
         float highest = -10000.0f;
         float lowest = 10000.0f;
@@ -50,5 +51,5 @@ public class ContentExpander : MonoBehaviour {
         float size = highest - lowest;
         RectTransform rT = GetComponent<RectTransform>();
         rT.sizeDelta = new Vector2(rT.sizeDelta.x, size + 60);
-     }
+    }
 }

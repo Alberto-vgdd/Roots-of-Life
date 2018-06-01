@@ -74,12 +74,10 @@ public class BatProjectileScript : MonoBehaviour, IInteractable
 			else if (!projectileDeflected && other.CompareTag(playerTag))
 			{
 				DisableProjectile();
-
 				GlobalData.PlayerMovementScript.Push(transform.forward,projectileStrengh);
+
 				// This line is necessary because the player collider can't detect triggers as collisions.
 				GlobalData.PlayerHealthScript.TakeDamage(projectileDamage);
-				// Test camera shake 
-				GlobalData.CameraShakeScript.ShakeCamera(0.2f,0.2f);
 			}
 			else if (projectileDeflected)
 			{

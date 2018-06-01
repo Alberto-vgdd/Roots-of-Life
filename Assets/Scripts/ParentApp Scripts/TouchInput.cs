@@ -80,7 +80,7 @@ public class TouchInput : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-        if (touchTime < 0.25) {
+        if (touchTime < 0.5) {
             switch (touch) {
                 case Touch.up:
                     swipeUp();

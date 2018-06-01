@@ -30,17 +30,31 @@ public class PlayerHealthScript : MonoBehaviour
 		}
 	}
 
+
+
+	// Function for revive the character.
+	public void RestoreMaxHealth()
+	{
+		GlobalData.playerHealth = GlobalData.playerMaxHealth;
+	}
+
 	// Function for damage from enemies.
     public void TakeDamage(int damageAmount)
     {
-        GlobalData.AcornCount -= damageAmount;
-		GlobalData.AcornCount = Mathf.Max(0,GlobalData.AcornCount);
-		GlobalData.GameUIScript.UpdateAcornCounter();
+        GlobalData.playerHealth -= damageAmount;
+		GlobalData.GameUIScript.UpdateHealthIcons();
         
-		if(GlobalData.AcornCount <= 0)
+		if(GlobalData.playerHealth <= 0)
 		{
 			GlobalData.GameManager.StartGameOver();
 		}
+	}
+
+	// Function to recover health points
+    public void RecoverHealth(int healthAmout)
+    {
+		GlobalData.playerHealth = Mathf.Min(GlobalData.playerHealth + healthAmout, GlobalData.playerMaxHealth);
+		GlobalData.GameUIScript.UpdateHealthIcons();
 	}
 
 	//function to detect collision from the enemy 
@@ -49,10 +63,7 @@ public class PlayerHealthScript : MonoBehaviour
         if (LayerMask.Equals(enemiesLayerMask,collision.gameObject.layer)&& recoveryTimer < 0)
         {
 			recoveryTimer = 0f;
-        	TakeDamage(3);
-
-			// Test camera shake 
-			GlobalData.CameraShakeScript.ShakeCamera(0.2f,0.25f);
+        	TakeDamage(1);
         }
     }
 	
@@ -61,10 +72,7 @@ public class PlayerHealthScript : MonoBehaviour
         if (LayerMask.Equals(enemiesLayerMask,collision.gameObject.layer)&& recoveryTimer < 0)
         {
 			recoveryTimer = 0f;
-        	TakeDamage(3);
-
-			// Test camera shake 
-			GlobalData.CameraShakeScript.ShakeCamera(0.2f,0.25f);
+        	TakeDamage(1);
         }
     }
 }

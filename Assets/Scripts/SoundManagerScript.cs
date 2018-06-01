@@ -13,8 +13,6 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioClip playerWalkAudioClip;
 	public AudioClip playerRunAudioClip;
 	public AudioClip playerJumpAudioClip;
-	public AudioClip playerAttack1AudioClip;
-	public AudioClip playerAttack2AudioClip;
 
 	[Header("Background Music Parameters")]
 	public AudioSource backgroundMusicSource;
@@ -70,50 +68,10 @@ public class SoundManagerScript : MonoBehaviour
 
 	}
 
-	public void PlayAttack1Sound()
-	{
-		playerAudioSource.loop = false;
-
-		if (!playerAudioSource.clip.Equals(playerAttack1AudioClip))
-		{
-			playerAudioSource.clip = playerAttack1AudioClip;
-			playerAudioSource.Play();
-		}
-		else
-		{
-			if (playerAudioSource.isPlaying)
-			{
-				playerAudioSource.time = 0f;
-			}
-			else
-			{
-				playerAudioSource.Play();
-			}
-		}
-
-	}
-
-	public void PlayAttack2Sound()
-	{
-		if ( !playerAudioSource.clip.Equals(playerAttack2AudioClip) || !playerAudioSource.isPlaying)
-		{
-			playerAudioSource.loop = true;
-			playerAudioSource.clip = playerAttack2AudioClip;
-			playerAudioSource.Play();
-		}
-
-	}
-	
-	public void StopAttack2Sound()
-	{
-		if (playerAudioSource.clip.Equals(playerAttack2AudioClip))
-		{
-			playerAudioSource.Stop();
-		}
-	}
-
 	public void PlayWalkSound()
 	{
+		
+		
 		if (!playerAudioSource.clip.Equals(playerWalkAudioClip) || !playerAudioSource.isPlaying)
 		{
 			playerAudioSource.loop = true;
@@ -137,6 +95,7 @@ public class SoundManagerScript : MonoBehaviour
 
 	public void StopWalkRunSound()
 	{
+		
 		if (playerAudioSource.clip.Equals(playerRunAudioClip) || playerAudioSource.clip.Equals(playerWalkAudioClip))
 		{
 			playerAudioSource.Stop();

@@ -5,13 +5,13 @@ using UnityEngine;
 public class GlobalData
 {
     // In-game variables, stats, etc.
-    public static int playerHealth = 3;
-    public static int playerMaxHealth = 3;
     public static float playerRecoveryTime = 2f;
     public static bool PlayerDeath;
 
-    public static int AcornCount = 0;
+    public static int MinimumAcornCount = 10;
+    public static int AcornCount = 10;
     public static int InfectionCount = 0;
+
 
     //  GameManager variables
     public static GameManagerScript GameManager;
@@ -22,6 +22,7 @@ public class GlobalData
     // Layer Masks
     public static LayerMask EnvironmentLayerMask = LayerMask.GetMask("Environment");
     public static LayerMask EnemiesLayerMask = LayerMask.GetMask("Enemies");
+    public static LayerMask InteractableLayerMask = LayerMask.GetMask("Interactables");
 
     // Tags
     public const string PlayerTag = "Player";
@@ -30,21 +31,23 @@ public class GlobalData
     public static bool IsEnemyLocked;
     public static Transform LockedEnemyTransform;
 
-    // Player Transforms
+    // Player Transforms, Scripts, Animators
     public static Transform PlayerTransform;
     public static Transform PlayerTargetTransform;
 
-    // Player Scripts
     public static PlayerMovementScript PlayerMovementScript;
+    public static PlayerActionScript PlayerActionScript;
     public static PlayerHealthScript PlayerHealthScript;
 
-    // Player Camera
+    public static Animator PlayerAnimator;
+
     public static Camera PlayerCamera;
     public static Transform PlayerCameraHorizontalPivotTransform;
 
     // Camera Scripts
     public static FreeCameraMovementScript FreeCameraMovementScript;
     public static FixedCameraMovementScript FixedCameraMovementScript;
+    public static CameraShakeScript CameraShakeScript;
     public static CameraEnemyTrackerScript CameraEnemyTrackerScript;
 
     // Input Manager Script
@@ -70,6 +73,8 @@ public class GlobalData
     public static float GetChangeTarget(){		return InputManagerScript.GetChangeTarget();}
     public static bool GetJumpButtonDown(){		return InputManagerScript.GetJumpButtonDown();}
     public static float GetRunButton(){   return InputManagerScript.GetRunButton();}
+    public static bool GetAttack1ButtonDown(){		return InputManagerScript.GetAttack1ButtonDown();}
+    public static bool GetAttack2Button(){   return InputManagerScript.GetAttack2Button();}
 
     
 

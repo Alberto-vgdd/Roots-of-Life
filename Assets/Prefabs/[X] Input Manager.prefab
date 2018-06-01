@@ -59,6 +59,8 @@ MonoBehaviour:
   m_ChangeTargetKeyboard: ChangeTargetKeyboard
   jumpKeyboard: JumpKeyboard
   runKeyboard: RunKeyboard
+  attack1Keyboard: Attack1Keyboard
+  attack2Keyboard: Attack2Keyboard
   m_HorizontalMovementJoystick: HorizontalJoystick
   m_VerticalMovementJoystick: VerticalJoystick
   m_HorizontalCameraMovementJoystick: HorizontalCameraMovementJoystick
@@ -67,5 +69,7 @@ MonoBehaviour:
   m_ChangeTargetJoystick: ChangeTargetJoystick
   jumpJoystick: JumpJoystick
   runJoystick: RunJoystick
+  attack1Joystick: Attack1Joystick
+  attack2Joystick: Attack2Joystick
   movementAxesSmoothTime: 0.15
   m_JoystickInUse: 0

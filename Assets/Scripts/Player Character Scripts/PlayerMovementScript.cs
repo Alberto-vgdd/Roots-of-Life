@@ -77,10 +77,8 @@ public class PlayerMovementScript : MonoBehaviour
     private float pushTime = 0.6f;
     private float pushTimer;
 
-
-    // Variables to handle push && pull mechanich
-    private bool pushInput;
-    private float pushRadius = 2f;
+    private bool inputEnabled;
+  
 
 
 
@@ -89,7 +87,6 @@ public class PlayerMovementScript : MonoBehaviour
     void Awake ()
     {
         landingParticles = transform.Find("Particle System").GetComponent<ParticleSystem>();
-        playerAnimator = transform.GetComponentInChildren<Animator>();
         playerRigidbody = transform.GetComponent<Rigidbody>();
         playerCapsuleCollider = transform.GetComponent<CapsuleCollider>();
         radius = playerCapsuleCollider.radius;
@@ -97,16 +94,20 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Start()
     {
+        playerAnimator = GlobalData.PlayerAnimator;
         cameraTransform = GlobalData.PlayerCamera.transform;
         environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
         
+
+        inputEnabled = true;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (!GlobalData.PlayerDeath || playerPushed)
+
+        if (inputEnabled)
         {
             // Update movement input and normalize the vector to avoid diagonal acceleration.
             movementInput = new Vector2(GlobalData.GetHorizontalInput(),GlobalData.GetVerticalInput()) ;
@@ -190,24 +191,27 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnimator.SetBool("Slide", playerSliding);
         playerAnimator.SetFloat("Walk Speed",movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) ); 
 
-
-        if (  (playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f )
+        
+       
+        if ((playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f ) 
         {
             GlobalData.SoundManagerScript.StopWalkRunSound();
         }
-        else if (movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
+        else if ( movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
         {
             GlobalData.SoundManagerScript.PlayWalkSound();
         }
-        else 
+        else
         {
             GlobalData.SoundManagerScript.PlayRunSound();
         } 
         
+        
+        
        
 
 
-
+        // Timer to control the character being pushed in a certain direction.
         if (playerPushed)
         {
             pushTimer += Time.deltaTime;
@@ -216,9 +220,6 @@ public class PlayerMovementScript : MonoBehaviour
                 playerPushed = false;
             }
         }
-
-
-        pushInput = Input.GetKey(KeyCode.E);
 
     }
 
@@ -246,7 +247,7 @@ public class PlayerMovementScript : MonoBehaviour
         ConstraintMovementDirection();
 
         // Set the velocity of the character.
-        // If the character is not grounded, prevent velocity.y from increase, to avoid the character"flying" when walking up slopes. (This happens because playerGrounded works with a small offset)
+        // If the character is not grounded, prevent velocity.y from increase to avoid the character "flying" when walking up slopes. (This happens because playerGrounded works with a small offset)
         // Clamp velocity.y to avoid constant falling acceleration
         SetVelocity();
         
@@ -257,23 +258,6 @@ public class PlayerMovementScript : MonoBehaviour
 
         //Add gravity the player.
         playerRigidbody.AddForce(Physics.gravity*gravityScale,ForceMode.Acceleration);
-
-
-        if (pushInput)
-        {
-            Collider[] colliders = Physics.OverlapSphere(transform.position,pushRadius,environmentLayerMask | enemiesLayerMask);
-
-            foreach (Collider collider in colliders)
-            {
-                IInteractable interactable = collider.gameObject.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    interactable.OnPush();
-                }
-            }
-        }
-
-        
     }
 
     void UpdateParameters()
@@ -563,5 +547,15 @@ public class PlayerMovementScript : MonoBehaviour
         }
         playerPushed = true;
         pushTimer = 0f;
+    }
+
+    public void DisableInput()
+    {
+        inputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        inputEnabled = true;
     }
 }

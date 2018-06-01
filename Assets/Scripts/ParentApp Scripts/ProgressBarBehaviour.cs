@@ -24,9 +24,9 @@ public class ProgressBarBehaviour : MonoBehaviour {
 
 	private void calc() {
 		if (d)
-			percentage -= 0.001f;
+			percentage -= Time.deltaTime;
 		else
-			percentage += 0.001f;
+			percentage += Time.deltaTime * 0.1f;
 		if (percentage >= 1.0f)
 			d = true;
 		if (percentage <= 0.0f)

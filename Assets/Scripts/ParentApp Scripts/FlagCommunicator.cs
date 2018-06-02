@@ -38,7 +38,7 @@ public class FlagCommunicator : MonoBehaviour {
         }
     }
 
-    void setFlag()
+    public void setFlag()
     {
         StartCoroutine(form());
     }

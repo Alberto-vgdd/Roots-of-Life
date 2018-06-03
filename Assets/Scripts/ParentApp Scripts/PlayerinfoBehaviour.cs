@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerinfoBehaviour : MonoBehaviour {
 	public Scrollbar scrollbar;
+	public ProfileSelector selector;
 	private float defaulty;
 
-	void Start() {
+	void Start() 
+	{
 		defaulty = gameObject.GetComponent<RectTransform> ().anchoredPosition.y;
 	}
 	
@@ -15,9 +17,20 @@ public class PlayerinfoBehaviour : MonoBehaviour {
 	void Update () {
 	}
 
-	public void move() {
+	public void move() 
+	{
 		Vector2 position = gameObject.GetComponent<RectTransform> ().anchoredPosition;
 		position.y = defaulty + -820 * (scrollbar.value * -1 + 1);
 		gameObject.GetComponent<RectTransform> ().anchoredPosition = position;
+	}
+
+	public void updateInfo()
+	{
+		Profile selected = selector.profiles [selector.selected];
+		transform.GetChild (0).GetComponent<Text> ().text = selected.name;
+		if (selected.active)
+			transform.GetChild (1).GetComponent<Text> ().text = "Status: Playing";
+		else
+			transform.GetChild (1).GetComponent<Text> ().text = "Status: Offline";
 	}
 }

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-m_EditorVersion: 2018.1.0f2
-=======
 m_EditorVersion: 2017.4.2f2
->>>>>>> parent of 8cd84ce... Merge pull request #92 from Alberto-vgdd/Oscar

@@ -665,9 +665,15 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
+<<<<<<< HEAD
   cloudProjectId: bd89c2b1-b82a-4217-a13c-ff6a146d9e88
   projectName: Test
   organizationId: oscarmorehead96
+=======
+  cloudProjectId: 5fe61849-13e4-44db-b4e6-739eb15d8b2e
+  projectName: Roots of Life
+  organizationId: old-mama
+>>>>>>> parent of 8cd84ce... Merge pull request #92 from Alberto-vgdd/Oscar
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

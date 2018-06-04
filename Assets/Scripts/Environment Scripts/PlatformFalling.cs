@@ -6,9 +6,13 @@ public class PlatformFalling : MonoBehaviour
 {
 
     public float fallSpeed = 2.5f;
-    public float resetTime = 2;
-    private float resetTimer = -1;
+    public float fallTime = 2;
+    private float fallTimer = -1;
+    public float waitTime = 1;
+    private float waitTimer = -1f;
 
+
+    private bool isUsed = false;
     private bool isFalling = false;
     private string playerTag;
 
@@ -25,7 +29,6 @@ public class PlatformFalling : MonoBehaviour
     {
         platformRigidbody = GetComponent<Rigidbody>();
         platformCollider = GetComponent<BoxCollider>();
-        originalPosition = platformRigidbody.position;
     }
     void Start()
     {
@@ -33,13 +36,15 @@ public class PlatformFalling : MonoBehaviour
 
         environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
+
+        originalPosition = platformRigidbody.position;
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag(playerTag) && resetTimer < 0)
+        if (collision.gameObject.CompareTag(playerTag) && !isUsed)
         {
-            resetTimer = 0f;
-            isFalling = true;
+            waitTimer = 0f;
+            isUsed = true;
         }
         else if (collision.gameObject.layer.Equals(environmentLayerMask | enemiesLayerMask))
         {
@@ -49,17 +54,38 @@ public class PlatformFalling : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isFalling)
+        if (isUsed)
         {
-            resetTimer += Time.fixedDeltaTime;
-            platformRigidbody.MovePosition( new Vector3(platformRigidbody.position.x, platformRigidbody.position.y - fallSpeed*Time.fixedDeltaTime, platformRigidbody.position.z));
-
-            if (resetTimer > resetTime)
+            if (isFalling)
             {
-                isFalling = false;
-                resetTimer = -1f;
-                platformRigidbody.position = originalPosition;
+                fallTimer += Time.fixedDeltaTime;
+                platformRigidbody.MovePosition( platformRigidbody.position + Vector3.down*fallSpeed*Time.fixedDeltaTime);
+
+                if (fallTimer > fallTime)
+                {
+                    platformRigidbody.MovePosition(originalPosition);
+                    isUsed = false;
+                    isFalling = false;
+                    waitTimer = -1f;
+                    fallTimer = -1f;
+ 
+                }
             }
+            else
+            {
+                waitTimer += Time.fixedDeltaTime;
+
+                if (waitTimer > waitTime)
+                {
+                    isFalling = true;
+                    fallTimer = 0f;
+                }
+            }
+            
         }
+
+
     }
+
+
 }

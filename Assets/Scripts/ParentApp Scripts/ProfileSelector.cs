@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ProfileSelector : MonoBehaviour {
-    static ProfileSelector main;
-    
 	public GameObject playerinfo;
 	public GameObject content;
 	public GameObject profileTemplate;
+
+	public UnityEvent onSelectNewProfile;
 
 	public List<Profile> profiles;
     public float profileWidth;
@@ -23,13 +24,11 @@ public class ProfileSelector : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        main = this;
         StartCoroutine(loadUsers());
     }
 
     IEnumerator loadUsers()
     {
-        Debug.Log("Loading users...");
         WWW users = new WWW(URL);
         yield return users;
         string usersDataString = users.text.TrimEnd(';');
@@ -39,22 +38,25 @@ public class ProfileSelector : MonoBehaviour {
         foreach (string data in usersData)
         {
             string name = data.Split(',')[0];
+			int progress = int.Parse (data.Split(',') [2]);
+			float completion = float.Parse (data.Split(',') [3]);
+			int playtime = int.Parse (data.Split(',') [4]);
+			int openings = int.Parse (data.Split (',') [5]);
+			int deathcount = int.Parse (data.Split (',') [6]);
             Image image = Instantiate(profileTemplate).GetComponent<Image>();
             image.transform.SetParent(content.transform, false);
-            Profile p = new Profile(name, image);
+			Profile p = new Profile(name, image, progress, completion, playtime, openings, deathcount);
             if (data.Split(',')[1] == "1")
                 p.active = true;
             profiles.Add(p);
         }
         profileWidth = 1f / profiles.Count;
         selected = 0;
-        Debug.Log("Loaded users");
         displayUsers();
     }
 
     void displayUsers()
     {
-        Debug.Log("Displaying users...");
         float contentwidth = 1080 + (660 * (profiles.Count - 1));
         content.GetComponent<RectTransform>().sizeDelta = new Vector2(contentwidth, 660);
         for (int i = 0; i < profiles.Count; i++)
@@ -62,7 +64,6 @@ public class ProfileSelector : MonoBehaviour {
             Profile p = profiles[i];
             p.image.rectTransform.anchoredPosition = new Vector2(660 * i - ((contentwidth - 1080) * 0.5f), 0);
         }
-        Debug.Log("Displayed users");
 
         setProfile(profiles.Count / 2);
     }
@@ -84,6 +85,7 @@ public class ProfileSelector : MonoBehaviour {
         update = false;
     }
 
+	// Move the scrollbar
     private void animate()
     {
         float v = GetComponent<ScrollRectEx>().horizontalScrollbar.value;
@@ -131,22 +133,21 @@ public class ProfileSelector : MonoBehaviour {
             moving = true;
     }
 
+	// Changes the value of selected to the index of the new selected user
+	// gets called every time the slider is changed, only call it when the user is actually updated
     public void setProfile(int profile)
     {
         selected = profile;
-        updatePlayerInfo();
+		onSelectNewProfile.Invoke ();
     }
 
-    public void updatePlayerInfo()
-    {
-        Profile sel = profiles[selected];
-        playerinfo.transform.GetChild(0).GetComponent<Text>().text = sel.name;
-        if (sel.active)
-            playerinfo.transform.GetChild(1).GetComponent<Text>().text = "Status: Playing";
-        else
-            playerinfo.transform.GetChild(1).GetComponent<Text>().text = "Status: Inactive";
-    }
+	// Return the profile instance of the selected user
+	public Profile getSelected() 
+	{
+		return profiles [selected];
+	}
 
+	// Find the location on the scrollbar to display the given user
     private float getTarget(int account)
     {
 		if (account > profiles.Count)

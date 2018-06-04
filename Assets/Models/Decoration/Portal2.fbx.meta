@@ -1,16 +1,25 @@
 fileFormatVersion: 2
 guid: 20613434dabea574e94563c9b9fa045a
-timeCreated: 1528040980
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Portal2_LOD0
+    100004: Portal2_LOD1
     400000: //RootNode
+    400002: Portal2_LOD0
+    400004: Portal2_LOD1
     2100000: Material.006
     2300000: //RootNode
+    2300002: Portal2_LOD0
+    2300004: Portal2_LOD1
     3300000: //RootNode
+    3300002: Portal2_LOD0
+    3300004: Portal2_LOD1
     4300000: Portal2
+    4300002: Portal2_LOD1
+    4300004: Portal2_LOD0
+    20500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -30,6 +39,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -40,7 +50,9 @@ ModelImporter:
     clipAnimations: []
     isReadable: 1
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0

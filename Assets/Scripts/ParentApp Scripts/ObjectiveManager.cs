@@ -9,10 +9,7 @@ public class ObjectiveManager : MonoBehaviour {
     public Dropdown rewardInput;
     public Transform template;
     public Text templateLabel;
-	public ProfileSelector selector;
     public List<Transform> objectives;
-
-	string URL = "http://143.176.117.92/roots-of-life/insertObjective.php";
 
 	// Use this for initialization
 	void Start () {
@@ -72,32 +69,11 @@ public class ObjectiveManager : MonoBehaviour {
     {
         if (taskNameInput.text == "")
             return;
-        /*int reward = rewardInput.value;
+        int reward = rewardInput.value;
         create(reward);
         sort();
-        resetTemplate();*/
-		StartCoroutine (form ());
-		resetTemplate ();
+        resetTemplate();
     }
-
-	IEnumerator form()
-	{
-		WWWForm form = new WWWForm();
-		form.AddField ("setObjective", taskNameInput.text);
-		form.AddField ("setUser", selector.profiles [selector.selected].name);
-		form.AddField ("setReward", rewardInput.value);
-
-		WWW www = new WWW(URL, form);
-		yield return www;
-		if (!string.IsNullOrEmpty(www.error))
-		{
-			Debug.Log("error: " + www.error);
-		}
-		else
-		{
-			Debug.Log("result: " + www.text);
-		}
-	}
 
     public void complete()
     {

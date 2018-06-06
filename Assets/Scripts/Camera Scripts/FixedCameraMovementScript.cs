@@ -41,7 +41,7 @@ public class FixedCameraMovementScript : MonoBehaviour
 	private Ray targetToCameraRay;
 	private RaycastHit avoidClippingRaycastHit;
 
-	private bool inputEnabled;
+	private bool inputEnabled = true;
 
 
 

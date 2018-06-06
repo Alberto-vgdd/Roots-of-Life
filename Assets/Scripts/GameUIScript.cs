@@ -17,7 +17,11 @@ public class GameUIScript : MonoBehaviour
 	{
 		GlobalData.GameUIScript = this;
 		animator = GetComponent<Animator>();
-		
+	}
+
+	void Start()
+	{	
+		UpdateAcornCounter();
 	}
 	
 

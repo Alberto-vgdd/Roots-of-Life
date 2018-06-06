@@ -88,6 +88,14 @@ public class FixedCameraMovementScript : MonoBehaviour
 		this.cameraClippingOffset = cameraClippingOffset;
 	}
 
+	public bool EqualsTo (float targetDistance,float targetHeight,float targetHorizontalAngle, float targetVerticalAngle, float cameraFollowSpeedMultiplier, float cameraTransitionTime, float cameraClippingOffset )
+	{
+		return this.targetDistance == targetDistance & this.targetHeight == targetHeight 
+		& this.targetHoriontalAngle == targetHorizontalAngle & this.targetVerticalAngle == targetVerticalAngle 
+		& this.cameraFollowSpeedMultiplier == cameraFollowSpeedMultiplier & this.cameraTransitionTime == cameraTransitionTime 
+		& this.cameraClippingOffset == cameraClippingOffset;
+	}
+
 	
 	void LateUpdate () 
 	{

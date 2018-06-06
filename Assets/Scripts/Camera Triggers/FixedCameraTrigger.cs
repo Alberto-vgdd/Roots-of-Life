@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FixedCameraTrigger : MonoBehaviour
 {
-	private FixedCameraMovementScript camera2D;
-	private FreeCameraMovementScript camera3D;
+	private FixedCameraMovementScript Camera2D;
+	private FreeCameraMovementScript Camera3D;
 	private string playerTag;
 
 	[Header("Camera Parameters")]
@@ -23,20 +23,35 @@ public class FixedCameraTrigger : MonoBehaviour
 
 	void Start () 
 	{
-		camera2D = GlobalData.FixedCameraMovementScript;
-		camera3D = GlobalData.FreeCameraMovementScript;
 		playerTag = GlobalData.PlayerTag;
 	}
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (!camera2D.enabled && other.CompareTag(playerTag))
+		Camera2D =  GlobalData.FixedCameraMovementScript;
+		Camera3D =  GlobalData.FreeCameraMovementScript;
+
+		if (other.CompareTag(playerTag))
 		{
-			camera3D.enabled = false;
+			if (!Camera2D.enabled)
+			{
+				Camera3D.enabled = false;
+				
+				Camera2D.enabled = true;
+				Camera2D.SetUp(targetDistance,targetHeight,targetHoriontalAngle,targetVerticalAngle,cameraFollowSpeedMultiplier,cameraTransitionTime,cameraClippingOffset);
+				Camera2D.StartCameraTransition();
+			}
+			else
+			{
+				bool sameConfig = Camera2D.EqualsTo(targetDistance,targetHeight,targetHoriontalAngle,targetVerticalAngle,cameraFollowSpeedMultiplier,cameraTransitionTime,cameraClippingOffset);
 			
-			camera2D.enabled = true;
-			camera2D.SetUp(targetDistance,targetHeight,targetHoriontalAngle,targetVerticalAngle,cameraFollowSpeedMultiplier,cameraTransitionTime,cameraClippingOffset);
-			camera2D.StartCameraTransition();
+				if (!sameConfig )
+				{
+					Camera2D.SetUp(targetDistance,targetHeight,targetHoriontalAngle,targetVerticalAngle,cameraFollowSpeedMultiplier,cameraTransitionTime,cameraClippingOffset);
+					Camera2D.StartCameraTransition();
+				}
+			}
 		}
+		
 	}
 }

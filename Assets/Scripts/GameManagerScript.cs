@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public class GameManagerScript : MonoBehaviour 
 {
@@ -124,6 +125,8 @@ public class GameManagerScript : MonoBehaviour
 
 		// Fade out the game.
 		gameUIScript.StartGameFadeOut();
+
+        Analytics.CustomEvent("Game Over");
 
 		// Wait for the game to fade out, and then move the character and the camera to the checkpoint's position.
 		yield return new WaitForSeconds(1f);

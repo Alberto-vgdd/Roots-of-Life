@@ -100,7 +100,7 @@ public class FreeCameraMovementScript : MonoBehaviour
 	private Vector3 previousVerticalPosition;
 	private Vector3 previousCameraPosition;
 
-	private bool inputEnabled;
+	private bool inputEnabled = true;
 
 
 	void Awake () 

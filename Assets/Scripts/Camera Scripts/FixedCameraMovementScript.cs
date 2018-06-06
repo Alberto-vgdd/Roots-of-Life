@@ -41,7 +41,7 @@ public class FixedCameraMovementScript : MonoBehaviour
 	private Ray targetToCameraRay;
 	private RaycastHit avoidClippingRaycastHit;
 
-	private bool inputEnabled;
+	private bool inputEnabled = true;
 
 
 
@@ -86,6 +86,14 @@ public class FixedCameraMovementScript : MonoBehaviour
 		this.cameraFollowSpeedMultiplier = cameraFollowSpeedMultiplier;
 		this.cameraTransitionTime = cameraTransitionTime;
 		this.cameraClippingOffset = cameraClippingOffset;
+	}
+
+	public bool EqualsTo (float targetDistance,float targetHeight,float targetHorizontalAngle, float targetVerticalAngle, float cameraFollowSpeedMultiplier, float cameraTransitionTime, float cameraClippingOffset )
+	{
+		return this.targetDistance == targetDistance & this.targetHeight == targetHeight 
+		& this.targetHoriontalAngle == targetHorizontalAngle & this.targetVerticalAngle == targetVerticalAngle 
+		& this.cameraFollowSpeedMultiplier == cameraFollowSpeedMultiplier & this.cameraTransitionTime == cameraTransitionTime 
+		& this.cameraClippingOffset == cameraClippingOffset;
 	}
 
 	

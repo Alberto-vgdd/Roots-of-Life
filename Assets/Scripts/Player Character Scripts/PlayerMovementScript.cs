@@ -77,7 +77,7 @@ public class PlayerMovementScript : MonoBehaviour
     private float pushTime = 0.6f;
     private float pushTimer;
 
-    private bool inputEnabled;
+    private bool inputEnabled = true;
   
 
 

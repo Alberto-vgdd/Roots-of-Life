@@ -30,7 +30,7 @@ public class PlayerActionScript : MonoBehaviour
 	[Header("Attack 2 Parameters")]
 	public bool isAttacking2;
 
-	private bool inputEnabled;
+	private bool inputEnabled = true;
 
 
 	

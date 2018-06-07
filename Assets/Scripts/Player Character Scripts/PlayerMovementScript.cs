@@ -103,6 +103,7 @@ public class PlayerMovementScript : MonoBehaviour
         environmentLayerMask = 1 << (int) Mathf.Log(GlobalData.EnvironmentLayerMask.value,2);
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
         
+        UpdateUnlockedAbilities();
 
         inputEnabled = true;
     }
@@ -576,5 +577,11 @@ public class PlayerMovementScript : MonoBehaviour
     public void EnableInput()
     {
         inputEnabled = true;
+    }
+
+    public void UpdateUnlockedAbilities()
+    {
+        run = GlobalData.runUnlocked;
+        doubleJump = GlobalData.doubleJumpUnlocked;
     }
 }

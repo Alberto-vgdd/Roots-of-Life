@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformFalling : MonoBehaviour
+public class FallingPlatform : MonoBehaviour
 {
 
     public float fallSpeed = 2.5f;

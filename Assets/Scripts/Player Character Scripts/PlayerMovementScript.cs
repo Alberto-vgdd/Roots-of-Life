@@ -319,6 +319,11 @@ public class PlayerMovementScript : MonoBehaviour
             
             for (int i = capsulecastHitArray.Length-1; i >= 0 ; i--)
             {
+                if (capsulecastHitArray[i].collider.isTrigger)
+                {
+                    continue;
+                }
+
                 RaycastHit hitInfo;
                 groundNormal = capsulecastHitArray[i].normal;
                 groundAngle = Vector3.Angle(groundNormal, Vector3.up);
@@ -333,6 +338,11 @@ public class PlayerMovementScript : MonoBehaviour
                 }
                 else if (Physics.Raycast(capsulecastHitArray[i].point+capsulecastHitArray[i].normal*capsulecastHitArray[i].distance,-capsulecastHitArray[i].normal,out hitInfo,capsulecastHitArray[i].distance*1.1f,environmentLayerMask| enemiesLayerMask) )
                 {
+                    if (capsulecastHitArray[i].collider.isTrigger)
+                    {
+                        continue;
+                    }
+
                     if (  hitInfo.normal != groundNormal  )
                     {
                         playerSliding = false;
@@ -417,6 +427,11 @@ public class PlayerMovementScript : MonoBehaviour
             //foreach (RaycastHit capsulecastHit in capsulecastHitArray)
             for (int i = capsulecastHitArray.Length-1; i >= 0; i--)
             {
+                 if (capsulecastHitArray[i].collider.isTrigger)
+                {
+                    continue;
+                }
+                
                 //For colliders that overlap the capsule at the start of the sweep, to avoid problems.
                 if (Vector3Equal(Vector3.zero,capsulecastHitArray[i].point))
                 {

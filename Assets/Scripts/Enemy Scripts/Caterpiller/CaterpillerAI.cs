@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 //using UnityEditor.Rendering;
+using UnityEngine.Analytics;
 
 public class CaterpillerAI : MonoBehaviour, IEnemy
 {
@@ -102,6 +103,9 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
     public void TakeDamage(int damageAmount)
     {
         Destroy(this.gameObject);
+
+        Analytics.CustomEvent("Caterpillar dead");
+
     }
 }
 

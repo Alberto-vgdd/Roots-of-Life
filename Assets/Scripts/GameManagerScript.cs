@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public class GameManagerScript : MonoBehaviour 
 {
@@ -26,46 +28,34 @@ public class GameManagerScript : MonoBehaviour
 		if (GlobalData.GameManager == null)
 		{
 			GlobalData.GameManager = this;
-
-			GlobalData.PlayerTransform = playerTransform = GameObject.Find("Player Character").transform;
-			GlobalData.PlayerTargetTransform = playerTransform.Find("Target");
-			GlobalData.PlayerMovementScript = playerTransform.GetComponent<PlayerMovementScript>();
-			GlobalData.PlayerActionScript = playerTransform.GetComponent<PlayerActionScript>();
-			GlobalData.PlayerHealthScript = playerTransform.GetComponent<PlayerHealthScript>();
-			GlobalData.PlayerAnimator = playerTransform.GetComponentInChildren<Animator>();
-			GlobalData.PlayerCameraHorizontalPivotTransform = playerCameraTransform = GameObject.Find("Player Camera Horizontal Pivot").transform;
-			GlobalData.PlayerCamera = playerCameraTransform.GetComponentInChildren<Camera>();
-
-			// TEST
-			//Screen.SetResolution(853, 480, true, 0);
-        	//Application.targetFrameRate = 30;
-			Cursor.lockState = CursorLockMode.Locked;
-
-
 			DontDestroyOnLoad(this.gameObject);
 		}
-		else
+		else if (GlobalData.GameManager != this)
 		{
 			Destroy(this.gameObject);
 		}
-	}
 
-	void Start()
-	{
-		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
-		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
-		cameraShakeScript = GlobalData.CameraShakeScript;
-		gameUIScript = GlobalData.GameUIScript;
+		GlobalData.PlayerTransform = GameObject.Find("Player Character").transform;
+		GlobalData.PlayerTargetTransform = GlobalData.PlayerTransform.Find("Target");
+		GlobalData.PlayerMovementScript = GlobalData.PlayerTransform.GetComponent<PlayerMovementScript>();
+		GlobalData.PlayerActionScript = GlobalData.PlayerTransform.GetComponent<PlayerActionScript>();
+		GlobalData.PlayerHealthScript = GlobalData.PlayerTransform.GetComponent<PlayerHealthScript>();
+		GlobalData.PlayerAnimator = GlobalData.PlayerTransform.GetComponentInChildren<Animator>();
+		GlobalData.PlayerCameraHorizontalPivotTransform = GameObject.Find("Player Camera Horizontal Pivot").transform;
+		GlobalData.PlayerCamera = GlobalData.PlayerCameraHorizontalPivotTransform.GetComponentInChildren<Camera>();
 
-		gameUIScript.UpdateAcornCounter();
-		EnableInput();
 
+
+		// TEST
+		//Screen.SetResolution(853, 480, true, 0);
+		//Application.targetFrameRate = 30;
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	void Update()
 	{
 		// Pause
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.P))
 		{
 			Time.timeScale = 1 - Time.timeScale;
 
@@ -82,6 +72,37 @@ public class GameManagerScript : MonoBehaviour
 		}
 
 	}
+
+	public void ChangeScene(string sceneName)
+	{
+		SceneManager.LoadScene(sceneName);
+	}
+
+	//This is called each time a scene is loaded.
+	void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+	{
+		playerTransform = GlobalData.PlayerTransform;
+		playerCameraTransform = GlobalData.PlayerCameraHorizontalPivotTransform;
+		freeCameraMovementScript = GlobalData.FreeCameraMovementScript;
+		fixedCameraMovementScript = GlobalData.FixedCameraMovementScript;
+		gameUIScript = GlobalData.GameUIScript;
+		cameraShakeScript = GlobalData.CameraShakeScript;
+
+	}
+
+	void OnEnable()
+	{
+		//Tell our ‘OnLevelFinishedLoading’ function to start listening for a scene change event as soon as this script is enabled.
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
+
+	void OnDisable()
+	{
+		//Tell our ‘OnLevelFinishedLoading’ function to stop listening for a scene change event as soon as this script is disabled.
+		//Remember to always have an unsubscription for every delegate you subscribe to!
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+	}
+
 
 	public void UpdateCheckPoint(Transform newCheckPoint, bool freeCameraEnabled, bool fixedCameraEnabled)
 	{
@@ -104,6 +125,8 @@ public class GameManagerScript : MonoBehaviour
 
 		// Fade out the game.
 		gameUIScript.StartGameFadeOut();
+
+        Analytics.CustomEvent("Game Over");
 
 		// Wait for the game to fade out, and then move the character and the camera to the checkpoint's position.
 		yield return new WaitForSeconds(1f);

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalData
-{
+{    
+    // Flags
+    public const int RUN_ABILITY = 0;
+    public const int DOUBLE_JUMP_ABILITY = 1;
+    public const int LEVEL_2 = 2;
+
     // In-game variables, stats, etc.
     public static float playerRecoveryTime = 2f;
     public static bool PlayerDeath;
@@ -11,6 +16,10 @@ public class GlobalData
     public static int MinimumAcornCount = 10;
     public static int AcornCount = 10;
     public static int InfectionCount = 0;
+
+    public static bool runUnlocked = false;
+    public static bool doubleJumpUnlocked = false;
+    public static bool level2Unlocked = false;
 
 
     //  GameManager variables

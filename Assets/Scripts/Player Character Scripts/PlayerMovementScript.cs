@@ -31,6 +31,10 @@ public class PlayerMovementScript : MonoBehaviour
     public float steepAngle = 50f;
     [Tooltip("Minimum speed the character will get while sliding.")]
     public float steepSlidingSpeed = 8f;
+
+    [Header("Enable or Disable Upgrades")]
+    public bool run;
+    public bool doubleJump;
     
     
     // Input variables.
@@ -262,7 +266,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     void UpdateParameters()
     {
-        maximumMovementSpeed = (runInput) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
+        maximumMovementSpeed = (runInput && run) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
     }
     void UpdatePlayerCapsulePosition()
     {
@@ -400,7 +404,7 @@ public class PlayerMovementScript : MonoBehaviour
             GlobalData.SoundManagerScript.PlayJumpSound();
             
         }
-        else if (jumpInput && !playerSliding && !playerDoubleJumping )
+        else if ( doubleJump && jumpInput && !playerSliding && !playerDoubleJumping )
         {
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
             playerJumping = true;

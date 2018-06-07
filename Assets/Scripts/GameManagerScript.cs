@@ -196,13 +196,23 @@ public class GameManagerScript : MonoBehaviour
 			case GlobalData.RUN_ABILITY:
 				GlobalData.runUnlocked = true;
 				GlobalData.PlayerMovementScript.UpdateUnlockedAbilities();
+
+                Analytics.CustomEvent("The player has unlocked 'run'");
+
 				break;
+
 			case GlobalData.DOUBLE_JUMP_ABILITY:
 				GlobalData.doubleJumpUnlocked = true;
 				GlobalData.PlayerMovementScript.UpdateUnlockedAbilities();
+
+                Analytics.CustomEvent("The player has unlocked 'jump'");
+
 				break;
+
 			case GlobalData.LEVEL_2: 
 				GlobalData.level2Unlocked = true;
+
+                Analytics.CustomEvent("The player has unlocked 'Level 2'");
 
 				GameObject level2Lock = GameObject.Find("LEVEL 2 LOCK");
 				if (level2Lock != null)

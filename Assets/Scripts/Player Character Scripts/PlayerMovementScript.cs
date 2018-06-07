@@ -31,6 +31,10 @@ public class PlayerMovementScript : MonoBehaviour
     public float steepAngle = 50f;
     [Tooltip("Minimum speed the character will get while sliding.")]
     public float steepSlidingSpeed = 8f;
+
+    [Header("Enable or Disable Upgrades")]
+    public bool run;
+    public bool doubleJump;
     
     
     // Input variables.
@@ -262,7 +266,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     void UpdateParameters()
     {
-        maximumMovementSpeed = (runInput) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
+        maximumMovementSpeed = (runInput && run) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
     }
     void UpdatePlayerCapsulePosition()
     {
@@ -319,6 +323,11 @@ public class PlayerMovementScript : MonoBehaviour
             
             for (int i = capsulecastHitArray.Length-1; i >= 0 ; i--)
             {
+                if (capsulecastHitArray[i].collider.isTrigger)
+                {
+                    continue;
+                }
+
                 RaycastHit hitInfo;
                 groundNormal = capsulecastHitArray[i].normal;
                 groundAngle = Vector3.Angle(groundNormal, Vector3.up);
@@ -333,6 +342,11 @@ public class PlayerMovementScript : MonoBehaviour
                 }
                 else if (Physics.Raycast(capsulecastHitArray[i].point+capsulecastHitArray[i].normal*capsulecastHitArray[i].distance,-capsulecastHitArray[i].normal,out hitInfo,capsulecastHitArray[i].distance*1.1f,environmentLayerMask| enemiesLayerMask) )
                 {
+                    if (capsulecastHitArray[i].collider.isTrigger)
+                    {
+                        continue;
+                    }
+
                     if (  hitInfo.normal != groundNormal  )
                     {
                         playerSliding = false;
@@ -390,7 +404,7 @@ public class PlayerMovementScript : MonoBehaviour
             GlobalData.SoundManagerScript.PlayJumpSound();
             
         }
-        else if (jumpInput && !playerSliding && !playerDoubleJumping )
+        else if ( doubleJump && jumpInput && !playerSliding && !playerDoubleJumping )
         {
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,jumpSpeed,playerRigidbody.velocity.z);
             playerJumping = true;
@@ -417,6 +431,11 @@ public class PlayerMovementScript : MonoBehaviour
             //foreach (RaycastHit capsulecastHit in capsulecastHitArray)
             for (int i = capsulecastHitArray.Length-1; i >= 0; i--)
             {
+                 if (capsulecastHitArray[i].collider.isTrigger)
+                {
+                    continue;
+                }
+                
                 //For colliders that overlap the capsule at the start of the sweep, to avoid problems.
                 if (Vector3Equal(Vector3.zero,capsulecastHitArray[i].point))
                 {

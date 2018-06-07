@@ -1911,6 +1911,8 @@ MonoBehaviour:
   stepMinDepth: 0.275
   steepAngle: 50
   steepSlidingSpeed: 8
+  run: 0
+  doubleJump: 0
 --- !u!114 &114407212178591946
 MonoBehaviour:
   m_ObjectHideFlags: 1

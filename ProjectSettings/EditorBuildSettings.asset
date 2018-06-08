@@ -6,17 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main area.unity
-    guid: 42b9fb3305f3540aa88ac68f1cc70885
+    path: Assets/Scenes/Tree Village Level.unity
+    guid: 677ae3d9d870947efab905a5ad646818
   - enabled: 1
     path: Assets/Scenes/Puzzle 1.unity
     guid: f172ad190b3c23149ad12effac2486a0
   - enabled: 1
-<<<<<<< HEAD
     path: Assets/Scenes/Main area.unity
     guid: 42b9fb3305f3540aa88ac68f1cc70885
-=======
-    path: Assets/Scenes/Puzzle 2.unity
-    guid: 84e13d015c866ed4493b0238b2cd7403
->>>>>>> master
   m_configObjects: {}

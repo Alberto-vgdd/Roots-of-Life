@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class BatProjectileScript : MonoBehaviour, IInteractable
 {
@@ -81,8 +80,6 @@ public class BatProjectileScript : MonoBehaviour, IInteractable
 				GlobalData.PlayerHealthScript.TakeDamage(projectileDamage);
 				// Test camera shake 
 				GlobalData.CameraShakeScript.ShakeCamera(0.2f,0.2f);
-
-                Analytics.CustomEvent("Bat hit player with projectile");
 			}
 			else if (projectileDeflected)
 			{

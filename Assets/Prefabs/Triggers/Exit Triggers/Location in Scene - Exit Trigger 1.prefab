@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23931983785128908}
   - component: {fileID: 65989791653356774}
   - component: {fileID: 114100598097522648}
-  - component: {fileID: 114633150267548278}
   m_Layer: 0
   m_Name: Location in Scene - Exit Trigger 1
   m_TagString: Untagged
@@ -110,15 +109,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Tree Village Level
---- !u!114 &114633150267548278
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1533862041524982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57229cfb9e196e24cb93cef2253171e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ability: 0

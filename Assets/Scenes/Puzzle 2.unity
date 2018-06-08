@@ -4319,7 +4319,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh132514
+  m_Name: pb_Mesh220472
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -45807,7 +45807,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh133454
+  m_Name: pb_Mesh221412
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -46651,6 +46651,11 @@ Prefab:
     - target: {fileID: 4376408290727868, guid: 6c60850b659ac7f4caf6a436c2bc01ea, type: 2}
       propertyPath: m_LocalScale.z
       value: 6.3628244
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100598097522648, guid: 6c60850b659ac7f4caf6a436c2bc01ea,
+        type: 2}
+      propertyPath: sceneName
+      value: Main area
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c60850b659ac7f4caf6a436c2bc01ea, type: 2}

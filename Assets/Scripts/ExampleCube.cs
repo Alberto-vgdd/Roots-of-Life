@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExampleCube : MonoBehaviour {
-    public FlagListener listener;
+    private  FlagListener listener;
 	// Use this for initialization
+
 	void Start () {
-		
+        listener = GameObject.Find("[X] Flag Listener").GetComponent<FlagListener>();
 	}
 	
 	// Update is called once per frame
@@ -16,7 +17,7 @@ public class ExampleCube : MonoBehaviour {
 
     public void onEvent()
     {
-        int value = listener.getValue();
+        int value = listener.getValue("objectVanish");
         if (value == 0)
             gameObject.SetActive(false);
         if (value == 1)

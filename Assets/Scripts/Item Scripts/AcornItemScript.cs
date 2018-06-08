@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class AcornItemScript : MonoBehaviour, IInteractable
 {
@@ -48,7 +49,11 @@ public class AcornItemScript : MonoBehaviour, IInteractable
 		if (!acornCollected && other.CompareTag(playerTag))
 		{
 			CollectAcorn();
-		}
+
+            Analytics.CustomEvent("AcornAmmount", new Dictionary<string, object>{
+            {"Acorns", GlobalData.AcornCount}
+            });
+        }
 	}
 
 	void CollectAcorn()

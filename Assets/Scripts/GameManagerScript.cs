@@ -131,7 +131,8 @@ public class GameManagerScript : MonoBehaviour
 		// Fade out the game.
 		gameUIScript.StartGameFadeOut();
 
-        Analytics.CustomEvent("Game Over");
+        Analytics.CustomEvent("Game Over", new Dictionary<string, object>{
+            {"Acons left", GlobalData.AcornCount } });
 
 		// Wait for the game to fade out, and then move the character and the camera to the checkpoint's position.
 		yield return new WaitForSeconds(1f);

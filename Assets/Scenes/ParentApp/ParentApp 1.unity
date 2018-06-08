@@ -146,7 +146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000074203986, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0.0000074203986, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &34568190
@@ -1923,11 +1923,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 519337589}
   messages:
-  - hi
-  - testing
-  - good job Martijn
-  - this text can easily be changed
-  - scriptkiddyftw
+  - Hi, this is Old Mama. Thank you for using the Yule App. Let's start.
+  - Yule is a conduit. It is a platform for you and your child.
+  - You have one part of the game, while the child has the other.
+  - Without you, the game will not be the same. Be ready to play your part.
+  - The platform that ties you and your child hopes to restart communication. We know
+    that communication will bring harmony back to the family.
+  - Your role is crucial - but you don't have full control.
+  - You can see what the player is doing - playtime, progress, their status, but also,
+    their world. You can also use the app to send your child messages when playing.
+  - "And answer questions \u2013 but this will need the both of you."
+  - The two of you will need to talk - talk, talk and talk. To drive the game forward,
+    and to bring harmony back.
+  - So, good luck! Enjoy the experience and share it together.
 --- !u!1 &429220643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,7 +2497,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 8
     m_MaxSize: 80
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2517,8 +2525,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 234.90002}
-  m_SizeDelta: {x: 0, y: 138.7}
+  m_AnchoredPosition: {x: 0, y: 259.38202}
+  m_SizeDelta: {x: -146.6, y: 1239.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &533938564
 GameObject:
@@ -6881,8 +6889,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1140627586}
   m_HandleRect: {fileID: 1140627585}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 0.7890846
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7870,7 +7878,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1980773098}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5002626
+  m_Size: 0.5000878
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8186,7 +8194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1080, y: 660}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1875373319

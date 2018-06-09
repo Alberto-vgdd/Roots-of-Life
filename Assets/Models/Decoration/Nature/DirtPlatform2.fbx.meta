@@ -6,9 +6,11 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: Material.071
+    2100002: Material.141
     2300000: //RootNode
     3300000: //RootNode
     4300000: DirtPlatform2
+    4300002: DirtBlock2
   externalObjects: {}
   materials:
     importMaterials: 1

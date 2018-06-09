@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: a8dfc2a999df12a4b894cfd86f3ad3ff
-timeCreated: 1527614087
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -9,6 +7,7 @@ ModelImporter:
     400000: //RootNode
     2100000: Material.041
     2100002: Material.001
+    2100004: Material.014
     2300000: //RootNode
     3300000: //RootNode
     4300000: Rock4
@@ -31,6 +30,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

@@ -19,6 +19,7 @@ public class FlagListener : MonoBehaviour {
         flags = new Dictionary<string, int>();
         foreach (string name in flagnames)
             flags.Add(name, 0);
+		Debug.Log ("flag count:" + flags.Count);
     }
 
     private void OnValidate()
@@ -44,33 +45,42 @@ public class FlagListener : MonoBehaviour {
         yield return flagloader;
         string flagsDataString = flagloader.text.TrimEnd(';');
         flagData = flagsDataString.Split(';');
-        
-        // Iterate over all flag values obtained from url
-        foreach (string data in flagData)
-        {
-            // Store flag name and flag value
-            string name = data.Split(',')[0];
-            int value = int.Parse(data.Split(',')[1]);
-
-            // Check if flag is checked for
-            if (flags.ContainsKey(name))
-            {
-                int i = flagnames.IndexOf(name);
-
-                // Check for value update
-                if (flags[name] != value)
-                    events[i].Invoke();
-
-                // Update value
-                flags[name] = value;
-                valuesReadOnly[i] = value;
-            }
-        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        StartCoroutine(loadFlags());
+		StartCoroutine(loadFlags());
+		if (flagData == null)
+			return;
+
+		bool invoke = false;
+		// Iterate over all flag values obtained from url
+		foreach (string data in flagData)
+		{
+			//Debug.Log ("retrieved string:" + data);
+			// Store flag name and flag value
+			string name = data.Split(',')[0];
+			int value = int.Parse(data.Split(',')[1]);
+
+			// Check if flag is checked for
+			if (flags.ContainsKey(name))
+			{
+				//Debug.Log ("checking flag:" + name);
+				int i = flagnames.IndexOf(name);
+				//Debug.Log ("index:" + i);
+
+				// Check for value update
+				if (flags [name] != value)
+					invoke = true;
+
+				// Update value
+				flags[name] = value;
+				valuesReadOnly[i] = value;
+
+				if (invoke)
+					events [i].Invoke ();
+			}
+		}
 	}
 
     public int getValue(string flag)

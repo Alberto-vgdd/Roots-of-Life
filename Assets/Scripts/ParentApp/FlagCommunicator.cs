@@ -9,22 +9,17 @@ public class FlagCommunicator : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        StartCoroutine(form());
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	}
 
-    IEnumerator form()
+	IEnumerator form(int value)
     {
         WWWForm form = new WWWForm();
         form.AddField("flagName", flag);
-        if (switcher)
-            form.AddField("flagValue", valueOne);
-        else
-            form.AddField("flagValue", valueTwo);
-        switcher = !switcher;
+		form.AddField ("flagValue", value);
 
         WWW www = new WWW(URL, form);
         yield return www;
@@ -38,8 +33,8 @@ public class FlagCommunicator : MonoBehaviour {
         }
     }
 
-    public void setFlag()
+	public void setFlag(int value)
     {
-        StartCoroutine(form());
+        StartCoroutine(form(value));
     }
 }

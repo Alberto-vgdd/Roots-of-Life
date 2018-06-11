@@ -68,13 +68,13 @@ public class QuizBehaviour : MonoBehaviour {
             if (a.isOn)
             {
                 questionN++;
-				if (questionN < questions.Count)
-					loadQuestion ();
-				else 
+				if (questionN >= questions.Count)
 				{
 					flagCommunicator.setFlag (1);
 					gameObject.SetActive (false);
+					questionN = 0;
 				}
+				loadQuestion ();
                 break;
             }
         }

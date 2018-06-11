@@ -275,7 +275,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000014781952, y: -1518.2944}
+  m_AnchoredPosition: {x: 0, y: -1518.2944}
   m_SizeDelta: {x: -545.2, y: 125.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &80335877
@@ -4112,7 +4112,7 @@ MonoBehaviour:
   questionNumber: {fileID: 2069530489}
   question: {fileID: 703706008}
   answerOptions: {fileID: 501057301}
-  flagCommunicator: {fileID: 0}
+  flagCommunicator: {fileID: 1279523718}
   questions:
   - asdfasdf
   - asdfasdijknkd
@@ -4289,7 +4289,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 414645809}
   m_Direction: 0
   m_Value: 0.5
-  m_Size: 0.3251715
+  m_Size: 0.32517147
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5903,7 +5903,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 429220644}
   m_Direction: 2
   m_Value: 0.99999946
-  m_Size: 0.6194245
+  m_Size: 0.61942446
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9774,7 +9774,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1980773098}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.49982592
+  m_Size: 0.50012153
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10159,7 +10159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 1080, y: 660}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1875373319
@@ -10986,7 +10986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000014781952, y: -1292.6711}
+  m_AnchoredPosition: {x: 0, y: -1292.6711}
   m_SizeDelta: {x: -257.4, y: 221.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028757103

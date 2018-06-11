@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using System.Linq;
 
 public class FlagListener : MonoBehaviour {
-    string URL = "http://143.176.117.92/roots-of-life/getFlags.php";
+	string URL = "http://62.131.170.46/roots-of-life/getFlags.php";
 
     public List<string> flagnames;
     public List<UnityEvent> events;

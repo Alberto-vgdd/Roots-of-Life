@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlagCommunicator : MonoBehaviour {
-    string URL = "http://143.176.117.92/roots-of-life/setFlag.php";
+	string URL = "http://62.131.170.46/roots-of-life/setFlag.php";
     public string flag, valueOne, valueTwo;
     private bool switcher;
 

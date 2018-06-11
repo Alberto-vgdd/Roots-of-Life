@@ -18,7 +18,7 @@ public class ProfileSelector : MonoBehaviour {
     private bool moving;
     private bool update;
 
-    string URL = "http://143.176.117.92/roots-of-life/userSelect.php";
+	string URL = "http://62.131.170.46/roots-of-life/userSelect.php";
     public string[] usersData;
 
     // Use this for initialization

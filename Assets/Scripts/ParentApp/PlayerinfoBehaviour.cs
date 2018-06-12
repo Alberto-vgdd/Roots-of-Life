@@ -24,7 +24,7 @@ public class PlayerinfoBehaviour : MonoBehaviour {
 		gameObject.GetComponent<RectTransform> ().anchoredPosition = position;
 	}
 
-	public void updateInfo()
+    /*public void updateInfo()
 	{
 		Profile selected = selector.profiles [selector.selected];
 		transform.GetChild (0).GetComponent<Text> ().text = selected.name;
@@ -32,5 +32,5 @@ public class PlayerinfoBehaviour : MonoBehaviour {
 			transform.GetChild (1).GetComponent<Text> ().text = "Status: Playing";
 		else
 			transform.GetChild (1).GetComponent<Text> ().text = "Status: Offline";
-	}
+	}*/
 }

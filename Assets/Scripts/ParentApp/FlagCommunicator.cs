@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlagCommunicator : MonoBehaviour {
-	string URL = "http://62.131.170.46/roots-of-life/setFlag.php";
+    string URL = "http://143.176.117.92/roots-of-life/setFlag.php";
     public string flag, valueOne, valueTwo;
     private bool switcher;
 
     // Use this for initialization
     void Start () {
+        StartCoroutine(form());
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 	}
 
-	IEnumerator form(int value)
+    IEnumerator form()
     {
         WWWForm form = new WWWForm();
         form.AddField("flagName", flag);
-		form.AddField ("flagValue", value);
+        if (switcher)
+            form.AddField("flagValue", valueOne);
+        else
+            form.AddField("flagValue", valueTwo);
+        switcher = !switcher;
 
         WWW www = new WWW(URL, form);
         yield return www;
@@ -33,8 +38,8 @@ public class FlagCommunicator : MonoBehaviour {
         }
     }
 
-	public void setFlag(int value)
+    public void setFlag()
     {
-        StartCoroutine(form(value));
+        StartCoroutine(form());
     }
 }

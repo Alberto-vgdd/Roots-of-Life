@@ -42,9 +42,6 @@ RenderSettings:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
   m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
@@ -52,15 +49,12 @@ RenderSettings:
   m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
   m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
 =======
   m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
 >>>>>>> parent of 5a9b4fc... Main are2.0 update
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
   m_UseRadianceAmbientProbe: 0
@@ -1280,7 +1274,6 @@ Transform:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!1001 &70905920
 =======
 --- !u!1 &67414790
@@ -1314,79 +1307,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &71866209
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
-=======
---- !u!1001 &70905920
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1904221209}
-    m_Modifications:
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 12.099988
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 24.249987
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.00000017881393
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.00000017881393
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_RootOrder
-      value: 42
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 179.99998
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 21.00013
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 21.000101
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 42.00017
-      objectReference: {fileID: 0}
-    - target: {fileID: 1720671713361866, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-      propertyPath: m_Name
-      value: Twig1 (43)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 99dcb784cec8354489ae085f197e790a, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &70905921 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a,
-    type: 2}
-  m_PrefabInternal: {fileID: 70905920}
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 --- !u!1001 &71866209
 >>>>>>> parent of 5a9b4fc... Main are2.0 update
@@ -2687,9 +2607,6 @@ Prefab:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 --- !u!1 &161759306
@@ -2938,13 +2855,10 @@ MeshFilter:
   m_GameObject: {fileID: 167047004}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
 =======
 >>>>>>> parent of 5a9b4fc... Main are2.0 update
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 --- !u!1001 &172043094
@@ -4472,9 +4386,6 @@ Transform:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
   m_RootOrder: 6
@@ -4482,15 +4393,12 @@ Transform:
   m_RootOrder: 5
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
   m_RootOrder: 5
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
 =======
   m_RootOrder: 4
 >>>>>>> parent of 5a9b4fc... Main are2.0 update
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5848,7 +5756,6 @@ Prefab:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 --- !u!1001 &457759924
 Prefab:
@@ -5917,8 +5824,6 @@ Prefab:
   m_ParentPrefab: {fileID: 100100000, guid: 1c37908aed5ebed49ad45fe3530a5a87, type: 2}
   m_IsPrefabParent: 0
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 =======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 --- !u!4 &457759925 stripped
@@ -7292,10 +7197,7 @@ Transform:
 --- !u!1 &537214084
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -7389,11 +7291,8 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
-<<<<<<< HEAD
 =======
 >>>>>>> parent of 5a9b4fc... Main are2.0 update
-=======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 --- !u!4 &539355320 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4572516920268766, guid: 000a1125c65398e418f1346b762857bf,
@@ -7401,199 +7300,10 @@ Transform:
   m_PrefabInternal: {fileID: 1633328941}
 --- !u!1 &546021458
 <<<<<<< HEAD
-<<<<<<< HEAD
 >>>>>>> a074b0b74847718249839342541aa3431a88702d
 =======
 >>>>>>> parent of 5a9b4fc... Main are2.0 update
 =======
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
-=======
->>>>>>> a074b0b74847718249839342541aa3431a88702d
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 519152675}
-  - component: {fileID: 519152674}
-  - component: {fileID: 519152673}
-  - component: {fileID: 519152672}
-  m_Layer: 0
-  m_Name: Quiz (Puzzle 2) Door
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &519152672
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519152671}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &519152673
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519152671}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &519152674
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519152671}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &519152675
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519152671}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.6, y: 3, z: -27.300001}
-  m_LocalScale: {x: 2.7, y: 5.9, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &525331585
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 525331586}
-  - component: {fileID: 525331589}
-  - component: {fileID: 525331588}
-  - component: {fileID: 525331587}
-  m_Layer: 8
-  m_Name: Cube (22)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &525331586
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 525331585}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33, y: 53.5, z: -68.9}
-  m_LocalScale: {x: 2, y: 1, z: 2}
-  m_Children: []
-  m_Father: {fileID: 1064453119}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &525331587
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 525331585}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &525331588
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 525331585}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &525331589
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 525331585}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &531635957 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a,
-    type: 2}
-  m_PrefabInternal: {fileID: 38226752}
---- !u!4 &533055999 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4238417482342490, guid: 99dcb784cec8354489ae085f197e790a,
-    type: 2}
-  m_PrefabInternal: {fileID: 548317729}
---- !u!4 &539355320 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4572516920268766, guid: 000a1125c65398e418f1346b762857bf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1633328941}
---- !u!1 &546021458
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
 GameObject:
   m_ObjectHideFlags: 0
@@ -17972,7 +17682,6 @@ Prefab:
     - target: {fileID: 4345577790807114, guid: 0809e61a1660e4d45a82bfa0b4f55154, type: 2}
       propertyPath: m_LocalPosition.z
 <<<<<<< HEAD
-<<<<<<< HEAD
       value: -52
       objectReference: {fileID: 0}
     - target: {fileID: 4345577790807114, guid: 0809e61a1660e4d45a82bfa0b4f55154, type: 2}
@@ -18032,12 +17741,6 @@ Prefab:
     - target: {fileID: 4205564836940938, guid: d0d451e94bbdf8744914e6d5177070ca, type: 2}
       propertyPath: m_LocalPosition.z
       value: -26.30566
-=======
-      value: -31.2
-=======
-      value: 4
->>>>>>> a074b0b74847718249839342541aa3431a88702d
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
       objectReference: {fileID: 0}
     - target: {fileID: 4205564836940938, guid: d0d451e94bbdf8744914e6d5177070ca, type: 2}
       propertyPath: m_LocalRotation.x
@@ -20300,7 +20003,6 @@ Prefab:
 --- !u!1001 &1525307490
 Prefab:
   m_ObjectHideFlags: 0
-<<<<<<< HEAD
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 1136609988}
@@ -20434,37 +20136,6 @@ MeshRenderer:
   m_GameObject: {fileID: 1652706824}
   m_Enabled: 0
 =======
-=======
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 1460227828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09023bfa117ed784682e4144bf598ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallSpeed: 2.5
-  fallTime: 2
-  waitTime: 1
---- !u!65 &1460227831
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1460227828}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1460227832
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
   m_GameObject: {fileID: 1460227828}
   m_Enabled: 1
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
@@ -25611,9 +25282,6 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!1001 &1719254281
 Prefab:
-<<<<<<< HEAD
->>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
-=======
 >>>>>>> parent of 7abcb22... Merge branch 'master' of https://github.com/Alberto-vgdd/Roots-of-Life
   m_ObjectHideFlags: 0
   serializedVersion: 2

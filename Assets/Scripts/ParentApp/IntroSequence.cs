@@ -11,6 +11,8 @@ public class IntroSequence : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         reset();
+        if (PlayerPrefs.GetInt("skipIntro") == 1)
+            gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -38,6 +40,7 @@ public class IntroSequence : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
             reset();
             gameObject.SetActive(false);
+            PlayerPrefs.SetInt("skipIntro", 1);
             yield return null;
         }
         yield return new WaitForSeconds(0.5f);

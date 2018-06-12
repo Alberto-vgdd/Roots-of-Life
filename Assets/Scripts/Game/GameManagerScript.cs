@@ -22,17 +22,12 @@ public class GameManagerScript : MonoBehaviour
 	// GameUI script
 	private GameUIScript gameUIScript;
 
-
-	[HideInInspector]
-	public float timeSinceStart;
-
 	// Use this for initialization
 	void Awake()
 	{
 		if (GlobalData.GameManager == null)
 		{
 			GlobalData.GameManager = this;
-			timeSinceStart = 0f;
 			DontDestroyOnLoad(this.gameObject);
 		}
 		else if (GlobalData.GameManager != this)
@@ -76,13 +71,15 @@ public class GameManagerScript : MonoBehaviour
 			
 		}
 
-		timeSinceStart += Time.deltaTime;
+		if (Input.GetKeyDown(KeyCode.U))
+		{
+			Unlock(GlobalData.LEVEL_2);
+		}
 
 	}
 
 	public void ChangeScene(string sceneName)
 	{
-		Debug.Log(SceneManager.GetActiveScene().name + " completed at: "+ timeSinceStart);
 		SceneManager.LoadScene(sceneName);
 	}
 

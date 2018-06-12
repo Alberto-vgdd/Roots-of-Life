@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class ProfileSelector : MonoBehaviour {
-	public GameObject playerinfo;
+    public Text playerName;
+    public Text playerStatus;
 	public GameObject content;
 	public GameObject profileTemplate;
+    public GameObject addButton;
 
 	public UnityEvent onSelectNewProfile;
 
@@ -18,41 +20,72 @@ public class ProfileSelector : MonoBehaviour {
     private bool moving;
     private bool update;
 
-    string URL = "http://143.176.117.92/roots-of-life/userSelect.php";
+	string URL = "http://62.131.170.46/roots-of-life/userSelect.php";
     public string[] usersData;
 
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(loadUsers());
+
     }
 
-    IEnumerator loadUsers()
+    public void unloadUsers()
     {
-        WWW users = new WWW(URL);
-        yield return users;
-        string usersDataString = users.text.TrimEnd(';');
-        usersData = usersDataString.Split(';');
+        foreach (Profile p in profiles)
+        {
+            Destroy(p.image);
+        }
+        playerName.text = "No users found";
+        playerStatus.text = "Status:";
+    }
+
+    public IEnumerator loadUsers(int parentID)
+    {
+        addButton.SetActive(false);
+        Debug.Log(parentID);
+        WWWForm form = new WWWForm();
+        form.AddField("setParentID", parentID);
+
+        WWW www = new WWW(URL, form);
+        yield return www;
+        if (!string.IsNullOrEmpty(www.error))
+        {
+            Debug.Log("error: " + www.error);
+        }
+        else
+        {
+            Debug.Log("result: " + www.text);
+        }
         
         profiles = new List<Profile>();
-        foreach (string data in usersData)
+
+        if (www.text != "")
         {
-            string name = data.Split(',')[0];
-			int progress = int.Parse (data.Split(',') [2]);
-			float completion = float.Parse (data.Split(',') [3]);
-			int playtime = int.Parse (data.Split(',') [4]);
-			int openings = int.Parse (data.Split (',') [5]);
-			int deathcount = int.Parse (data.Split (',') [6]);
-            Image image = Instantiate(profileTemplate).GetComponent<Image>();
-            image.transform.SetParent(content.transform, false);
-			Profile p = new Profile(name, image, progress, completion, playtime, openings, deathcount);
-            if (data.Split(',')[1] == "1")
-                p.active = true;
-            profiles.Add(p);
+            string usersDataString = www.text.TrimEnd(';');
+            usersData = usersDataString.Split(';');
+            foreach (string data in usersData)
+            {
+                string name = data.Split(',')[0];
+                int progress = int.Parse(data.Split(',')[2]);
+                //float completion = float.Parse (data.Split(',') [3]);
+                //int playtime = int.Parse (data.Split(',') [4]);
+                //int openings = int.Parse (data.Split (',') [5]);
+                //int deathcount = int.Parse (data.Split (',') [6]);
+                Image image = Instantiate(profileTemplate).GetComponent<Image>();
+                image.transform.SetParent(content.transform, false);
+                Profile p = new Profile(name, image, progress, 0, 0, 0, 0);
+                if (data.Split(',')[1] == "1")
+                    p.active = true;
+                profiles.Add(p);
+            }
+            profileWidth = 1f / profiles.Count;
+            selected = 0;
+            displayUsers();
         }
-        profileWidth = 1f / profiles.Count;
-        selected = 0;
-        displayUsers();
+        else
+        {
+            addButton.SetActive(true);
+        }
     }
 
     void displayUsers()
@@ -138,7 +171,12 @@ public class ProfileSelector : MonoBehaviour {
     public void setProfile(int profile)
     {
         selected = profile;
-		onSelectNewProfile.Invoke ();
+        playerName.text = profiles[selected].name;
+        if (profiles[selected].active)
+            playerStatus.text = "Status: Playing";
+        else
+            playerStatus.text = "Status: Offline";
+        onSelectNewProfile.Invoke ();
     }
 
 	// Return the profile instance of the selected user

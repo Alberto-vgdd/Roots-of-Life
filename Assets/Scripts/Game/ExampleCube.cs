@@ -18,10 +18,9 @@ public class ExampleCube : MonoBehaviour {
     public void onEvent()
     {
         int value = listener.getValue("objectVanish");
-		Debug.Log ("------------------------------event trigger, new value:" + value);
-        if (value == 1)
-            gameObject.SetActive(false);
         if (value == 0)
+            gameObject.SetActive(false);
+        if (value == 1)
             gameObject.SetActive(true);
     }
 }

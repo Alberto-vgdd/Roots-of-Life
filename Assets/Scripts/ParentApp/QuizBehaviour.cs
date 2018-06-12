@@ -8,7 +8,6 @@ public class QuizBehaviour : MonoBehaviour {
     public GameObject questionNumber;
     public Text question;
     public GameObject answerOptions;
-	public FlagCommunicator flagCommunicator;
 
     public List<string> questions;
     public List<string> answers;
@@ -68,13 +67,7 @@ public class QuizBehaviour : MonoBehaviour {
             if (a.isOn)
             {
                 questionN++;
-				if (questionN >= questions.Count)
-				{
-					flagCommunicator.setFlag (1);
-					gameObject.SetActive (false);
-					questionN = 0;
-				}
-				loadQuestion ();
+                loadQuestion();
                 break;
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public class GameManagerScript : MonoBehaviour 
 {
@@ -21,12 +22,17 @@ public class GameManagerScript : MonoBehaviour
 	// GameUI script
 	private GameUIScript gameUIScript;
 
+
+	[HideInInspector]
+	public float timeSinceStart;
+
 	// Use this for initialization
 	void Awake()
 	{
 		if (GlobalData.GameManager == null)
 		{
 			GlobalData.GameManager = this;
+			timeSinceStart = 0f;
 			DontDestroyOnLoad(this.gameObject);
 		}
 		else if (GlobalData.GameManager != this)
@@ -70,10 +76,13 @@ public class GameManagerScript : MonoBehaviour
 			
 		}
 
+		timeSinceStart += Time.deltaTime;
+
 	}
 
 	public void ChangeScene(string sceneName)
 	{
+		Debug.Log(SceneManager.GetActiveScene().name + " completed at: "+ timeSinceStart);
 		SceneManager.LoadScene(sceneName);
 	}
 
@@ -124,6 +133,9 @@ public class GameManagerScript : MonoBehaviour
 
 		// Fade out the game.
 		gameUIScript.StartGameFadeOut();
+
+        Analytics.CustomEvent("Game Over", new Dictionary<string, object>{
+            {"Acons left", GlobalData.AcornCount } });
 
 		// Wait for the game to fade out, and then move the character and the camera to the checkpoint's position.
 		yield return new WaitForSeconds(1f);
@@ -179,6 +191,43 @@ public class GameManagerScript : MonoBehaviour
 		GlobalData.PlayerActionScript.DisableInput();
 		GlobalData.FreeCameraMovementScript.DisableInput();
 		GlobalData.FixedCameraMovementScript.DisableInput();
+	}
+
+	public void Unlock(int index)
+	{
+		switch (index)
+		{
+			case GlobalData.RUN_ABILITY:
+				GlobalData.runUnlocked = true;
+				GlobalData.PlayerMovementScript.UpdateUnlockedAbilities();
+
+                Analytics.CustomEvent("The player has unlocked 'run'");
+
+				break;
+
+			case GlobalData.DOUBLE_JUMP_ABILITY:
+				GlobalData.doubleJumpUnlocked = true;
+				GlobalData.PlayerMovementScript.UpdateUnlockedAbilities();
+
+                Analytics.CustomEvent("The player has unlocked 'jump'");
+
+				break;
+
+			case GlobalData.LEVEL_2: 
+				GlobalData.level2Unlocked = true;
+
+                Analytics.CustomEvent("The player has unlocked 'Level 2'");
+
+				GameObject level2Lock = GameObject.Find("LEVEL 2 LOCK");
+				if (level2Lock != null)
+				{
+					level2Lock.SetActive(false);
+				}
+				break;
+			default:
+				break;
+		}
+		
 	}
     
 }

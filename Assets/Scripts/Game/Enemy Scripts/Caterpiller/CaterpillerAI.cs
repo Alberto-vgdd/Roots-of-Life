@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 //using UnityEditor.Rendering;
+using UnityEngine.Analytics;
 
 public class CaterpillerAI : MonoBehaviour, IEnemy
 {
@@ -35,7 +36,7 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
         playerTag = GlobalData.PlayerTag;
         caterpillar = GetComponent<NavMeshAgent>();
         caterpillar.autoBraking = false;
-        caterpillar.SetDestination(Dis.currentWP);
+        //caterpillar.SetDestination(Dis.currentWP);
     }
 
     // Update is called once per frame
@@ -52,11 +53,12 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
             if (Vector3.Distance(waypoints[currentWP].transform.position, transform.position) < accuracy)
             {
 
-                currentWP = Random.Range(0, waypoints.Length);zcurrentWP++;
+                currentWP = Random.Range(0, waypoints.Length);
+                /*currentWP++;
                 if (currentWP >= waypoints.Length)
                 {
                     currentWP = 0;
-                }
+                }*/
             }
             direction = waypoints[currentWP].transform.position - transform.position;
             caterpillar.SetDestination(direction);
@@ -101,6 +103,9 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
     public void TakeDamage(int damageAmount)
     {
         Destroy(this.gameObject);
+
+        Analytics.CustomEvent("Caterpillar dead");
+
     }
 }
 

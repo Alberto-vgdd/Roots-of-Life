@@ -83,6 +83,8 @@ public class GameManagerScript : MonoBehaviour
 	public void ChangeScene(string sceneName)
 	{
 		Debug.Log(SceneManager.GetActiveScene().name + " completed at: "+ timeSinceStart);
+        Analytics.CustomEvent("New level loaded", new Dictionary<string, object>
+        { {"Time elapsed", timeSinceStart } });
 		SceneManager.LoadScene(sceneName);
 	}
 

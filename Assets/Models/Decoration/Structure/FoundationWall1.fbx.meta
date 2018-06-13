@@ -10,6 +10,7 @@ ModelImporter:
     400002: FoundationWall1_LOD0
     400004: FoundationWall1_LOD1
     2100000: Material.001
+    2100002: Material.005
     2300000: //RootNode
     2300002: FoundationWall1_LOD0
     2300004: FoundationWall1_LOD1

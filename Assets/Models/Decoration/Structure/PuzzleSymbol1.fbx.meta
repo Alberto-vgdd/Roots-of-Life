@@ -1,13 +1,12 @@
 fileFormatVersion: 2
 guid: 2240d29804413f2479a0ca91aae5b254
-timeCreated: 1528040981
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
     2100000: Material.007
+    2100002: Material.009
     2300000: //RootNode
     3300000: //RootNode
     4300000: PuzzleSymbol
@@ -30,6 +29,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

@@ -8,6 +8,8 @@ TagManager:
   - Rojo
   - KillZone
   - SpringJump
+  - Puzzle 1 exit
+  - Main area trigger 1
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -268,6 +269,10 @@ public class PlayerMovementScript : MonoBehaviour
     void UpdateParameters()
     {
         maximumMovementSpeed = (runInput && run) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
+        if(runInput && run)
+        {
+            Analytics.CustomEvent("Sprinting uses per player");
+        }
     }
     void UpdatePlayerCapsulePosition()
     {
@@ -411,6 +416,7 @@ public class PlayerMovementScript : MonoBehaviour
             playerJumping = true;
             playerDoubleJumping = true;
             GlobalData.SoundManagerScript.PlayJumpSound();
+            Analytics.CustomEvent("Double Jump uses per player");
 
         }
 

@@ -22,8 +22,8 @@ public class InfectionItemScript : MonoBehaviour
 
 	void CollectInfection()
 	{
-		GlobalData.InfectionCount++;
-		GlobalData.GameUIScript.UpdateInfectionCounter();
+		//GlobalData.InfectionCount++;
+		//GlobalData.GameUIScript.UpdateInfectionCounter();
 		infectionCollected = true;
 		gameObject.SetActive(false);
 	}

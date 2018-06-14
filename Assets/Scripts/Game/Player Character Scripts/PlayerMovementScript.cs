@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -19,6 +18,8 @@ public class PlayerMovementScript : MonoBehaviour
     public float jumpSpeed = 7.5f;
     [Tooltip("Maximum speed the character reach get to while falling.")]
     public float maximumFallingSpeed = 10f;
+    [Tooltip("Boolean that indicates if the character should automatically change its movement direction when colliding a wall.")]
+    public bool changeMovementDirectionOnCollision = false;
 
 
     [Header("Step Climbing")]
@@ -72,6 +73,9 @@ public class PlayerMovementScript : MonoBehaviour
     
     // Player variables
     private Animator playerAnimator;
+        private float animatorWalkSpeedParameter;
+        private Quaternion targetRotation;
+        private Vector3 velocityPlaneDirection;
     private Rigidbody playerRigidbody;
     private CapsuleCollider playerCapsuleCollider;
     private ParticleSystem landingParticles;
@@ -81,6 +85,8 @@ public class PlayerMovementScript : MonoBehaviour
     private bool playerPushed;
     private float pushTime = 0.6f;
     private float pushTimer;
+
+
 
     private bool inputEnabled = true;
   
@@ -157,16 +163,13 @@ public class PlayerMovementScript : MonoBehaviour
 
         movementDirection = horizontalDirection * movementInput.x + verticalDirection * movementInput.y;
 
-        
 
         //Rotate the player (Why is this here? Because unity can't interpolate rotations in no-kinematic objects).
         if (playerRigidbody.velocity.magnitude > 0f)
-        {
-            Vector3 velocityDirection = Vector3.Scale(playerRigidbody.velocity,new Vector3(1,0,1)).normalized;
-            
+        {            
             if (playerSliding)
             {
-                playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,Quaternion.LookRotation(velocityDirection,Vector3.up),turnSpeed*2*Time.deltaTime) );
+                playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,targetRotation,turnSpeed*2*Time.deltaTime) );
             }
             else
             {
@@ -174,30 +177,24 @@ public class PlayerMovementScript : MonoBehaviour
                 {                    
                     if ( movementInput.magnitude > 0.01f && playerRigidbody.velocity.magnitude > 0.01f)
                     {
-                        if( Vector3.Angle(transform.forward,velocityDirection) > 135)
+                        if( Vector3.Angle(transform.forward,velocityPlaneDirection) > 135) 
                         {
-                            playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,Quaternion.LookRotation(velocityDirection,Vector3.up),turnSpeed*2*Time.deltaTime ));
+                            playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,targetRotation,turnSpeed*2*Time.deltaTime ));
                         }
                         else
                         {
-                            playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,Quaternion.LookRotation(velocityDirection,Vector3.up),turnSpeed*Time.deltaTime) );
+                            playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,targetRotation,turnSpeed*Time.deltaTime) );
                         }
                     }
                 }
                 else
                 {
-                    playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,Quaternion.LookRotation(velocityDirection,Vector3.up),turnSpeed*Time.deltaTime) );
+                    playerRigidbody.MoveRotation( Quaternion.RotateTowards(playerRigidbody.rotation,targetRotation,turnSpeed*Time.deltaTime) );
                 }
             }      
         }
 
 
-        // Animations
-        playerAnimator.SetBool("Fall", !playerCloseToGround);
-        playerAnimator.SetBool("Slide", playerSliding);
-        playerAnimator.SetFloat("Walk Speed",movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) ); 
-
-        
        
         if ((playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f ) 
         {
@@ -232,7 +229,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Modify parameters based on character's state ( run/walk -> maximumMovementSpeed)
+        // Modify parameters based on character's state
+        // ( run/walk -> maximumMovementSpeed)
+        // ( update target rotation based on last fixed step)
         UpdateParameters();
 
         // This is used to update variables for the capsule casts.
@@ -262,6 +261,9 @@ public class PlayerMovementScript : MonoBehaviour
         // If the character is not on a steep, constraint the velocity magnitude
         ProjectVelocityDirection();
 
+        // Updates the values of the animator parameters based on the changes of this fixed step.
+        UpdateAnimatorParameters();
+
         //Add gravity the player.
         playerRigidbody.AddForce(Physics.gravity*gravityScale,ForceMode.Acceleration);
     }
@@ -269,10 +271,9 @@ public class PlayerMovementScript : MonoBehaviour
     void UpdateParameters()
     {
         maximumMovementSpeed = (runInput && run) ? baseMovementSpeed*runSpeedMultiplier : baseMovementSpeed;
-        if(runInput && run)
-        {
-            Analytics.CustomEvent("Sprinting uses per player");
-        }
+        velocityPlaneDirection = Vector3.Scale(playerRigidbody.velocity,new Vector3(1,0,1));
+        targetRotation = Quaternion.LookRotation(velocityPlaneDirection,Vector3.up);
+        
     }
     void UpdatePlayerCapsulePosition()
     {
@@ -416,7 +417,6 @@ public class PlayerMovementScript : MonoBehaviour
             playerJumping = true;
             playerDoubleJumping = true;
             GlobalData.SoundManagerScript.PlayJumpSound();
-            Analytics.CustomEvent("Double Jump uses per player");
 
         }
 
@@ -438,7 +438,7 @@ public class PlayerMovementScript : MonoBehaviour
             //foreach (RaycastHit capsulecastHit in capsulecastHitArray)
             for (int i = capsulecastHitArray.Length-1; i >= 0; i--)
             {
-                 if (capsulecastHitArray[i].collider.isTrigger)
+                if (capsulecastHitArray[i].collider.isTrigger)
                 {
                     continue;
                 }
@@ -462,7 +462,6 @@ public class PlayerMovementScript : MonoBehaviour
                     if ( playerJumping || distanceToGround > stepMaxHeight || capsulecastHitArray[i].normal.y < 0 ||Physics.CapsuleCast(point1+Vector3.up*stepMaxHeight,point2+Vector3.up*stepMaxHeight,radius,movementDirection.normalized,Mathf.Max(capsulecastHitArray[i].normal.y,stepMinDepth),environmentLayerMask | enemiesLayerMask) )
                     {
                         movementDirection -= Vector3.Project(movementDirection, Vector3.Scale(capsulecastHitArray[i].normal,new Vector3(1,0,1)).normalized);
-                        //break; 
                     }
                     else
                     {
@@ -497,19 +496,39 @@ public class PlayerMovementScript : MonoBehaviour
                 
             }
             
-  
-                // If the new movementDirection isn't 0, scale the movementDirection vector.
-                if (!Vector3Equal(movementDirection,Vector3.zero) ) 
-                {
-                    movementDirection *= oldMovementMagnitude/movementDirection.magnitude;
-                }
+            // This code is to enable movement direction readjust (not recommended for a platforms game)
+            // If the new movementDirection isn't 0, scale the movementDirection vector.
+            if (changeMovementDirectionOnCollision && !Vector3Equal(movementDirection,Vector3.zero) ) 
+            {
+                movementDirection *= oldMovementMagnitude/movementDirection.magnitude;
+            }
             
            
 
         }
     }
 
-    void ProjectVelocityDirection()
+    void SetVelocity()
+    {
+        if (!playerPushed)
+        {
+            float velocityY = playerRigidbody.velocity.y;
+            
+            playerRigidbody.velocity = movementDirection*maximumMovementSpeed + Vector3.up*velocityY;
+          
+
+            if (!playerGrounded)
+            {
+                playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Min(velocityY,playerRigidbody.velocity.y),playerRigidbody.velocity.z);
+            }
+
+
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Max(playerRigidbody.velocity.y,-maximumFallingSpeed),playerRigidbody.velocity.z);
+        }
+        
+    }
+
+      void ProjectVelocityDirection()
     {
         // If the player is grounded in a slope and not jumping, adjust the movement direction. If it is on a steep, it should fall.
         if ( playerGrounded && !playerJumping)
@@ -541,25 +560,17 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    void SetVelocity()
+    void UpdateAnimatorParameters()
     {
-        if (!playerPushed)
-        {
-            float velocityY = playerRigidbody.velocity.y;
-            
-            playerRigidbody.velocity = movementDirection*maximumMovementSpeed + Vector3.up*velocityY;
-          
+        animatorWalkSpeedParameter = movementDirection.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier); 
 
-            if (!playerGrounded)
-            {
-                playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Min(velocityY,playerRigidbody.velocity.y),playerRigidbody.velocity.z);
-            }
+        // Animations
+        playerAnimator.SetBool("Fall", !playerCloseToGround);
+        playerAnimator.SetBool("Slide", playerSliding);        
+        playerAnimator.SetFloat("Walk Speed",animatorWalkSpeedParameter); 
 
-
-            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,Mathf.Max(playerRigidbody.velocity.y,-maximumFallingSpeed),playerRigidbody.velocity.z);
-        }
-        
     }
+
 
     public void Push(Vector3 direction, float force)
     {

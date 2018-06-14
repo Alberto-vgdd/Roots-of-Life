@@ -15,7 +15,6 @@ public class GlobalData
 
     public static int MinimumAcornCount = 10;
     public static int AcornCount = 10;
-    public static int InfectionCount = 0;
 
     public static bool runUnlocked = false;
     public static bool doubleJumpUnlocked = false;

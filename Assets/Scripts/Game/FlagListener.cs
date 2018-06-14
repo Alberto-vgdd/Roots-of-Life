@@ -14,6 +14,7 @@ public class FlagListener : MonoBehaviour {
 
     private string[] flagData;
     private Dictionary<string, int> flags;
+    bool blockloader;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,7 @@ public class FlagListener : MonoBehaviour {
         foreach (string name in flagnames)
             flags.Add(name, 0);
 		Debug.Log ("flag count:" + flags.Count);
+        blockloader = false;
     }
 
     private void OnValidate()
@@ -48,14 +50,25 @@ public class FlagListener : MonoBehaviour {
         WWW flagloader = new WWW(URL, form);
         yield return flagloader;
 		if (flagloader.text != "")
-			flagData = flagloader.text.Split (',');
+			flagData = flagloader.text.TrimEnd(',').Split (',');
 		else
 			flagData = null;
+    }
+
+    IEnumerator timer()
+    {
+        blockloader = true;
+        yield return new WaitForSeconds(1);
+        blockloader = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		StartCoroutine(loadFlags());
+        if (blockloader)
+            return;
+
+        StartCoroutine(timer());
+        StartCoroutine(loadFlags());
 		if (flagData == null)
 			return;
 
@@ -63,7 +76,8 @@ public class FlagListener : MonoBehaviour {
 		// Iterate over all flag values obtained from url
 		foreach (string data in flagData)
 		{
-			//Debug.Log ("retrieved string:" + data);
+            Debug.Log("retrieved: " + data);
+
 			// Store flag name and flag value
 			string name = data.Split(':')[0];
 			int value = int.Parse(data.Split(':')[1]);

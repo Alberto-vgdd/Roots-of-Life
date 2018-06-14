@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FlagCommunicator : MonoBehaviour {
 	string URL = "http://62.131.170.46/roots-of-life/setFlag.php";
-    public string flag, valueOne, valueTwo;
+    public ProfileSelector profileSelector;
+    public string flag;
     private bool switcher;
 
     // Use this for initialization
@@ -18,6 +19,7 @@ public class FlagCommunicator : MonoBehaviour {
 	IEnumerator form(int value)
     {
         WWWForm form = new WWWForm();
+        form.AddField("username", profileSelector.profiles[profileSelector.selected].name);
         form.AddField("flagName", flag);
 		form.AddField ("flagValue", value);
 

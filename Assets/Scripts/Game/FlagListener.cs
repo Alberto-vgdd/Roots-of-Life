@@ -7,6 +7,7 @@ using System.Linq;
 public class FlagListener : MonoBehaviour {
 	string URL = "http://62.131.170.46/roots-of-life/getFlags.php";
 
+	public string username;
     public List<string> flagnames;
     public List<UnityEvent> events;
     public List<int> valuesReadOnly;
@@ -40,11 +41,16 @@ public class FlagListener : MonoBehaviour {
     }
 
     IEnumerator loadFlags()
-    {
-        WWW flagloader = new WWW(URL);
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("setUsername", username);
+
+        WWW flagloader = new WWW(URL, form);
         yield return flagloader;
-        string flagsDataString = flagloader.text.TrimEnd(';');
-        flagData = flagsDataString.Split(';');
+		if (flagloader.text != "")
+			flagData = flagloader.text.Split (',');
+		else
+			flagData = null;
     }
 	
 	// Update is called once per frame
@@ -59,8 +65,8 @@ public class FlagListener : MonoBehaviour {
 		{
 			//Debug.Log ("retrieved string:" + data);
 			// Store flag name and flag value
-			string name = data.Split(',')[0];
-			int value = int.Parse(data.Split(',')[1]);
+			string name = data.Split(':')[0];
+			int value = int.Parse(data.Split(':')[1]);
 
 			// Check if flag is checked for
 			if (flags.ContainsKey(name))

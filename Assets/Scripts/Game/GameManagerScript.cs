@@ -83,13 +83,7 @@ public class GameManagerScript : MonoBehaviour
 	public void ChangeScene(string sceneName)
 	{
 		Debug.Log(SceneManager.GetActiveScene().name + " completed at: "+ timeSinceStart);
-        Analytics.CustomEvent("Level completed at", new Dictionary<string, object> {
-            { "Time elapsed:", timeSinceStart },
-            { "level completed:", SceneManager.GetActiveScene().name} });
-        Debug.Log(Analytics.CustomEvent("Level completed at", new Dictionary<string, object> {
-            { "Time elapsed:", timeSinceStart },
-            { "level completed:", SceneManager.GetActiveScene().name} }));
-        SceneManager.LoadScene(sceneName);
+		SceneManager.LoadScene(sceneName);
 	}
 
 	//This is called each time a scene is loaded.
@@ -141,8 +135,7 @@ public class GameManagerScript : MonoBehaviour
 		gameUIScript.StartGameFadeOut();
 
         Analytics.CustomEvent("Game Over", new Dictionary<string, object>{
-            {"Time elapsed", timeSinceStart },
-            {"Acorns left", GlobalData.AcornCount } });
+            {"Acons left", GlobalData.AcornCount } });
 
 		// Wait for the game to fade out, and then move the character and the camera to the checkpoint's position.
 		yield return new WaitForSeconds(1f);

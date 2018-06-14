@@ -10,6 +10,13 @@ TagManager:
   - SpringJump
   - Puzzle 1 exit
   - Main area trigger 1
+  - Main area trigger 2
+  - Puzzle 1 trigger 1
+  - Puzzle 1 trigger 3
+  - Puzzle 1 trigger 4
+  - Puzzle 1 secret
+  - Puzzle 2 secret 1
+  - Puzzle 2 secret 2
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class GameUIScript : MonoBehaviour
 {
 	private Animator animator;
 	public Text acornCounter;
+	public GameObject message1;
 
 	private const string gameFadeOut = "GameFadeOut";
 	private const string gameFadeIn = "GameFadeIn";

@@ -19,7 +19,6 @@ public class FallingPlatform : MonoBehaviour
     private Rigidbody platformRigidbody;
     private BoxCollider platformCollider;
     private Vector3 originalPosition;
-    private Rigidbody assetRigidbody;
 
     private int environmentLayerMask;
     private int enemiesLayerMask;
@@ -30,8 +29,6 @@ public class FallingPlatform : MonoBehaviour
     {
         platformRigidbody = GetComponent<Rigidbody>();
         platformCollider = GetComponent<BoxCollider>();
-        if (artAsset != null)
-            assetRigidbody = artAsset.GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -42,6 +39,9 @@ public class FallingPlatform : MonoBehaviour
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
 
         originalPosition = platformRigidbody.position;
+
+        if (artAsset != null)
+            artAsset.transform.SetParent(gameObject.transform);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -65,14 +65,10 @@ public class FallingPlatform : MonoBehaviour
             {
                 fallTimer += Time.fixedDeltaTime;
                 platformRigidbody.MovePosition( platformRigidbody.position + Vector3.down*fallSpeed*Time.fixedDeltaTime);
-                if (assetRigidbody != null)
-                    assetRigidbody.MovePosition(platformRigidbody.position + Vector3.down * fallSpeed * Time.fixedDeltaTime);
 
                 if (fallTimer > fallTime)
                 {
                     platformRigidbody.MovePosition(originalPosition);
-                    if (assetRigidbody != null)
-                        assetRigidbody.MovePosition(originalPosition);
                     isUsed = false;
                     isFalling = false;
                     waitTimer = -1f;

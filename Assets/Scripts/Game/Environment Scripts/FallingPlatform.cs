@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
-
+    public GameObject artAsset;
     public float fallSpeed = 2.5f;
     public float fallTime = 2;
     private float fallTimer = -1;
@@ -30,6 +30,7 @@ public class FallingPlatform : MonoBehaviour
         platformRigidbody = GetComponent<Rigidbody>();
         platformCollider = GetComponent<BoxCollider>();
     }
+
     void Start()
     {
         playerTag = GlobalData.PlayerTag;
@@ -38,7 +39,11 @@ public class FallingPlatform : MonoBehaviour
         enemiesLayerMask = 1 << (int) Mathf.Log(GlobalData.EnemiesLayerMask.value,2);
 
         originalPosition = platformRigidbody.position;
+
+        if (artAsset != null)
+            artAsset.transform.SetParent(gameObject.transform);
     }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag(playerTag) && !isUsed)

@@ -9,6 +9,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: LargeTree
+    4300002: LargeTree_Bottom
   externalObjects: {}
   materials:
     importMaterials: 1

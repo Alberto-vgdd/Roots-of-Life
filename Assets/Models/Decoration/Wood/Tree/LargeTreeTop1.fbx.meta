@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79d3a880898dfc34ea9320e344726771
+guid: 054b6211801f043419baecb0f900a49b
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -8,8 +8,7 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: LargeTree_Middle1_Colliders
-    4300002: TreeMiddle2_Collider
+    4300000: LargeTree_Top
   externalObjects: {}
   materials:
     importMaterials: 1

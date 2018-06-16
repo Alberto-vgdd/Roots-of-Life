@@ -59,18 +59,17 @@ public class GameManagerScript : MonoBehaviour
 
 	void Update()
 	{
-		// Pause
+
 		if (Input.GetKeyDown(KeyCode.P))
 		{
-			Time.timeScale = 1 - Time.timeScale;
 
-			if (Time.timeScale == 0)
+			if (!GlobalData.GamePaused)
 			{
-				DisableInput();
+				PauseGame();
 			}
 			else
 			{
-				EnableInput();
+				ContinueGame();
 			}
 
 			
@@ -83,6 +82,10 @@ public class GameManagerScript : MonoBehaviour
 	public void ChangeScene(string sceneName)
 	{
 		Debug.Log(SceneManager.GetActiveScene().name + " completed at: "+ timeSinceStart);
+		if (GlobalData.GamePaused)
+		{
+			ContinueGame();
+		}	
 		SceneManager.LoadScene(sceneName);
 	}
 
@@ -177,6 +180,28 @@ public class GameManagerScript : MonoBehaviour
 		cameraShakeScript.ShakeCamera(shakeDistance,shakeDuration);
 	}
 
+	public void PauseGame()
+	{
+		GlobalData.GamePaused = true;
+		Time.timeScale = 0f;
+
+		Cursor.lockState = CursorLockMode.None;
+		DisableInput();
+
+		gameUIScript.DisplayPauseMenu();
+	}
+
+	public void ContinueGame()
+	{
+		GlobalData.GamePaused = false;
+		Time.timeScale = 1f;
+
+		Cursor.lockState = CursorLockMode.Locked;
+		EnableInput();	
+
+		gameUIScript.HidePauseMenu();
+	}
+
 	public void EnableInput()
 	{
 		GlobalData.PlayerMovementScript.EnableInput();
@@ -228,6 +253,11 @@ public class GameManagerScript : MonoBehaviour
 				break;
 		}
 		
+	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
 	}
     
 }

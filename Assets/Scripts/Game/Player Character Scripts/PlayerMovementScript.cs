@@ -94,7 +94,6 @@ public class PlayerMovementScript : MonoBehaviour
 
 
     
-    // Use this for initialization
     void Awake ()
     {
         landingParticles = transform.Find("Particle System").GetComponent<ParticleSystem>();
@@ -115,7 +114,7 @@ public class PlayerMovementScript : MonoBehaviour
         inputEnabled = true;
     }
 	
-	// Update is called once per frame
+
 	void Update ()
     {
 
@@ -195,25 +194,6 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
 
-       
-        if ((playerJumping || playerDoubleJumping) ||  movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f ) 
-        {
-            GlobalData.SoundManagerScript.StopWalkRunSound();
-        }
-        else if ( movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
-        {
-            GlobalData.SoundManagerScript.PlayWalkSound();
-        }
-        else
-        {
-            GlobalData.SoundManagerScript.PlayRunSound();
-        } 
-        
-        
-        
-       
-
-
         // Timer to control the character being pushed in a certain direction.
         if (playerPushed)
         {
@@ -231,7 +211,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         // Modify parameters based on character's state
         // ( run/walk -> maximumMovementSpeed)
-        // ( update target rotation based on last fixed step)
+        // ( update target rotation based on last fixed step )
         UpdateParameters();
 
         // This is used to update variables for the capsule casts.
@@ -262,7 +242,8 @@ public class PlayerMovementScript : MonoBehaviour
         ProjectVelocityDirection();
 
         // Updates the values of the animator parameters based on the changes of this fixed step.
-        UpdateAnimatorParameters();
+        // It also updates the sounds to be played
+        UpdateAnimatorAndSound();
 
         //Add gravity the player.
         playerRigidbody.AddForce(Physics.gravity*gravityScale,ForceMode.Acceleration);
@@ -560,14 +541,28 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    void UpdateAnimatorParameters()
+    void UpdateAnimatorAndSound()
     {
-        animatorWalkSpeedParameter = movementDirection.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier); 
-
         // Animations
+        animatorWalkSpeedParameter = movementDirection.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier); 
         playerAnimator.SetBool("Fall", !playerCloseToGround);
         playerAnimator.SetBool("Slide", playerSliding);        
         playerAnimator.SetFloat("Walk Speed",animatorWalkSpeedParameter); 
+
+
+        // Sound
+        if ( playerSliding || !playerCloseToGround || (playerJumping || playerDoubleJumping) ||  movementDirection.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f ) 
+        {
+            GlobalData.SoundManagerScript.StopWalkRunSound();
+        }
+        else if ( movementInput.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.7f  )
+        {
+            GlobalData.SoundManagerScript.PlayWalkSound();
+        }
+        else
+        {
+            GlobalData.SoundManagerScript.PlayRunSound();
+        } 
 
     }
 

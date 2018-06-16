@@ -10,10 +10,14 @@ public class GameUIScript : MonoBehaviour
 	public Text acornCounter;
 	public Text messageText;
 
+
 	private const string gameFadeOut = "GameFadeOut";
 	private const string gameFadeIn = "GameFadeIn";
 	private const string displayMessage = "DisplayMessage";
+	private const string displayPauseMenu = "DisplayPauseMenu";
+	private const string hidePauseMenu = "HidePauseMenu";
 
+	// Variables to display messages.
 	private Coroutine displayMessageCoroutine;
 	private float displayMessageTime = 3.5f;
 	private Queue<string> messages;
@@ -77,6 +81,34 @@ public class GameUIScript : MonoBehaviour
 		{
 			displayMessageCoroutine = StartCoroutine(DisplayMessage());
 		}
+	}
+
+	
+	public void DisplayPauseMenu()
+	{
+		animator.SetTrigger(displayPauseMenu);
+	}
+
+	public void HidePauseMenu()
+	{
+		animator.SetTrigger(hidePauseMenu);
+	}
+
+
+	// Methods for the Pause Menu Buttons
+	public void ContinueGame()
+	{
+		GlobalData.GameManager.ContinueGame();
+	}
+
+	public void BackToMainArea()
+	{
+		GlobalData.GameManager.ChangeScene("Main Area");
+	}
+
+	public void ExitGame()
+	{
+		GlobalData.GameManager.ExitGame();
 	}
 
 }

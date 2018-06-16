@@ -10,6 +10,7 @@ public class MovingPlatform : MonoBehaviour
 	[Header("Moving Platform Properties")]
 	public float speed;
 	public bool cyclic;
+    public GameObject artAsset;
 
 	private int increment = 1;
 	private int nextPlatform = 1;
@@ -30,8 +31,14 @@ public class MovingPlatform : MonoBehaviour
 
 		movementDirection = waypoints[nextPlatform].position - movingPlatform.position;
 	}
-	
-	void FixedUpdate () 
+
+    private void Start()
+    {
+        if (artAsset != null)
+            artAsset.transform.SetParent(movingPlatform.transform);
+    }
+
+    void FixedUpdate () 
 	{
 		movingPlatform.MovePosition(movingPlatform.position + movementDirection*speed*Time.fixedDeltaTime);
 

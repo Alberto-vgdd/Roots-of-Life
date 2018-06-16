@@ -20,6 +20,8 @@ public class GlobalData
     public static bool doubleJumpUnlocked = false;
     public static bool level2Unlocked = false;
 
+    public static bool GamePaused = false;
+
 
     //  GameManager variables
     public static GameManagerScript GameManager;

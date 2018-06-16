@@ -17,6 +17,8 @@ public class GlobalData
     public static int MinimumAcornCount = 10;
     public static int AcornCount = 10;
 
+    public static Transform currentCheckPoint;
+
     public static bool runUnlocked = false;
     public static bool doubleJumpUnlocked = false;
     public static bool level2Unlocked = false;

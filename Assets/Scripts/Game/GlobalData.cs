@@ -10,6 +10,7 @@ public class GlobalData
     public const int LEVEL_2 = 2;
 
     // In-game variables, stats, etc.
+    public static string username;
     public static float playerRecoveryTime = 2f;
     public static bool PlayerDeath;
 

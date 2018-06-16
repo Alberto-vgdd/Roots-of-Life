@@ -2869,16 +2869,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114946404056026618, guid: b3a71f13a17b1244aa38c7c089513ac8,
-        type: 2}
-      propertyPath: playerAttack2AudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 68cd8bdf932e60749ba2d011d2a7cdfa, type: 3}
-    - target: {fileID: 114946404056026618, guid: b3a71f13a17b1244aa38c7c089513ac8,
-        type: 2}
-      propertyPath: playerAttack1AudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: ae7715cfaaf5fac4182cba63405fe6c1, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3a71f13a17b1244aa38c7c089513ac8, type: 2}
   m_IsPrefabParent: 0

@@ -188,6 +188,8 @@ public class GameManagerScript : MonoBehaviour
 		Cursor.lockState = CursorLockMode.None;
 		DisableInput();
 
+		GlobalData.SoundManagerScript.MuteInGameFX();
+
 		gameUIScript.DisplayPauseMenu();
 	}
 
@@ -198,6 +200,8 @@ public class GameManagerScript : MonoBehaviour
 
 		Cursor.lockState = CursorLockMode.Locked;
 		EnableInput();	
+
+		GlobalData.SoundManagerScript.UnMuteInGameFX();
 
 		gameUIScript.HidePauseMenu();
 	}

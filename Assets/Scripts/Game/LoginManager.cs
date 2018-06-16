@@ -11,6 +11,10 @@ public class LoginManager : MonoBehaviour
     private string insertURL = "http://62.131.170.46/roots-of-life/insertParent.php";
     private string userURL = "http://62.131.170.46/roots-of-life/userSelect.php";
 
+    [Header("Main Menu Script")]
+    public MainMenuScript mainMenuScript;
+
+    [Header("Logging Elements")]
     public GameObject parentInput;
     public InputField nameInput;
     public InputField passInput;
@@ -34,7 +38,12 @@ public class LoginManager : MonoBehaviour
 
     // Use this for initialization
     void Start () {
+
         loggedIn = false;
+        
+        // Disable Game Buttons
+        mainMenuScript.DisableGameButtons();
+
         if (PlayerPrefs.GetInt("remember") == 1)
         {
             rememberToggle.isOn = true;
@@ -64,6 +73,9 @@ public class LoginManager : MonoBehaviour
         childUserSelect.SetActive(false);
         parentID = -1;
         //profileSelector.unloadUsers();
+
+        // Disable Game Buttons
+        mainMenuScript.DisableGameButtons();
     }
 
     private void registerMode()
@@ -276,6 +288,11 @@ public class LoginManager : MonoBehaviour
         usernameText.text = username;
         usernameText.gameObject.SetActive(true);
         gameObject.SetActive(false);
+
+        // Enable Play, Settings and Credits button
+        // Store the name into the GlobalData file of the game.
+        GlobalData.username = username;
+        mainMenuScript.EnableGameButtons();
     }
 
     IEnumerator error(int error)

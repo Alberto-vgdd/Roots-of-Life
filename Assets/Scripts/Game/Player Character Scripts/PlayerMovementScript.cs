@@ -551,7 +551,7 @@ public class PlayerMovementScript : MonoBehaviour
 
 
         // Sound
-        if ( playerSliding || !playerCloseToGround || (playerJumping || playerDoubleJumping) ||  movementDirection.magnitude*maximumMovementSpeed/(baseMovementSpeed*runSpeedMultiplier) < 0.1f ) 
+        if (  playerSliding || !playerCloseToGround || (playerJumping || playerDoubleJumping) ||  velocityPlaneDirection.magnitude < 0.1f ) 
         {
             GlobalData.SoundManagerScript.StopWalkRunSound();
         }

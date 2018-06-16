@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09023bfa117ed784682e4144bf598ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  artAsset: {fileID: 0}
   fallSpeed: 15
   fallTime: 1
   waitTime: 1

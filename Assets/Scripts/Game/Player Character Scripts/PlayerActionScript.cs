@@ -88,13 +88,12 @@ public class PlayerActionScript : MonoBehaviour
 			soundManagerScript.PlayAttack2Sound();
 
 		}
-		if (isAttacking2 && !GlobalData.GetAttack2Button() )
+		if (isAttacking2 && !GlobalData.GetAttack2Button())
 		{
 			isAttacking2 = false;
 			playerMovementScript.EnableInput();
 			playerAnimator.SetTrigger("Finish Attack 2");
 			soundManagerScript.StopAttack2Sound();
-
 		}
 	}
 

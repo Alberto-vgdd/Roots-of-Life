@@ -21,10 +21,25 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioClip levelMusicAudioClip;
 	public AudioClip titleMusicAudioClip;
 
+	[Header("Audio Settings")]
+	[Range(0f,1f)]
+	public float itemAudioVolume = 0.7f;
+	[Range(0f,1f)]
+	public float playerAudioVolume = 0.5f;
+	[Range(0f,1f)]
+	public float backgroundMusicVolume = 0.0f;
+
 	void Awake()
 	{
 		GlobalData.SoundManagerScript = this;
 	}		
+
+	void Start()
+	{
+		itemAudioSource.volume = itemAudioVolume;
+		playerAudioSource.volume = playerAudioVolume;
+		backgroundMusicSource.volume = backgroundMusicVolume;
+	}
 
 	public void PlayAcornSound()
 	{
@@ -181,5 +196,17 @@ public class SoundManagerScript : MonoBehaviour
 				backgroundMusicSource.Play();
 			}
 		}
+	}
+
+	public void MuteInGameFX()
+	{
+		itemAudioSource.volume = 0;
+		playerAudioSource.volume = 0;
+	}
+
+	public void UnMuteInGameFX()
+	{
+		itemAudioSource.volume = itemAudioVolume;
+		playerAudioSource.volume = playerAudioVolume;
 	}
 }

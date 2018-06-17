@@ -127,8 +127,8 @@ public class FixedCameraMovementScript : MonoBehaviour
 	
 			if (cameraTransitionTimer >= cameraTransitionTime)
 			{
-				
 				centerCamera = false;
+				GlobalData.PlayerMovementScript.EnableInput();
 			}
 		}
 	}

@@ -345,10 +345,13 @@ MonoBehaviour:
   playerWalkAudioClip: {fileID: 8300000, guid: 45542c375d9554143ab0367c60b45e93, type: 3}
   playerRunAudioClip: {fileID: 8300000, guid: ae7931cf152e92e449e4f5637b3f4c39, type: 3}
   playerJumpAudioClip: {fileID: 8300000, guid: 66db88e947612804893eb5dfc509f0aa, type: 3}
-  playerAttack1AudioClip: {fileID: 8300000, guid: 66db88e947612804893eb5dfc509f0aa,
+  playerAttack1AudioClip: {fileID: 8300000, guid: ae7715cfaaf5fac4182cba63405fe6c1,
     type: 3}
-  playerAttack2AudioClip: {fileID: 8300000, guid: ae7931cf152e92e449e4f5637b3f4c39,
+  playerAttack2AudioClip: {fileID: 8300000, guid: 68cd8bdf932e60749ba2d011d2a7cdfa,
     type: 3}
   backgroundMusicSource: {fileID: 82007191805849798}
   levelMusicAudioClip: {fileID: 8300000, guid: 699861d1415acef4084bd412e6bf6e44, type: 3}
   titleMusicAudioClip: {fileID: 8300000, guid: 1c79fb965b6d9054590bec7e24dc3f46, type: 3}
+  itemAudioVolume: 0.7
+  playerAudioVolume: 0.5
+  backgroundMusicVolume: 0.1

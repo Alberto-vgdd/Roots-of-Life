@@ -28,16 +28,17 @@ public class FixedCameraTrigger : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
-		Camera2D =  GlobalData.FixedCameraMovementScript;
-		Camera3D =  GlobalData.FreeCameraMovementScript;
-
 		if (other.CompareTag(playerTag))
 		{
+			Camera2D =  GlobalData.FixedCameraMovementScript;
+			Camera3D =  GlobalData.FreeCameraMovementScript;
+
 			if (!Camera2D.enabled)
 			{
 				Camera3D.enabled = false;
-				
 				Camera2D.enabled = true;
+
+				GlobalData.PlayerMovementScript.DisableInput();
 				Camera2D.SetUp(targetDistance,targetHeight,targetHoriontalAngle,targetVerticalAngle,cameraFollowSpeedMultiplier,cameraTransitionTime,cameraClippingOffset);
 				Camera2D.StartCameraTransition();
 			}
@@ -47,6 +48,7 @@ public class FixedCameraTrigger : MonoBehaviour
 			
 				if (!sameConfig )
 				{
+					GlobalData.PlayerMovementScript.DisableInput();
 					Camera2D.SetUp(targetDistance,targetHeight,targetHoriontalAngle,targetVerticalAngle,cameraFollowSpeedMultiplier,cameraTransitionTime,cameraClippingOffset);
 					Camera2D.StartCameraTransition();
 				}

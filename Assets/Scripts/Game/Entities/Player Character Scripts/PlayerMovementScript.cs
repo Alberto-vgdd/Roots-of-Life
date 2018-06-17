@@ -61,10 +61,12 @@ public class PlayerMovementScript : MonoBehaviour
     float radius;
     float radiusScale = 0.95f;
 
-    private bool playerCloseToGround;
+    [HideInInspector]
+    public bool playerCloseToGround;
     private bool playerJumping;
     private bool playerDoubleJumping;
-    private bool playerSliding;
+    [HideInInspector]
+    public bool playerSliding;
     private bool playerGrounded;
 
     Vector3 groundNormal;

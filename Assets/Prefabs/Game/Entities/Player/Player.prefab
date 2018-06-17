@@ -869,6 +869,7 @@ GameObject:
   - component: {fileID: 114216208296019348}
   - component: {fileID: 114489891668303148}
   - component: {fileID: 114407212178591946}
+  - component: {fileID: 114921057075468230}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -1738,8 +1739,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859979230468246}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -58.5, y: 1.2, z: 62.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4809513553490948}
@@ -1748,7 +1749,7 @@ Transform:
   - {fileID: 4660159989907524}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4855837883464592
 Transform:
   m_ObjectHideFlags: 1
@@ -1860,7 +1861,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525253911550392}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.46323532, g: 0.82231253, b: 1, a: 1}
@@ -1914,6 +1915,8 @@ MonoBehaviour:
   steepSlidingSpeed: 8
   run: 1
   doubleJump: 1
+  playerCloseToGround: 0
+  playerSliding: 0
 --- !u!114 &114407212178591946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1925,9 +1928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005602e1802887849b9d1229a6490ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack1Radius: 1
-  attack1Duration: 0.5
-  isAttacking1: 0
+  quickSpinRadius: 2
+  quickSpinDuration: 0.4
   isAttacking2: 0
 --- !u!114 &114489891668303148
 MonoBehaviour:
@@ -1940,6 +1942,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e97478fe42fad38448e599233f9e62f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114921057075468230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859979230468246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 207469858, guid: 220224b43fc464c28bc0e8de8f54a432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventName: 
+  m_TrackableProperty:
+    m_Fields: []
+  m_Trigger: 0
 --- !u!136 &136310875818741338
 CapsuleCollider:
   m_ObjectHideFlags: 1

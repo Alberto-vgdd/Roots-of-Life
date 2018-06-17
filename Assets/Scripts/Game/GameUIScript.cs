@@ -34,9 +34,6 @@ public class GameUIScript : MonoBehaviour
 	void Start()
 	{	
 		UpdateAcornCounter();
-
-		//Testing message
-		DisplayMessage(SceneManager.GetActiveScene().name);
 	}
 	
 

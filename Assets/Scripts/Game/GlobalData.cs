@@ -87,6 +87,7 @@ public class GlobalData
     public static bool GetJumpButtonDown(){		return InputManagerScript.GetJumpButtonDown();}
     public static float GetRunButton(){   return InputManagerScript.GetRunButton();}
     public static bool GetAttack1ButtonDown(){		return InputManagerScript.GetAttack1ButtonDown();}
+    public static bool GetAttack1ButtonUp(){		return InputManagerScript.GetAttack1ButtonUp();}
     public static bool GetAttack2Button(){   return InputManagerScript.GetAttack2Button();}
 
     

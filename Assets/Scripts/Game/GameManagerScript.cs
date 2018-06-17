@@ -15,6 +15,7 @@ public class GameManagerScript : MonoBehaviour
 	private CameraShakeScript cameraShakeScript;
 
 	// Checkpoint stuff, used to restore the state after a death
+	private Transform checkPoint;
 	private bool checkPointFreeCameraEnabled;
 	private bool checkPointFixedCameraEnabled;
 
@@ -116,12 +117,11 @@ public class GameManagerScript : MonoBehaviour
 
 	public void UpdateCheckPoint(Transform newCheckPoint, bool freeCameraEnabled, bool fixedCameraEnabled)
 	{
-		GlobalData.currentCheckPoint = newCheckPoint;
+		checkPoint = newCheckPoint;
 		checkPointFreeCameraEnabled = freeCameraEnabled;
 		checkPointFixedCameraEnabled = fixedCameraEnabled;
 		
 	}
-
 
 	public void StartGameOver()
 	{
@@ -142,8 +142,8 @@ public class GameManagerScript : MonoBehaviour
 
 		// Wait for the game to fade out, and then move the character and the camera to the checkpoint's position.
 		yield return new WaitForSeconds(1f);
-		playerTransform.position = playerCameraTransform.position = GlobalData.currentCheckPoint.position;
-		playerTransform.rotation = playerCameraTransform.rotation = GlobalData.currentCheckPoint.rotation;
+		playerTransform.position = playerCameraTransform.position = checkPoint.position;
+		playerTransform.rotation = playerCameraTransform.rotation = checkPoint.rotation;
 		
 		// Enable/Disable the camera scripts
 		fixedCameraMovementScript.enabled = checkPointFixedCameraEnabled;

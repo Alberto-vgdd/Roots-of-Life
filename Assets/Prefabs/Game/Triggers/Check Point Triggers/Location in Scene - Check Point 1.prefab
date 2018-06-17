@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65921846585356214}
   - component: {fileID: 23005967596765624}
   - component: {fileID: 114037086823812136}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Location in Scene - Check Point 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,4 +108,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d9fe97edaceb445a833534f0f011d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  automaticCheckpoint: 1

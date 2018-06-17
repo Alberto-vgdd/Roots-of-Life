@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -124,9 +124,8 @@ GameObject:
   - component: {fileID: 165730185}
   - component: {fileID: 165730184}
   - component: {fileID: 165730183}
-  - component: {fileID: 165730187}
   m_Layer: 5
-  m_Name: Main Menu Canvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,19 +212,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &165730187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 165730182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39ad2faf550440a4793f11cbddb4926c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Main Area 2.0
-  gameButtons: {fileID: 1618738279}
 --- !u!1 &327027606
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -14.355225}
+  m_AnchoredPosition: {x: 0, y: -14.355103}
   m_SizeDelta: {x: -1070, y: -414.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &438195227
@@ -911,7 +897,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff48e93bb0ca28b4c9ba750fa5e07e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScript: {fileID: 165730187}
   parentInput: {fileID: 730976503}
   nameInput: {fileID: 1163569275}
   passInput: {fileID: 948618722}
@@ -1543,7 +1528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -14.355225}
+  m_AnchoredPosition: {x: 0, y: -14.355103}
   m_SizeDelta: {x: -1070, y: -414.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1023156210
@@ -2576,8 +2561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ad2faf550440a4793f11cbddb4926c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Main Area
-  gameButtons: {fileID: 0}
 --- !u!1 &1416804590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,7 +2572,7 @@ GameObject:
   - component: {fileID: 1416804593}
   - component: {fileID: 1416804592}
   m_Layer: 5
-  m_Name: Background Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2840,9 +2823,10 @@ GameObject:
   - component: {fileID: 1528891628}
   - component: {fileID: 1528891631}
   - component: {fileID: 1528891630}
+  - component: {fileID: 1528891632}
   - component: {fileID: 1528891629}
   m_Layer: 5
-  m_Name: Play
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2906,8 +2890,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 165730187}
-        m_MethodName: PlayButton
+      - m_Target: {fileID: 1302727773}
+        m_MethodName: processPlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2952,6 +2936,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1528891627}
+--- !u!114 &1528891632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1528891627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ad2faf550440a4793f11cbddb4926c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1618738279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3536,9 +3531,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 165730187}
-        m_MethodName: CreditsButton
-        m_Mode: 1
+      - m_Target: {fileID: 1808843942}
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3593,8 +3588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ad2faf550440a4793f11cbddb4926c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Main Area
-  gameButtons: {fileID: 0}
 --- !u!1 &1853619480
 GameObject:
   m_ObjectHideFlags: 0

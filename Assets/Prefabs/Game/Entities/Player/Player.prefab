@@ -1901,13 +1901,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa0fdc160193942afceb29c2b337d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeMovementDirectionOnCollision: 0
   baseMovementSpeed: 3.5
   runSpeedMultiplier: 1.5
   turnSpeed: 720
   gravityScale: 2
   jumpSpeed: 10
   maximumFallingSpeed: 12.5
-  changeMovementDirectionOnCollision: 0
   stepMaxHeight: 0.275
   stepMinDepth: 0.275
   steepAngle: 50
@@ -1925,7 +1925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005602e1802887849b9d1229a6490ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack1Radius: 1
+  attack1Radius: 2
   attack1Duration: 0.5
   isAttacking1: 0
   isAttacking2: 0

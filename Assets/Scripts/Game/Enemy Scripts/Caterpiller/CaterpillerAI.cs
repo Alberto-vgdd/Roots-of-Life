@@ -36,8 +36,7 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
         playerTag = GlobalData.PlayerTag;
         caterpillar = GetComponent<NavMeshAgent>();
         caterpillar.autoBraking = false;
-        //caterpillar.SetDestination();
-        //state == "moving";
+        //caterpillar.SetDestination(Dis.currentWP);
     }
 
     // Update is called once per frame
@@ -49,7 +48,7 @@ public class CaterpillerAI : MonoBehaviour, IEnemy
         direction.y = 0;
         float angle = Vector3.Angle(direction, head.up);
 
-        if (state == "moving" && waypoints.Length >= 0)
+        if (state == "moving" && waypoints.Length > 0)
         {
             if (Vector3.Distance(waypoints[currentWP].transform.position, transform.position) < accuracy)
             {

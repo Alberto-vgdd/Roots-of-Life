@@ -20,9 +20,8 @@ public class BatAIScript : MonoBehaviour, IEnemy
 	private Vector3 targetPosition;
 
 
-	[Header("Bat Configuration")]
+	[Header("Projectile Parameters")]
 	public GameObject projectile;
-	public int lifePoints = 3;
 	public float timeBetweenProjectiles = 3f;
 	public float projectileSpeed = 8f;
 	public float projectileStrength = 10f;
@@ -32,14 +31,9 @@ public class BatAIScript : MonoBehaviour, IEnemy
 	[Header("Bat Animator Parameters")]
 	public Animator batAnimator;
 	public float shootAnimationTime = 2f;
-	public float deathAnimationTime = 0.5f;
 	private string shootTrigger = "Shoot";
-	private string damageTrigger = "Damage";
-	private string deathTrigger = "Death";
 	private bool batShooting;
 	private float chargeTimer;
-
-
 
 
 	void Awake()
@@ -98,22 +92,6 @@ public class BatAIScript : MonoBehaviour, IEnemy
 	}
 
 	public void TakeDamage(int damageAmount)
-	{
-		lifePoints -= damageAmount;
-
-		if (lifePoints <= 0)
-		{
-			batAnimator.SetTrigger(deathTrigger);
-			Invoke(deathTrigger,deathAnimationTime);
-		}
-		else
-		{
-			batAnimator.SetTrigger(damageTrigger);
-		}
-		
-	}
-
-	void Death()
 	{
 		this.gameObject.SetActive(false);
 	}

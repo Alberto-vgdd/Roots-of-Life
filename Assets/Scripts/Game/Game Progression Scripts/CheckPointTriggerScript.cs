@@ -2,38 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPointTriggerScript : MonoBehaviour, IInteractable
+public class CheckPointTriggerScript : MonoBehaviour
 {
-	[Header("Checkpoint Parameters")]
-	public bool automaticCheckpoint = true;
-	private string checkpointMessage = "Check Point!";
+	//private bool checkPointVisited;
 	private string playerTag;
 
 	void Start()
 	{
+		//checkPointVisited = false;
 		playerTag = GlobalData.PlayerTag;
 	}
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if ( automaticCheckpoint && GlobalData.currentCheckPoint != transform && other.tag.Equals(playerTag))
+		if (/*!checkPointVisited &&*/  other.tag.Equals(playerTag))
 		{
 			GlobalData.GameManager.UpdateCheckPoint(this.transform, GlobalData.FreeCameraMovementScript.enabled,GlobalData.FixedCameraMovementScript.enabled);
+			//checkPointVisited = true;
 		}
-	}
-
-	public void OnPush()
-	{
-		if (!automaticCheckpoint && GlobalData.currentCheckPoint != transform)
-		{
-			GlobalData.GameManager.UpdateCheckPoint(this.transform, GlobalData.FreeCameraMovementScript.enabled,GlobalData.FixedCameraMovementScript.enabled);
-			GlobalData.GameUIScript.DisplayMessage(checkpointMessage);
-			GlobalData.GameManager.ShakeCamera(0.1f,0.2f);
-		}
-	}
-
-	public void OnPull()
-	{
-
 	}
 }

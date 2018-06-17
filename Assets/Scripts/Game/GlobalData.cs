@@ -10,14 +10,11 @@ public class GlobalData
     public const int LEVEL_2 = 2;
 
     // In-game variables, stats, etc.
-    public static string username;
     public static float playerRecoveryTime = 2f;
     public static bool PlayerDeath;
 
     public static int MinimumAcornCount = 10;
     public static int AcornCount = 10;
-
-    public static Transform currentCheckPoint;
 
     public static bool runUnlocked = false;
     public static bool doubleJumpUnlocked = false;

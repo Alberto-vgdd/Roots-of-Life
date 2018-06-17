@@ -90,9 +90,7 @@ public class BatProjectileScript : MonoBehaviour, IInteractable
 
 				if (enemy != null)
 				{
-					GlobalData.CameraShakeScript.ShakeCamera(0.05f,0.3f);
 					enemy.TakeDamage(projectileDamage);
-					DisableProjectile();
 				}
 			}
 		}

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BreakableObject : MonoBehaviour, IInteractable
 {
-	private GameObject parentGameObject; 
+	private GameObject parentGameObject;
+    public GameObject artAsset;
 
 	void Start()
 	{
 		parentGameObject = transform.parent.gameObject;
+        if (artAsset != null)
+            artAsset.transform.SetParent(parentGameObject.transform);
 	}
 
 

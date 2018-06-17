@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 public class LavaTexture : MonoBehaviour
 {
 
+    public bool randomize = false;
 
     public float duration = 0.5f;
     public Texture[] textures;
@@ -25,6 +26,12 @@ public class LavaTexture : MonoBehaviour
     public IEnumerator DoTextureLoop()
     {
         int i = 0;
+
+        if (randomize)
+        {
+            yield return new WaitForSeconds(Random.value);
+        }
+        
         while (true)
         {
             renderer.material.mainTexture = textures[i];

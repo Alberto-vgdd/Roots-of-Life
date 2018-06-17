@@ -15,6 +15,7 @@ public class LoginManager : MonoBehaviour
     public MainMenuScript mainMenuScript;
 
     [Header("Logging Elements")]
+    public PlayDetector playDetector;
     public GameObject parentInput;
     public InputField nameInput;
     public InputField passInput;
@@ -286,7 +287,7 @@ public class LoginManager : MonoBehaviour
     void setUsername(string username)
     {
         usernameText.text = username;
-        usernameText.gameObject.SetActive(true);
+        playDetector.username = username;
         gameObject.SetActive(false);
 
         // Enable Play, Settings and Credits button

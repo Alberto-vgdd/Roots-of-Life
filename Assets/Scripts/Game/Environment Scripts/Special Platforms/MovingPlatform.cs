@@ -8,6 +8,7 @@ public class MovingPlatform : MonoBehaviour
 	private Transform[] waypoints;
 
 	[Header("Moving Platform Properties")]
+	public Transform decorationInScene;
 	public float speed;
 	public bool cyclic;
 
@@ -29,6 +30,14 @@ public class MovingPlatform : MonoBehaviour
 		}
 
 		movementDirection = waypoints[nextPlatform].position - movingPlatform.position;
+	}
+
+	void Start()
+	{
+		if (decorationInScene != null)
+		{
+			decorationInScene.parent = movingPlatform.transform;
+		}
 	}
 	
 	void FixedUpdate () 

@@ -17,7 +17,11 @@ public class FlagListener : MonoBehaviour {
     bool blockloader;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
+        // Read the username from the global data
+        username = GlobalData.username;
+
         flags = new Dictionary<string, int>();
         foreach (string name in flagnames)
             flags.Add(name, 0);

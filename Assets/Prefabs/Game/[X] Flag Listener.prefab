@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4704714514691720}
   - component: {fileID: 114537464795810156}
+  - component: {fileID: 114100423395503214}
   m_Layer: 0
   m_Name: '[X] Flag Listener'
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114100423395503214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1940314125595110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32f498b0915c5b4b902efc0a6113d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usernameText: {fileID: 0}
 --- !u!114 &114537464795810156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,8 +64,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266b85d8074f2664abce90da7623a373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  username: pizzanakin
   flagnames:
-  - 
+  - objectVanish
   events:
   - m_PersistentCalls:
       m_Calls:

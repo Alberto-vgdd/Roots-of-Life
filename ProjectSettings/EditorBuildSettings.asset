@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game/Main area.unity
     guid: 42b9fb3305f3540aa88ac68f1cc70885
   - enabled: 1
@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/Puzzle 2.unity
     guid: 84e13d015c866ed4493b0238b2cd7403
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game/Main Area 2.0.unity
     guid: 6bf6e517f69c53842b74e37b42c65107
+  - enabled: 1
+    path: Assets/Scenes/Game/Main_Area_2.0.unity
+    guid: ac284a3695a69a944a05ecf0b5ad83ac
   m_configObjects: {}

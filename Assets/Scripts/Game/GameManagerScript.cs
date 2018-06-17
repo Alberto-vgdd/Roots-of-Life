@@ -162,11 +162,14 @@ public class GameManagerScript : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		gameUIScript.StartGameFadeIn();
 
-		// If the character loses all the acorns, recharge them.
+		// If the character loses all the acorns, reload the scene.
 		if (GlobalData.AcornCount == 0)
 		{
 			GlobalData.AcornCount = GlobalData.MinimumAcornCount;
 			gameUIScript.UpdateAcornCounter();
+
+
+			ChangeScene(SceneManager.GetActiveScene().name);
 		}
 
 		// "Revive" the character and show the health in the UI again.

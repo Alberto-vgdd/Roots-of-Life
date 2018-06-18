@@ -10,7 +10,6 @@ public class LoginManager : MonoBehaviour
     private string requestURL = "http://62.131.170.46/roots-of-life/loginRequest.php";
     private string insertURL = "http://62.131.170.46/roots-of-life/insertParent.php";
     private string userURL = "http://62.131.170.46/roots-of-life/userSelect.php";
-    private string pingURL = "http://62.131.170.46/roots-of-life/getPing.php";
 
     [Header("Main Menu Script")]
     public MainMenuScript mainMenuScript;
@@ -75,13 +74,6 @@ public class LoginManager : MonoBehaviour
         childUserSelect.SetActive(false);
         parentID = -1;
         //profileSelector.unloadUsers();
-        users.Clear();
-        foreach (Transform child in usersList.transform)
-        {
-            if (child.gameObject.name == "SampleText")
-                continue;
-            GameObject.Destroy(child.gameObject);
-        }
 
         // Disable Game Buttons
         mainMenuScript.DisableGameButtons();
@@ -107,7 +99,6 @@ public class LoginManager : MonoBehaviour
 
     public void onPress()
     {
-        Debug.Log("test1");
         if (nameInput.text == null || nameInput.text == "")
             return;
         if (passInput.text == null || passInput.text == "")
@@ -130,7 +121,7 @@ public class LoginManager : MonoBehaviour
 
             return;
         }
-        Debug.Log("test");
+
         StartCoroutine(loginRequest());
         if (!loggedIn)
             return;
@@ -190,7 +181,6 @@ public class LoginManager : MonoBehaviour
 
     IEnumerator loginRequest()
     {
-        Debug.Log("request");
         WWWForm form = new WWWForm();
         form.AddField("setUsername", username);
         form.AddField("setPassword", password);
@@ -252,19 +242,9 @@ public class LoginManager : MonoBehaviour
             string userString = www.text.TrimEnd(';');
             foreach (string user in userString.Split(';'))
             {
-                string name = user.Split(',')[0];
-                bool active = (user.Split(',')[1] == "1");
-                int ping = int.Parse(user.Split(',')[3]);
-                
-                int pingbarrier = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds - 60;
-
-                if (ping < pingbarrier && active)
-                {
-                    playDetector.stopPlay(name);
-                    active = false;
-                }
-                if (!active)
-                    users.Add(name);
+                if (user.Split(',')[1] == "1")
+                    continue;
+                users.Add(user.Split(',')[0]);
             }
         }
         displayUsers();

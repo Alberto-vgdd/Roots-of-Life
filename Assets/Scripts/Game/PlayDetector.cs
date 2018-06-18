@@ -13,8 +13,7 @@ public class PlayDetector : MonoBehaviour {
 
     private void Awake()
     {
-        if (GetComponent<FlagListener>() != null)
-            username = GetComponent<FlagListener>().username;
+        username = GlobalData.username;
     }
 
     // Use this for initialization
@@ -25,6 +24,11 @@ public class PlayDetector : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+    }
+
+    public void setUsername(string username)
+    {
+        this.username = username;
     }
 
     IEnumerator setActive()
@@ -66,7 +70,6 @@ public class PlayDetector : MonoBehaviour {
 
     public void startPlay()
     {
-        Debug.Log("test1");
         StartCoroutine(setActive());
     }
 

@@ -18,7 +18,7 @@ public class newCatScript : MonoBehaviour {
         {
             agent = GetComponent<NavMeshAgent>();
             timer = wanderTimer;
-        }
+    }
 
     // Update is called once per frame
     void Update()

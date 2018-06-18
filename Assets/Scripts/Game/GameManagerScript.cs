@@ -227,13 +227,16 @@ public class GameManagerScript : MonoBehaviour
 
 	public void Unlock(int index)
 	{
+		Debug.Log("ddddddd");
 		switch (index)
 		{
 			case GlobalData.RUN_ABILITY:
+				Debug.Log("ddddddd");
 				GlobalData.runUnlocked = true;
 				GlobalData.PlayerMovementScript.UpdateUnlockedAbilities();
 
                 Analytics.CustomEvent("The player has unlocked 'run'");
+				
 
 				break;
 

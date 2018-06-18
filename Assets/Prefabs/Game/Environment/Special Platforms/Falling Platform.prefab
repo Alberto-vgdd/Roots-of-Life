@@ -23,7 +23,11 @@ GameObject:
   - component: {fileID: 65189191575206326}
   - component: {fileID: 23402969500557864}
   - component: {fileID: 54784360747729920}
+<<<<<<< HEAD
+  - component: {fileID: 114005880632089212}
+=======
   - component: {fileID: 114255305771531060}
+>>>>>>> master
   m_Layer: 8
   m_Name: Falling Platform
   m_TagString: Untagged
@@ -38,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1569846240747526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.39, y: -0.31, z: 11.9}
+  m_LocalPosition: {x: 78.71137, y: 68.51681, z: 10.357316}
   m_LocalScale: {x: 4.5, y: 0.5, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,7 +117,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+--- !u!114 &114005880632089212
+=======
 --- !u!114 &114255305771531060
+>>>>>>> master
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -122,6 +130,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d6967c4f88ca47cab5baaedbba819cc, type: 3}
+<<<<<<< HEAD
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artAsset: {fileID: 0}
+  fallSpeed: 2.5
+  fallTime: 2
+  waitTime: 1
+--- !u!114 &114210313596251816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569846240747526}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09023bfa117ed784682e4144bf598ce0, type: 3}
+=======
+>>>>>>> master
   m_Name: 
   m_EditorClassIdentifier: 
   artAsset: {fileID: 0}

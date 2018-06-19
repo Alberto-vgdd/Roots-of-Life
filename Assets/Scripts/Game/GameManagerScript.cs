@@ -234,6 +234,7 @@ public class GameManagerScript : MonoBehaviour
 				GlobalData.PlayerMovementScript.UpdateUnlockedAbilities();
 
                 Analytics.CustomEvent("The player has unlocked 'run'");
+				
 
 				break;
 

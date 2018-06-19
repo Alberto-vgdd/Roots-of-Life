@@ -53,6 +53,7 @@ public class GameManagerScript : MonoBehaviour
 		// TEST
 		//Screen.SetResolution(853, 480, true, 0);
 		//Application.targetFrameRate = 30;
+		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
@@ -188,6 +189,7 @@ public class GameManagerScript : MonoBehaviour
 		GlobalData.GamePaused = true;
 		Time.timeScale = 0f;
 
+		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 		DisableInput();
 
@@ -201,6 +203,7 @@ public class GameManagerScript : MonoBehaviour
 		GlobalData.GamePaused = false;
 		Time.timeScale = 1f;
 
+		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		EnableInput();	
 

@@ -4,11 +4,23 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Checkpoint
+    100004: Empty
+    100006: Sun
     400000: //RootNode
+    400002: Checkpoint
+    400004: Empty
+    400006: Sun
     2100000: No Name
+    2100002: Material.001
+    2100004: Material.002
     2300000: //RootNode
+    2300002: Checkpoint
     3300000: //RootNode
+    3300002: Checkpoint
     4300000: Checkpoint
+    4300002: Checkpoint.001
+    10800000: Sun
   externalObjects: {}
   materials:
     importMaterials: 1

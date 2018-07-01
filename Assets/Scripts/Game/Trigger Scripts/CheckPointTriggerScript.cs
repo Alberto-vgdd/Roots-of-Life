@@ -5,12 +5,10 @@ using UnityEngine;
 public class CheckPointTriggerScript : MonoBehaviour, IInteractable
 {
     [Header("Checkpoint Parameters")]
-    public bool automaticCheckpoint = true;
+    public bool invisibleCheckpoint = true;
     private string checkpointMessage = "Check Point!";
     private string playerTag;
     
-
-    public ParticleSystem checkpointParticle;
     void Start()
     {
         playerTag = GlobalData.PlayerTag;
@@ -18,23 +16,15 @@ public class CheckPointTriggerScript : MonoBehaviour, IInteractable
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if ( automaticCheckpoint && GlobalData.currentCheckPoint != transform && other.tag.Equals(playerTag))
+		if ( invisibleCheckpoint && GlobalData.currentCheckPoint != transform && other.tag.Equals(playerTag))
 		{
 			GlobalData.GameManager.UpdateCheckPoint(this.transform, GlobalData.FreeCameraMovementScript.enabled,GlobalData.FixedCameraMovementScript.enabled);
 		}
-        if (other.CompareTag("Player"))
-        {
-            checkpointParticle.Play();
-       
-            
-        }
-
-
     }
 
 	public void OnPush()
 	{
-		if (!automaticCheckpoint && GlobalData.currentCheckPoint != transform)
+		if (!invisibleCheckpoint && GlobalData.currentCheckPoint != transform)
 		{
 			GlobalData.GameManager.UpdateCheckPoint(this.transform, GlobalData.FreeCameraMovementScript.enabled,GlobalData.FixedCameraMovementScript.enabled);
 			GlobalData.GameUIScript.DisplayMessage(checkpointMessage);

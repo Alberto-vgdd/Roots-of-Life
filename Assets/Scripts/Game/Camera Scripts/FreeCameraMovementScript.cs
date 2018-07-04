@@ -204,10 +204,10 @@ public class FreeCameraMovementScript : MonoBehaviour
 
 	void RotateAroundPlayer()
 	{
-		
 
 		if (GlobalData.IsEnemyLocked)
 		{
+			cameraDistance = targetDistance;
 			
 			// If any input has been recieved, the lock on will be moved to another enemy.
 			ChangeLockOn();
@@ -225,6 +225,7 @@ public class FreeCameraMovementScript : MonoBehaviour
 
 			cameraHorizontalPivot.rotation = Quaternion.Slerp(cameraHorizontalPivot.rotation, Quaternion.LookRotation(cameraToEnemy),lockOnSpeedMultipier*Time.deltaTime);
 			cameraVerticalPivot.localRotation = Quaternion.Euler(verticalAngle,0,0);
+
 
 			
 		}
@@ -253,6 +254,8 @@ public class FreeCameraMovementScript : MonoBehaviour
 		}
 		else if (centerCamera)
 		{
+			cameraDistance = targetDistance;
+
 			centerCameraTimer += Time.deltaTime;
 			float step = Mathf.SmoothStep(0,1,centerCameraTimer/centerCameraTime);
 			
@@ -270,6 +273,8 @@ public class FreeCameraMovementScript : MonoBehaviour
 		}
 		else
 		{
+			cameraDistance = targetDistance;
+			
 			// If the user isn't moving the camera while the player is moving, auto rotate the camera with joystick's speed.
             if ( cameraAutoRotation && joystickInUse && horizontalInput ==  0 )
 			{

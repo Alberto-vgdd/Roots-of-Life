@@ -47,7 +47,7 @@ public class InputManagerScript : MonoBehaviour
 	private bool jumpButtonDown;
 	private float runButton;
 	private bool attack1ButtonDown;
-	private bool attack1ButtonUp;
+	private bool attack1Button;
 	private bool attack2Button;
 
 
@@ -73,7 +73,7 @@ public class InputManagerScript : MonoBehaviour
 			jumpButtonDown = Input.GetButtonDown(jumpJoystick);
 			runButton = Input.GetAxis(runJoystick);
 			attack1ButtonDown = Input.GetButtonDown(attack1Joystick);
-			attack1ButtonUp = Input.GetButtonUp(attack1Joystick);
+			attack1Button = Input.GetButton(attack1Joystick);
 			attack2Button = Input.GetButton(attack2Joystick);
 
 
@@ -89,7 +89,7 @@ public class InputManagerScript : MonoBehaviour
 			jumpButtonDown = Input.GetButtonDown(jumpKeyboard);
 			runButton = Input.GetAxis(runKeyboard);
 			attack1ButtonDown = Input.GetButtonDown(attack1Keyboard);
-			attack1ButtonUp = Input.GetButtonUp(attack1Keyboard);
+			attack1Button = Input.GetButton(attack1Keyboard);
 			attack2Button = Input.GetButton(attack2Keyboard);
 		}
 
@@ -164,7 +164,7 @@ public class InputManagerScript : MonoBehaviour
 	public float GetChangeTarget(){		return m_ChangeTarget;}
 	public bool GetJumpButtonDown(){	return jumpButtonDown;}
 	public bool GetAttack1ButtonDown(){	return attack1ButtonDown;}
-	public bool GetAttack1ButtonUp(){	return attack1ButtonUp;}
+	public bool GetAttack1Button(){	return attack1Button;}
 	public bool GetAttack2Button(){		return attack2Button;}
 	public float GetRunButton(){	return runButton;}
 	}

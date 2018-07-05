@@ -19,6 +19,9 @@ public class CameraEnemyTrackerScript : MonoBehaviour
     public float m_MaximumLockDistance;
     public float m_FixedStepMultiplier;
     private float m_TimeSinceLastRefresh;
+
+    private bool inputEnabled = true;
+
     
 
     void Awake()
@@ -37,6 +40,10 @@ public class CameraEnemyTrackerScript : MonoBehaviour
     }
 	void LateUpdate () 
     {
+        if (!inputEnabled)
+		{
+			return;
+		}
         UpdateLockOn();
 	}
 
@@ -173,6 +180,16 @@ public class CameraEnemyTrackerScript : MonoBehaviour
         }
 
         GlobalData.LockedEnemyTransform = newLockedEnemy;
+    }
+
+    public void DisableInput()
+    {
+        inputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        inputEnabled = true;
     }
 
 }

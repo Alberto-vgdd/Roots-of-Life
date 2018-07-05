@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 1ed5a229cd48d8541952f6b85b4fc87f
-timeCreated: 1527614086
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -13,7 +11,7 @@ ModelImporter:
     4300000: Twig1
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -30,6 +28,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -42,14 +41,14 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
-    importVisibility: 1
+    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -63,10 +62,10 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

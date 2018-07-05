@@ -218,6 +218,7 @@ public class GameManagerScript : MonoBehaviour
 		GlobalData.PlayerActionScript.EnableInput();
 		GlobalData.FreeCameraMovementScript.EnableInput();
 		GlobalData.FixedCameraMovementScript.EnableInput();
+		GlobalData.CameraEnemyTrackerScript.EnableInput();
 	}
 
 	public void DisableInput()
@@ -226,6 +227,7 @@ public class GameManagerScript : MonoBehaviour
 		GlobalData.PlayerActionScript.DisableInput();
 		GlobalData.FreeCameraMovementScript.DisableInput();
 		GlobalData.FixedCameraMovementScript.DisableInput();
+		GlobalData.CameraEnemyTrackerScript.DisableInput();
 	}
 
 	public void Unlock(int index)

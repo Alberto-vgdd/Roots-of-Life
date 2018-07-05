@@ -66,7 +66,7 @@ public class PlayerActionScript : MonoBehaviour
 			playerAnimator.SetBool(quickSpin, chargingQuickSpin);
 		}
 
-		if (chargingQuickSpin && GlobalData.GetAttack1ButtonUp())
+		if (chargingQuickSpin && !GlobalData.GetAttack1Button())
 		{
 			chargingQuickSpin = false;
 			playerMovementScript.EnableInput();

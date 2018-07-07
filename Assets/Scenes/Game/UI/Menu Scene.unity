@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Main Area
   gameButtons: {fileID: 1618738279}
+  sceneLoadedPercentage: 0
 --- !u!1 &327027606
 GameObject:
   m_ObjectHideFlags: 0
@@ -2579,6 +2580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Main Area
   gameButtons: {fileID: 0}
+  sceneLoadedPercentage: 0
 --- !u!1 &1416804590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2978,7 +2980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1618738280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3608,6 +3610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Main Area
   gameButtons: {fileID: 0}
+  sceneLoadedPercentage: 0
 --- !u!1 &1853619480
 GameObject:
   m_ObjectHideFlags: 0

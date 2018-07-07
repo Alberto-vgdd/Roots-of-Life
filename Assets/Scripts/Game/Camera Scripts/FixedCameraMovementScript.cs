@@ -64,7 +64,7 @@ public class FixedCameraMovementScript : MonoBehaviour
 		cameraHorizontalPivot = cameraVerticalPivot.parent;
 
 		// Place the camera in the desired position
-		cameraHorizontalPivot.position = playerTarget.position;
+		//cameraHorizontalPivot.position = playerTarget.position;
 
 		// Disable this script at the start of the game
 		this.enabled = false;

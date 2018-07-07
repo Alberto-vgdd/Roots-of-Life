@@ -107,7 +107,6 @@ public class LoginManager : MonoBehaviour
 
     public void onPress()
     {
-        Debug.Log("test1");
         if (nameInput.text == null || nameInput.text == "")
             return;
         if (passInput.text == null || passInput.text == "")
@@ -130,7 +129,6 @@ public class LoginManager : MonoBehaviour
 
             return;
         }
-        Debug.Log("test");
         StartCoroutine(loginRequest());
         if (!loggedIn)
             return;
@@ -190,7 +188,6 @@ public class LoginManager : MonoBehaviour
 
     IEnumerator loginRequest()
     {
-        Debug.Log("request");
         WWWForm form = new WWWForm();
         form.AddField("setUsername", username);
         form.AddField("setPassword", password);

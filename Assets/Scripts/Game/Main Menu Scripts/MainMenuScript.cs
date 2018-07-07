@@ -8,18 +8,39 @@ public class MainMenuScript : MonoBehaviour
 {
     public string sceneName = "Main Area";
     public GameObject gameButtons;
+    public float sceneLoadedPercentage;
 
-    private void Start()
+    private IEnumerator loadSceneCoroutine;
+    private AsyncOperation asyncSceneLoad; 
+
+    void Start()
     {
         
+        if (loadSceneCoroutine == null)
+        {
+            loadSceneCoroutine = AsyncSceneLoad(sceneName);
+            StartCoroutine(loadSceneCoroutine);
+        }
+
+    }
+
+    IEnumerator AsyncSceneLoad(string sceneName)
+    {
+        asyncSceneLoad = SceneManager.LoadSceneAsync(sceneName);
+        asyncSceneLoad.allowSceneActivation = false;
+
+        while (!asyncSceneLoad.isDone)
+        {
+            sceneLoadedPercentage = Mathf.Ceil(asyncSceneLoad.progress*100f);
+            yield return null;
+        }
+
+        Debug.Log(sceneName + " loaded");
     }
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(sceneName);
-
-        Analytics.CustomEvent("SceneLoaded", new Dictionary<string, object>{ {"SceneName", sceneName}});
-
+        asyncSceneLoad.allowSceneActivation = true;
     }
 
     public void CreditsButton()

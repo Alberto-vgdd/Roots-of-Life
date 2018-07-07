@@ -21,13 +21,13 @@ GameObject:
   - component: {fileID: 4642600064414500}
   - component: {fileID: 33154514287647702}
   - component: {fileID: 23772031682178144}
-  - component: {fileID: 64997727987190276}
+  - component: {fileID: 65112931348103862}
   m_Layer: 8
   m_Name: Twig2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4642600064414500
 Transform:
@@ -35,20 +35,20 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1346351111519266}
-  m_LocalRotation: {x: 0.000000014901161, y: 1, z: -0.000000067055225, w: -0.000000059604645}
-  m_LocalPosition: {x: 36.5, y: 0.5000019, z: 8.500004}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -28.300001, y: 0.1, z: 4.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &23772031682178144
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1346351111519266}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -83,9 +83,9 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1346351111519266}
-  m_Mesh: {fileID: 4300000, guid: 4d87561b03c78594ebca4d69063143b9, type: 3}
---- !u!64 &64997727987190276
-MeshCollider:
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65112931348103862
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -93,8 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 4d87561b03c78594ebca4d69063143b9, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 8.9}
+  m_Center: {x: 0, y: -0.12, z: 0.23}

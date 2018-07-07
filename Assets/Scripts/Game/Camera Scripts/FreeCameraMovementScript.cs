@@ -122,7 +122,7 @@ public class FreeCameraMovementScript : MonoBehaviour
 
 	
 		// Place the camera in the desired position
-		cameraHorizontalPivot.position = playerTarget.position;
+		//cameraHorizontalPivot.position = playerTarget.position;
 
 
 		// Center the camera at the start of the game (Because the free camera is the default camera script)

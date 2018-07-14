@@ -104,11 +104,11 @@ public class AcornItemScript : MonoBehaviour, IInteractable
 
 	public void OnPush()
 	{
-		if (movingCoroutine == null)
-		{
-			movingCoroutine = MoveAway();
-			StartCoroutine(movingCoroutine);
-		}
+		// if (movingCoroutine == null)
+		// {
+		// 	movingCoroutine = MoveAway();
+		// 	StartCoroutine(movingCoroutine);
+		// }
 	}
 
 	IEnumerator MoveAway()

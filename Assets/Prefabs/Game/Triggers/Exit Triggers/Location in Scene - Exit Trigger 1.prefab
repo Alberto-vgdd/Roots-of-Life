@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 23931983785128908}
   - component: {fileID: 65989791653356774}
   - component: {fileID: 114100598097522648}
-  - component: {fileID: 114633150267548278}
+  - component: {fileID: 114315316754006498}
+  - component: {fileID: 114315093538486848}
   m_Layer: 0
   m_Name: Location in Scene - Exit Trigger 1
   m_TagString: Untagged
@@ -38,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1533862041524982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -93.897, y: 4.183, z: -8.96}
-  m_LocalScale: {x: 11.581753, y: 7.0831366, z: 8.153123}
+  m_LocalPosition: {x: -93.57, y: 2.69, z: -10.29}
+  m_LocalScale: {x: 1.7535539, y: 3.4530299, z: 2.038276}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -109,8 +110,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a751ca48c4bf0284e85007b069d38d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Tree Village Level
---- !u!114 &114633150267548278
+  sceneName: Main Area
+  timeBeforeTeleport: 3
+--- !u!114 &114315093538486848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533862041524982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36cbef58fa8d3cd4595c91f45b087394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageToDisplay: Run ability unlocked!
+  disableAfterUse: 1
+--- !u!114 &114315316754006498
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

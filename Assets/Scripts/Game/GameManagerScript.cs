@@ -81,7 +81,6 @@ public class GameManagerScript : MonoBehaviour
 
 	public void ChangeScene(string sceneName)
 	{
-		Debug.Log(SceneManager.GetActiveScene().name + " completed at: "+ timeSinceStart);
 		if (GlobalData.GamePaused)
 		{
 			ContinueGame();

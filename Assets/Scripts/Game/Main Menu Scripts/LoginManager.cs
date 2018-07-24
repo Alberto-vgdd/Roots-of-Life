@@ -8,43 +8,28 @@ using UnityEngine.EventSystems;
 public class LoginManager : MonoBehaviour
 {
     private string requestURL = "http://62.131.170.46/roots-of-life/loginRequest.php";
-    private string insertURL = "http://62.131.170.46/roots-of-life/insertParent.php";
-    private string userURL = "http://62.131.170.46/roots-of-life/userSelect.php";
-    private string pingURL = "http://62.131.170.46/roots-of-life/getPing.php";
+    private string insertURL = "http://62.131.170.46/roots-of-life/parentInsert.php";
+    private string userURL = "http://62.131.170.46/roots-of-life/profileSelect.php";
+	private string pingURL = "http://62.131.170.46/roots-of-life/profileGetPing.php";
 
-    [Header("Main Menu Script")]
-    public MainMenuScript mainMenuScript;
-
-    [Header("Logging Elements")]
-    public PlayDetector playDetector;
-    public GameObject parentInput;
-    public InputField nameInput;
-    public InputField passInput;
-    public InputField passControl;
-    public Button cancelButton;
-    public Toggle rememberToggle;
-    public Toggle automaticToggle;
-    public GameObject errorField;
-    public GameObject childUserSelect;
-    public GameObject usersList;
-    public Text sampleText;
-    public Text usernameText;
+	[Header("Log-in Input")]
+	public GameObject loginElement;
+	public InputField nameInput;
+	public InputField passInput;
+	public InputField passControl;
+	public Toggle rememberToggle;
+	public Toggle automaticToggle;
+	public GameObject buttons;
 
     private string username;
     private string password;
 
-    private bool register;
-    private bool loggedIn;
+	private bool loggedIn = false;
     private int parentID;
     private List<string> users;
 
     // Use this for initialization
     void Start () {
-
-        loggedIn = false;
-        
-        // Disable Game Buttons
-        mainMenuScript.DisableGameButtons();
 
         if (PlayerPrefs.GetInt("remember") == 1)
         {
@@ -52,16 +37,13 @@ public class LoginManager : MonoBehaviour
             username = PlayerPrefs.GetString("username");
             nameInput.text = username;
         }
+
         if (PlayerPrefs.GetInt("automatic") == 1)
         {
             password = PlayerPrefs.GetString("password");
-            automaticToggle.isOn = true;
+			automaticToggle.isOn = true;
+			StartCoroutine(loginRequest());
         }
-
-        if (automaticToggle.isOn)
-            StartCoroutine(loginRequest());
-
-        register = false;
     }
 	
 	// Update is called once per frame
@@ -69,128 +51,52 @@ public class LoginManager : MonoBehaviour
 
     }
 
+	public void logIn() {
+
+		if (nameInput.text == null || nameInput.text == "")
+			return;
+		if (passInput.text == null || passInput.text == "")
+			return;
+		username = nameInput.text;
+		password = passInput.text;
+
+		StartCoroutine(loginRequest());
+		if (!loggedIn)
+			return;
+	}
+
     public void logOut()
     {
-        parentInput.SetActive(true);
-        childUserSelect.SetActive(false);
-        parentID = -1;
-        //profileSelector.unloadUsers();
-        users.Clear();
+		parentID = -1;
+		loggedIn = false;
+
+		loginElement.gameObject.SetActive (true);
+		buttons.SetActive (false);
+
+
+
+        /*users.Clear();
         foreach (Transform child in usersList.transform)
         {
             if (child.gameObject.name == "SampleText")
                 continue;
             GameObject.Destroy(child.gameObject);
-        }
-
-        // Disable Game Buttons
-        mainMenuScript.DisableGameButtons();
+        }*/
     }
 
-    private void registerMode()
-    {
-        register = true;
-        rememberToggle.gameObject.SetActive(false);
-        automaticToggle.gameObject.SetActive(false);
-        passControl.gameObject.SetActive(true);
-        cancelButton.gameObject.SetActive(true);
-    }
+	public void register() {
 
-    public void loginMode()
-    {
-        register = false;
-        rememberToggle.gameObject.SetActive(true);
-        automaticToggle.gameObject.SetActive(true);
-        passControl.gameObject.SetActive(false);
-        cancelButton.gameObject.SetActive(false);
-    }
+		if (passInput.text != passControl.text)
+			// TODO passwords do not match
+			return;
 
-    public void onPress()
-    {
-        Debug.Log("test1");
-        if (nameInput.text == null || nameInput.text == "")
-            return;
-        if (passInput.text == null || passInput.text == "")
-            return;
-        username = nameInput.text;
-        password = passInput.text;
-
-        if (register)
-        {
-            // do register stuff
-            if (passInput.text != passControl.text)
-            {
-                StartCoroutine(error(3));
-                return;
-            }
-
-            StartCoroutine(error(4));
-            StartCoroutine(insertParent());
-            loginMode();
-
-            return;
-        }
-        Debug.Log("test");
-        StartCoroutine(loginRequest());
-        if (!loggedIn)
-            return;
-    }
-
-    private void loginSuccesful()
-    {
-        loggedIn = true;
-
-        if (rememberToggle.isOn)
-        {
-            PlayerPrefs.SetInt("remember", 1);
-            PlayerPrefs.SetString("username", username);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("remember", 0);
-            PlayerPrefs.SetString("username", "");
-        }
-        if (automaticToggle.isOn)
-        {
-            PlayerPrefs.SetInt("automatic", 1);
-            PlayerPrefs.SetString("password", password);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("automatic", 0);
-            PlayerPrefs.SetString("password", "");
-        }
-
-        //profileSelector.StartCoroutine(profileSelector.loadUsers(parentID));
-
-        // load profiles in profileselector
-        StartCoroutine(loadUsers());
-
-        parentInput.SetActive(false);
-        childUserSelect.SetActive(true);
-    }
-
-    IEnumerator insertParent()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("setUsername", username);
-        form.AddField("setPassword", password);
-
-        WWW www = new WWW(insertURL, form);
-        yield return www;
-        if (!string.IsNullOrEmpty(www.error))
-        {
-            Debug.Log("error: " + www.error);
-        }
-        else
-        {
-            Debug.Log("result: " + www.text);
-        }
-    }
+		// TODO account created
+		StartCoroutine (registerParent());
+		StartCoroutine (loginRequest ());
+	}
 
     IEnumerator loginRequest()
     {
-        Debug.Log("request");
         WWWForm form = new WWWForm();
         form.AddField("setUsername", username);
         form.AddField("setPassword", password);
@@ -198,37 +104,49 @@ public class LoginManager : MonoBehaviour
         WWW www = new WWW(requestURL, form);
         yield return www;
         int result;
-        if (!string.IsNullOrEmpty(www.error))
-        {
-            //Debug.Log("error: " + www.error);
-            yield break;
-        }
-        else
-        {
-            //Debug.Log("result: " + www.text);
-            result = int.Parse(www.text);
-        }
+		if (!string.IsNullOrEmpty (www.text))
+			result = int.Parse (www.text);
+		else
+			yield break;
 
-        if (result == -1)
-        {
-            // wrong password
-            passInput.text = "";
-            StartCoroutine(error(1));
-        }
-        else if (result == -2)
-        {
-            // enter register mode
-            registerMode();
-            StartCoroutine(error(2));
-        }
-        else
-        {
-            Debug.Log("result:" + result);
-            // logged in;
-            parentID = result;
-            loginSuccesful();
-        }
-    }
+		if (result > 0) {
+			if (rememberToggle.isOn) {
+				PlayerPrefs.SetInt("remember", 1);
+				PlayerPrefs.SetString("username", username);
+			} else {
+				PlayerPrefs.SetInt("remember", 0);
+				PlayerPrefs.SetString("username", "");
+			}
+			if (automaticToggle.isOn) {
+				PlayerPrefs.SetInt("automatic", 1);
+				PlayerPrefs.SetString("password", password);
+			} else {
+				PlayerPrefs.SetInt("automatic", 0);
+				PlayerPrefs.SetString("password", "");
+			}
+
+			loggedIn = true;
+			parentID = result;
+
+			loginElement.gameObject.SetActive (false);
+			buttons.SetActive (true);
+
+			// load users
+		}
+		if (result == -1) 
+			MainMenu.showMessage ("Wrong password, please try again.");
+		else if (result == -2) 
+			MainMenu.showMessage ("Account doesn't exist, please register.");
+	}
+
+	IEnumerator registerParent()
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("setUsername", username);
+		form.AddField("setPassword", password);
+		WWW www = new WWW(insertURL, form);
+		yield return www;
+	}
 
     IEnumerator loadUsers()
     {
@@ -260,16 +178,17 @@ public class LoginManager : MonoBehaviour
 
                 if (ping < pingbarrier && active)
                 {
-                    playDetector.stopPlay(name);
+                    //playDetector.stopPlay(name);
                     active = false;
                 }
                 if (!active)
                     users.Add(name);
             }
         }
-        displayUsers();
+        //displayUsers();
     }
 
+	/*
     void displayUsers()
     {
         if (users.Count == 0)
@@ -332,5 +251,5 @@ public class LoginManager : MonoBehaviour
         errorField.SetActive(true);
         yield return new WaitForSeconds(3);
         errorField.SetActive(false);
-    }
+    }*/
 }

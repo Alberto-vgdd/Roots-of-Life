@@ -11,6 +11,7 @@ public class GlobalData
 
     // In-game variables, stats, etc.
     public static string username = "test";
+	public static int userid = 0;
     public static float playerRecoveryTime = 2f;
     public static bool PlayerDeath;
 

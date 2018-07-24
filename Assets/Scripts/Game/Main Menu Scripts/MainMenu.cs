@@ -12,7 +12,6 @@ public class MainMenu : MonoBehaviour {
 	private string insertURL = "http://62.131.170.46/roots-of-life/parentInsert.php";
 	private string deleteURL = "http://62.131.170.46/roots-of-life/profileDelete.php";
 	private string userURL = "http://62.131.170.46/roots-of-life/profileSelect.php";
-	private string pingURL = "http://62.131.170.46/roots-of-life/profileGetPing.php";
 
 	[Header("Login Manager Input")]
 	public InputField nameInput;
@@ -32,8 +31,9 @@ public class MainMenu : MonoBehaviour {
 
 	[Header("Menu Manager Input")]
 	public GameObject loginScreen;
-	public GameObject menuScreen;
+	public GameObject titleScreen;
 	public GameObject selectScreen;
+    public GameObject settingsScreen;
 	public GameObject UIPanel;
 
 	// Log in manager
@@ -44,7 +44,7 @@ public class MainMenu : MonoBehaviour {
 	private int parentID;
 
 	// Profile manager
-	private List<string> profiles;
+	private List<Profile> profiles;
 	private int selected = 0;
 
 	// Menu manager
@@ -70,8 +70,9 @@ public class MainMenu : MonoBehaviour {
 
 		main.screens = new List<GameObject> ();
 		main.screens.Add (main.loginScreen);
-		main.screens.Add (main.menuScreen);
+		main.screens.Add (main.titleScreen);
 		main.screens.Add (main.selectScreen);
+        main.screens.Add (main.settingsScreen);
 
 		if (!loggedIn)
 			showScreen ("login", true);
@@ -98,11 +99,12 @@ public class MainMenu : MonoBehaviour {
 		showScreen ("login", true);
 	}
 
-	public void register() {
+    public void register() {
 
-		if (passInput.text != passControl.text)
-			showMessage ("Your passwords do not match, please try again.");
-			return;
+        if (passInput.text != passControl.text) { 
+            showMessage("Your passwords do not match, please try again.");
+            return;
+        }   
 
 		showMessage ("Your account was successfully created!");
 		StartCoroutine (registerParent());
@@ -130,13 +132,17 @@ public class MainMenu : MonoBehaviour {
 			} else {
 				PlayerPrefs.SetInt("remember", 0);
 				PlayerPrefs.SetString("username", "");
-			}
+                nameInput.text = "";
+                username = "";
+            }
 			if (automaticToggle.isOn) {
 				PlayerPrefs.SetInt("automatic", 1);
 				PlayerPrefs.SetString("password", password);
 			} else {
 				PlayerPrefs.SetInt("automatic", 0);
 				PlayerPrefs.SetString("password", "");
+                passInput.text = "";
+                password = "";
 			}
 
 			loggedIn = true;
@@ -147,9 +153,9 @@ public class MainMenu : MonoBehaviour {
 			showScreen ("select", true);
 		}
 		if (result == -1) 
-			MainMenu.showMessage ("Wrong password, please try again.");
+			showMessage ("Wrong password, please try again.");
 		else if (result == -2) 
-			MainMenu.showMessage ("Account doesn't exist, please register.");
+			showMessage ("Account doesn't exist, please register.");
 	}
 
 	IEnumerator registerParent()
@@ -169,7 +175,7 @@ public class MainMenu : MonoBehaviour {
 		WWW www = new WWW(userURL, form);
 		yield return www;
 
-		profiles = new List<string>();
+		profiles = new List<Profile>();
 		if (www.text != "")
 		{
 			foreach (string user in www.text.TrimEnd(';').Split(';'))
@@ -177,74 +183,66 @@ public class MainMenu : MonoBehaviour {
 				string name = user.Split(',')[0];
 				bool active = (user.Split(',')[1] == "1");
 				int ping = int.Parse(user.Split(',')[3]);
+                string imageURL = user.Split(',')[4];
+                int id = int.Parse(user.Split(',')[5]);
 
 				int pingbarrier = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds - 60;
 
 				if (ping < pingbarrier && active)
 				{
-					//playDetector.stopPlay(name);
+                    FlagManager.stopPlay(this, id);
 					active = false;
 				}
+
 				if (!active)
-					profiles.Add(name);
+                    profiles.Add(new Profile(name, id, imageURL));
 			}
 		}
 		showSelectedProfile ();
-	}
+    }
 
-	IEnumerator deleteProfile() {
-		WWWForm form = new WWWForm ();
-		form.AddField ("setChildID", 0); // set id of selected
-		WWW www = new WWW(deleteURL, form);
-		yield return www;
-
-		if (selected == 0)
-			selected = (profiles.Count - 1);
-		else
-			selected--;
-		StartCoroutine (loadProfiles ());
-	}
-
-	public void nextProfile() {
+    // Show next profile in profile selector
+    public void nextProfile() {
 		if (selected + 1 == profiles.Count)
 			selected = 0;
 		else
 			selected++;
-		showSelectedProfile ();
+        showSelectedProfile ();
 	}
 
-	public void previousProfile() {
-		if (selected == 0)
+    // Show previous profile in profile selector
+	public void previousProfile()
+    {
+        if (selected == 0)
 			selected = (profiles.Count - 1);
 		else
 			selected--;
-		showSelectedProfile ();
+        showSelectedProfile ();
 	}
 
+    // Select a new profile
 	public void select() {
-		profileText.text = profiles [selected];
-		showScreen ("menu", false);
+		profileText.text = profiles [selected].username;
+		showScreen ("title", false);
+        GlobalData.username = profiles[selected].username;
+        GlobalData.userid = profiles[selected].id;
 	}
 
+    // Display profile in the profile selector
 	private void showSelectedProfile() {
-		profileName.text = profiles [selected];
+		profileName.text = profiles [selected].username;
+        // change image
 	}
 
-	public void Play() {
-		string startscene = "Main Area 2.0";
-		SceneManager.LoadScene(startscene);
-	}
+    // Show profile selector again to select a new user
+    public void selectNewProfile()
+    {
+        showScreen("select", true);
+    }
 
-	public void Settings() {
-	}
+    // -- Menu Manager -- 
 
-	public void Credits() {
-	}
-
-	public void Quit() {
-		Application.Quit();
-	}
-
+    // Change menu screen
 	private void showScreen(string screen, bool panel) {
 		foreach (GameObject s in screens)
 			s.SetActive (false);
@@ -255,13 +253,16 @@ public class MainMenu : MonoBehaviour {
 			UIPanel.SetActive (false);
 	}
 
+    // Convert a menu screen name to its corresponding index in the list
 	private int convertScreen(string screen) {
 		if (screen == "login")
 			return 0;
-		if (screen == "menu")
+		if (screen == "title")
 			return 1;
 		if (screen == "select")
 			return 2;
+        if (screen == "settings")
+            return 3;
 		return -1;
 	}
 
@@ -275,5 +276,33 @@ public class MainMenu : MonoBehaviour {
 		main.popupText.text = message;
 		yield return new WaitForSeconds (3);
 		main.popupView.SetActive (false);
-	}
+    }
+
+    // Title Screen
+
+    public void Play()
+    {
+        string startscene = "Main_Area_2.0";
+        SceneManager.LoadScene(startscene);
+        FlagManager.startPlay(this);
+    }
+
+    public void Settings()
+    {
+        showScreen("settings", true);
+    }
+
+    public void Credits()
+    {
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void TitleScreen()
+    {
+        showScreen("title", false);
+    }
 }

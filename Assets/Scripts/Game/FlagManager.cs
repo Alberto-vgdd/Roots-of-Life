@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,8 +16,11 @@ public class FlagManager : MonoBehaviour {
 
 	private static string setURL = "http://62.131.170.46/roots-of-life/profileSetFlag.php";
 	private static string getURL = "http://62.131.170.46/roots-of-life/profileGetFlags.php";
+    private static string activeURL = "http://62.131.170.46/roots-of-life/profileSetActive.php";
+    private static string inactiveURL = "http://62.131.170.46/roots-of-life/profileSetInactive.php";
+    private static string pingURL = "http://62.131.170.46/roots-of-life/profileSetPing.php";
 
-	private void OnValidate()
+    private void OnValidate()
 	{
 		// Set events list size equal to flag names size, but save the data in the list
 		if (events.Count != flagnames.Count)
@@ -44,7 +48,8 @@ public class FlagManager : MonoBehaviour {
 			flags.Add(name, 0);
 
 		StartCoroutine (compareLoop ());
-	}
+        StartCoroutine(pingTimer());
+    }
 
 	public static void setFlag(string flag, int value) {
 		main.StartCoroutine (setForm (flag, value));
@@ -58,21 +63,9 @@ public class FlagManager : MonoBehaviour {
 			return 0;
 
 		foreach (string data in main.flagData)
-			if (data.Split (':') [0] == flag) {
+			if (data.Split (':') [0] == flag) 
 				return int.Parse (data.Split (':') [1]);
-				break;
-			}
 		return 0;
-	}
-
-	static IEnumerator setForm(string flag, int value) {
-		WWWForm form = new WWWForm ();
-		form.AddField ("userID", GlobalData.userid);
-		form.AddField ("flagName", flag);
-		form.AddField ("flagValue", value);
-
-		WWW www = new WWW (setURL, form);
-		yield return www;
 	}
 
 	static IEnumerator getForm() {
@@ -89,10 +82,21 @@ public class FlagManager : MonoBehaviour {
 			main.flagData = www.text.TrimEnd (',').Split (',');
 		else
 			main.flagData = null;
-	}
+    }
 
-	// Loop that checks for updates in the flags on the database
-	IEnumerator compareLoop() {
+    static IEnumerator setForm(string flag, int value)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userID", GlobalData.userid);
+        form.AddField("flagName", flag);
+        form.AddField("flagValue", value);
+
+        WWW www = new WWW(setURL, form);
+        yield return www;
+    }
+
+    // Loop that checks for updates in the flags on the database
+    IEnumerator compareLoop() {
 
 		// Make sure to always repeat
 		while (true) {
@@ -134,5 +138,46 @@ public class FlagManager : MonoBehaviour {
 
 			yield return new WaitForSeconds (1);
 		}
-	}
+    }
+
+    static IEnumerator pingTimer()
+    {
+        while (true)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("setUserID", GlobalData.userid);
+            form.AddField("setPing", (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+            WWW www = new WWW(pingURL, form);
+            yield return www;
+            yield return new WaitForSeconds(60);
+        }
+    }
+
+    public static void startPlay(MonoBehaviour source)
+    {
+        source.StartCoroutine(setActive());
+    }
+
+    static IEnumerator setActive()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("setUserID", GlobalData.userid);
+        form.AddField("setLogin", (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+        WWW www = new WWW(activeURL, form);
+        yield return www;
+    }
+
+    public static void stopPlay(MonoBehaviour source, int id)
+    {
+        source.StartCoroutine(setInactive(id));
+    }
+
+    static IEnumerator setInactive(int id)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("setUserID", id);
+        form.AddField("setLogin", (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+        WWW www = new WWW(inactiveURL, form);
+        yield return www;
+    }
 }
